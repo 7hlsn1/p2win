@@ -1,0 +1,41 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #111;
+    padding: 1rem 2rem;
+    color: white;
+
+    .logo {
+        font-weight: bold;
+        font-size: 1.5rem;
+        color: #00aaff;
+    }
+
+    .search {
+        background: #222;
+        border: none;
+        padding: 0.5rem 1rem;
+        color: white;
+        border-radius: 5px;
+    }
+
+    nav {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+        }
+    }
+}
