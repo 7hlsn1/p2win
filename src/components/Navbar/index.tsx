@@ -1,17 +1,28 @@
 import styles from './Navbar.module.scss';
+import { FaBell, FaShoppingCart } from 'react-icons/fa';
+import { SearchBar } from './Sub-components/SearchBar';
+import { UserDropdown } from './Sub-components/UserDropdown';
+import { NavLinks } from './Sub-components/NavLink';
+import { IconButton } from './Sub-components/IconButton';
+import React from 'react';
 
-function Navbar() {
+const Navbar: React.FC = () => {
     return (
         <header className={styles.navbar}>
             <div className={styles.logo}>GGMAX</div>
-            <input type="text" placeholder="🔍 Moby" className={styles.search} />
-            <nav>
-                <a href="#">Categorias</a>
-                <a href="#">Blog</a>
-                <button className={styles.button}>Anunciar</button>
-            </nav>
+            <SearchBar />
+
+            <div className={styles.rightArea}>
+                <NavLinks />
+
+                <div className={styles.iconGroup}>
+                    <IconButton icon={FaBell} />
+                    <IconButton icon={FaShoppingCart} />
+                    <UserDropdown />
+                </div>
+            </div>
         </header>
     );
-}
+};
 
 export default Navbar;

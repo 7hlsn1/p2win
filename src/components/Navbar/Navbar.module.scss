@@ -1,41 +1,35 @@
 .navbar {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     background: #111;
     padding: 1rem 2rem;
     color: white;
+    position: relative;
+    flex-wrap: wrap;
 
     .logo {
         font-weight: bold;
         font-size: 1.5rem;
         color: #00aaff;
+        margin-right: 1rem;
+
+        @media (max-width: 768px) {
+            border-bottom: 1px solid #fff;
+            width: 100%;
+            text-align: center;
+        }
     }
 
-    .search {
-        background: #222;
-        border: none;
-        padding: 0.5rem 1rem;
-        color: white;
-        border-radius: 5px;
-    }
-
-    nav {
+    .rightArea {
         display: flex;
-        gap: 1rem;
         align-items: center;
+        gap: 1rem;
+    }
 
-        a {
-            color: white;
-            text-decoration: none;
-        }
-
-        .button {
-            background: #007bff;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 10px;
-        }
+    .iconGroup {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
     }
 }

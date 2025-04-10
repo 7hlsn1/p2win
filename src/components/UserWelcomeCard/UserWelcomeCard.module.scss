@@ -1,0 +1,25 @@
+.card {
+    background-color: #1e1e1e;
+    color: white;
+    padding: 1rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    img {
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+    }
+
+    button {
+        margin-left: auto;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+}

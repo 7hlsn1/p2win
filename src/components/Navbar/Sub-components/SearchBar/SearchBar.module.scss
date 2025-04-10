@@ -1,0 +1,29 @@
+.searchContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+
+    .search {
+        width: 100%;
+        padding: 0.5rem 2.5rem 0.5rem 1rem;
+        background: #222;
+        border: none;
+        border-radius: 5px;
+        color: white;
+    }
+
+    .searchIcon {
+        position: absolute;
+        right: 10px;
+        color: #aaa;
+        pointer-events: none;
+    }
+
+    @media (max-width: 768px) {
+        padding-bottom: 16px;
+        padding-top: 16px;
+        max-width: 120px;
+    }
+}

@@ -1,0 +1,22 @@
+.navLinks {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+
+    a {
+        color: white;
+        text-decoration: none;
+    }
+
+    .button {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 10px;
+    }
+
+    @media (max-width: 768px) {
+        display: none;
+    }
+}

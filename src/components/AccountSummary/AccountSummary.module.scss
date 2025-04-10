@@ -1,0 +1,29 @@
+.summaryContainer {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.card {
+    background-color: #1e1e1e;
+    color: white;
+    padding: 1rem;
+    border-radius: 10px;
+    flex: 1;
+}
+
+.available {
+    background-color: #007bff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+        background-color: white;
+        color: #007bff;
+        border: none;
+        border-radius: 5px;
+        padding: 0.4rem 0.7rem;
+        cursor: pointer;
+    }
+}
