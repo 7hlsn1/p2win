@@ -1,7 +1,7 @@
 @use '../../styles/variaveis';
 
 .statusContainer {
-    background-color: #1e1e1e;
+    background-color: variaveis.$cor-do-p;
     color: variaveis.$cor-do-texto;
     padding: 1rem;
     border-radius: 10px;
@@ -9,6 +9,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
 
     .percent {
         color: variaveis.$cor-success;
@@ -16,7 +17,7 @@
     }
 
     button {
-        background-color: variaveis.$cor-primaria;
+        background-color: variaveis.$cor-secundaria;
         color: variaveis.$cor-do-texto;
         border: none;
         border-radius: 8px;

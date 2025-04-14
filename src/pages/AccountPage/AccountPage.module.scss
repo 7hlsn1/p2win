@@ -1,8 +1,9 @@
+@use '../../styles/variaveis';
+
 .container {
     display: flex;
-    height: 100vh;
-    background-color: #121212;
-    color: #fff;
+    background-color: variaveis.$cor-background-geral;
+    color: variaveis.$cor-do-texto;
 }
 
 .content {

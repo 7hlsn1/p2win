@@ -1,7 +1,8 @@
+@use '../../../styles/variaveis';
+
 .recarga-container {
     padding: 20px;
-    background-color: #0f111a;
-    color: white;
+    color: variaveis.$cor-do-texto;
     font-family: Arial, sans-serif;
   
     h2 {
@@ -28,13 +29,29 @@
         }
   
         input, select {
-          background-color: #1c1e2a;
-          color: white;
+          background-color: variaveis.$cor-do-p;
+          color: variaveis.$cor-do-texto;
           border: none;
           padding: 10px;
           border-radius: 6px;
           font-size: 14px;
         }
+
+        select {
+          border: none;
+          border-radius: 6px;
+          padding: 0.4rem 0.75rem;
+          font-size: 0.9rem;
+          appearance: none;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+          background-repeat: no-repeat;
+          background-position: right 0.75rem center;
+          background-size: 16px 16px;
+          cursor: pointer;
+          padding-right: 2rem;
+      }
   
         small {
           color: #888;
@@ -48,17 +65,21 @@
           flex-wrap: wrap;
   
           button {
-            background-color: #1c1e2a;
+            background-color: #333;
             color: white;
-            border: 1px solid #333;
+            border: none;
             padding: 10px 16px;
             border-radius: 6px;
             font-size: 14px;
             cursor: pointer;
   
             &.active {
-              background-color: #007bff;
-              border-color: #007bff;
+              background-color: variaveis.$cor-secundaria;
+              border-color: variaveis.$cor-secundaria;
+            }
+
+            &:hover {
+              transform: translateY(-1px);
             }
           }
         }

@@ -1,7 +1,8 @@
+@use '../../../styles/variaveis';
+
 .retiradas-container {
     padding: 20px;
-    background-color: #0f111a;
-    color: white;
+    color: variaveis.$cor-do-texto;
     font-family: Arial, sans-serif;
   
     .topo-retirada {
@@ -18,15 +19,15 @@
   
         label {
           font-size: 13px;
-          color: #bbb;
+          color: variaveis.$cor-do-texto;
           margin-bottom: 4px;
         }
   
         input {
-          background-color: #1c1e2a;
+          background-color: variaveis.$cor-do-p;
           border: none;
           padding: 10px;
-          color: white;
+          color: variaveis.$cor-do-texto;
           border-radius: 6px;
           font-size: 14px;
           cursor: pointer;
@@ -34,7 +35,7 @@
       }
   
       .saldo {
-        background-color: #1c1e2a;
+        background-color: variaveis.$cor-do-p;
         padding: 14px 20px;
         border-radius: 6px;
         display: flex;
@@ -44,14 +45,14 @@
         min-width: 180px;
   
         span {
-          color: #bbb;
+          color: variaveis.$cor-do-texto;
           font-size: 13px;
           margin-bottom: 4px;
         }
   
         strong {
           font-size: 20px;
-          color: white;
+          color: variaveis.$cor-do-texto;
         }
       }
     }
@@ -62,10 +63,10 @@
       gap: 12px;
   
       .retirada-item {
-        background-color: #1a1c27;
+        background-color: variaveis.$cor-do-p;
         padding: 14px 16px;
         border-radius: 6px;
-        border-left: 3px solid #2ecc71;
+        border-left: 3px solid variaveis.$cor-success;
   
         .info-principal {
           display: flex;
@@ -75,7 +76,7 @@
           margin-bottom: 8px;
   
           a {
-            color: #7abaff;
+            color: variaveis.$cor-secundaria;
             text-decoration: none;
   
             &:hover {
@@ -84,7 +85,7 @@
           }
   
           .status.aprovado {
-            color: #2ecc71;
+            color: variaveis.$cor-success;
             font-weight: bold;
           }
         }
@@ -97,7 +98,7 @@
   
           .valor {
             font-weight: bold;
-            color: #fff;
+            color: variaveis.$cor-do-texto;
           }
   
           .data {

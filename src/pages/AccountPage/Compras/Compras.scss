@@ -1,6 +1,8 @@
+@use '../../../styles/variaveis';
+
 .aba-compras {
     font-family: "Segoe UI", sans-serif;
-    color: #fff;
+    color: variaveis.$cor-do-texto;
   
     .filtros {
       display: flex;
@@ -8,16 +10,16 @@
       margin-bottom: 1rem;
   
       select {
-        background: #1e1e1e;
-        color: #fff;
-        border: 1px solid #333;
+        background: variaveis.$cor-do-p;
+        color: variaveis.$cor-do-texto;
+        border: none;
         border-radius: 6px;
         padding: 0.4rem 0.75rem;
         font-size: 0.9rem;
         appearance: none;
         -webkit-appearance: none;
         -moz-appearance: none;
-        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
         background-repeat: no-repeat;
         background-position: right 0.75rem center;
         background-size: 16px 16px;
@@ -33,8 +35,8 @@
     }
   
     .card-compra {
-      background: #121212;
-      border: 1px solid #2a2a2a;
+      background: variaveis.$cor-do-p;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
       border-radius: 10px;
       padding: 1rem;
       display: flex;
@@ -44,7 +46,7 @@
       .cabecalho {
         font-weight: bold;
         .id {
-          color: #00aaff;
+          color: variaveis.$cor-primaria;
           margin-left: 0.5rem;
         }
       }
@@ -55,7 +57,7 @@
         font-size: 0.9rem;
   
         .nome-produto {
-          color: #00aaff;
+          color: variaveis.$cor-primaria;
           flex: 1;
           margin: 0 0.5rem;
         }
@@ -74,7 +76,7 @@
         }
   
         .aprovado {
-          color: #00c853;
+          color: variaveis.$cor-success;
           font-weight: 500;
         }
       }
@@ -89,7 +91,7 @@
           font-weight: bold;
   
           &.verde {
-            color: #00c853;
+            color: variaveis.$cor-success;
           }
   
           &.amarelo {
@@ -98,16 +100,16 @@
         }
   
         .ver-pedido {
-          background: #007bff;
-          color: #fff;
+          background: variaveis.$cor-secundaria;
+          color: variaveis.$cor-do-texto;
           border: none;
           padding: 0.4rem 1rem;
           border-radius: 6px;
           cursor: pointer;
           font-size: 0.8rem;
-  
+
           &:hover {
-            background: #005fcc;
+            transform: translateY(-1px);
           }
         }
       }

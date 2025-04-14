@@ -1,11 +1,12 @@
 @use '../../styles/variaveis';
 
 .verifierCard {
-    background-color: #1e1e1e;
+    background-color: variaveis.$cor-do-p;
     color: variaveis.$cor-do-texto;
     padding: 1rem;
     border-radius: 10px;
     margin-top: 1rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
 
     .new {
         color: variaveis.$cor-success;

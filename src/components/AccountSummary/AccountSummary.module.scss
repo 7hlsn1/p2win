@@ -4,25 +4,29 @@
     display: flex;
     gap: 1rem;
     margin-bottom: 1rem;
+    
 }
 
 .card {
-    background-color: #1e1e1e;
+    background-color: variaveis.$cor-do-p;
     color: variaveis.$cor-do-texto;
     padding: 1rem;
     border-radius: 10px;
     flex: 1;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
 }
 
 .available {
-    background-color: variaveis.$cor-primaria;
+    background-color: variaveis.$cor-do-p;
     display: flex;
     justify-content: space-between;
     align-items: center;
 
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+
     button {
-        background-color: white;
-        color: variaveis.$cor-primaria;
+        background-color: variaveis.$cor-secundaria;
+        color: variaveis.$cor-do-texto;
         border: none;
         border-radius: 5px;
         padding: 0.4rem 0.7rem;

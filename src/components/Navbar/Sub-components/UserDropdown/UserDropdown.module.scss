@@ -16,7 +16,7 @@
     transition: color 0.3s ease;
 
     &:hover {
-        color: variaveis.$cor-secundaria;
+        color: variaveis.$cor-do-texto;
     }
 }
 
@@ -24,7 +24,7 @@
     position: absolute;
     right: 0;
     top: 60px;
-    background: #1e1e1e;
+    background: variaveis.$cor-background-geral;
     padding: 1rem;
     border-radius: 10px;
     width: 240px;
@@ -58,8 +58,8 @@
         transition: background 0.2s ease;
 
         &:hover {
-            background: rgba(255, 255, 255, 0.05);
-            color: variaveis.$cor-secundaria;
+            background: variaveis.$cor-secundaria;
+            color: variaveis.$cor-do-texto;
         }
     }
 
@@ -80,11 +80,11 @@
 
         a {
             font-size: 0.75rem;
-            color: variaveis.$cor-do-p;
+            color: variaveis.$cor-do-texto;
             display: block;
 
             &:hover {
-                color: variaveis.$cor-secundaria;
+                color: variaveis.$cor-do-texto;
             }
         }
     }
@@ -94,10 +94,10 @@
         align-items: center;
         gap: 0.5rem;
         margin-top: 0.5rem;
-        color: #eee;
+        color: variaveis.$cor-do-texto;
 
         &:hover {
-            color: variaveis.$cor-secundaria;
+            color: variaveis.$cor-do-texto;
         }
     }
 }

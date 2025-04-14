@@ -4,7 +4,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #111;
     padding: 1rem 2rem;
     color: variaveis.$cor-do-texto;
     position: relative;
@@ -17,7 +16,7 @@
         margin-right: 1rem;
 
         @media (max-width: 768px) {
-            border-bottom: 1px solid #fff;
+            border-bottom: 1px solid variaveis.$cor-do-p;
             width: 100%;
             text-align: center;
         }

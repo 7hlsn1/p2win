@@ -4,7 +4,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(145deg, #252525, #1a1a1a);
+    background: variaveis.$cor-do-p;
     padding: 1.5rem 2rem;
     border-radius: 12px;
     color: variaveis.$cor-do-texto;
@@ -21,7 +21,7 @@
       width: 56px;
       height: 56px;
       border-radius: 50%;
-      background: linear-gradient(135deg, variaveis.$cor-primaria, variaveis.$cor-secundaria);
+      background: variaveis.$cor-primaria;
       padding: 2px;
     }
   
@@ -30,7 +30,6 @@
       height: 100%;
       border-radius: 50%;
       object-fit: cover;
-      border: 2px solid #252525;
     }
   
     &__texto {
@@ -39,14 +38,14 @@
         margin: 0;
         font-weight: 600;
         letter-spacing: 0.25px;
-        background: linear-gradient(to right, variaveis.$cor-do-texto, #e0e0e0);
+        background: variaveis.$cor-do-texto;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }
   
       p {
         font-size: 0.875rem;
-        color: #b0b0b0;
+        color: variaveis.$cor-do-texto;
         margin: 0.4rem 0 0 0;
         line-height: 1.5;
         max-width: 280px;
@@ -54,7 +53,7 @@
     }
   
     &__botao {
-      background: linear-gradient(to right, variaveis.$cor-primaria, variaveis.$cor-secundaria);
+      background:variaveis.$cor-secundaria;
       color: variaveis.$cor-do-texto;
       border: none;
       border-radius: 8px;
@@ -63,12 +62,9 @@
       font-weight: 500;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
       letter-spacing: 0.5px;
   
       &:hover {
-        background: linear-gradient(to right, #0069d9, #0088ff);
-        box-shadow: 0 6px 16px rgba(0, 123, 255, 0.3);
         transform: translateY(-1px);
       }
   

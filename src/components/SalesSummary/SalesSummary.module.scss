@@ -1,11 +1,12 @@
 @use '../../styles/variaveis';
 
 .salesContainer {
-    background-color: #1e1e1e;
+    background-color: variaveis.$cor-do-p;
     color: variaveis.$cor-do-texto;
     padding: 1rem;
     border-radius: 10px;
     margin-top: 1rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
 }
 
 .filters {
@@ -14,15 +15,24 @@
     margin-bottom: 0.5rem;
 
     button {
-        background-color: #2e2e2e;
+        background: variaveis.$cor-secundaria;
         color: variaveis.$cor-do-texto;
         border: none;
-        padding: 0.3rem 0.7rem;
-        border-radius: 5px;
+        border-radius: 8px;
+        padding: 0.75rem 1.5rem;
+        font-size: 0.875rem;
+        font-weight: 500;
         cursor: pointer;
-    }
+        transition: all 0.3s ease;
+        letter-spacing: 0.5px;
 
+        &:hover {
+            transform: translateY(-1px);
+        }
+    
+    }
     .active {
         background-color: variaveis.$cor-primaria;
     }
+
 }

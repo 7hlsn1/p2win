@@ -1,5 +1,7 @@
+@use '../../../styles/variaveis';
+
 .aba-anuncios {
-    color: #fff;
+    color: variaveis.$cor-do-texto;
     font-family: "Segoe UI", sans-serif;
 
     .filtro {
@@ -14,16 +16,16 @@
         }
 
         select {
-            background: #1e1e1e;
-            color: #fff;
-            border: 1px solid #333;
+            background: variaveis.$cor-do-p;
+            color: variaveis.$cor-do-texto;
             border-radius: 6px;
+            border: none;
             padding: 0.4rem 0.75rem;
             font-size: 0.9rem;
             appearance: none;
             -webkit-appearance: none;
             -moz-appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: right 0.75rem center;
             background-size: 16px 16px;
@@ -43,21 +45,18 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: #121212;
-        border: 1px solid #2a2a2a;
+        background: variaveis.$cor-do-p;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
         padding: 1rem;
         border-radius: 10px;
         transition: box-shadow 0.3s ease;
 
-        &:hover {
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
-        }
 
         .conteudo {
             .titulo {
                 font-weight: 600;
                 font-size: 0.95rem;
-                color: #00aaff;
+                color: variaveis.$cor-do-texto;
                 text-decoration: none;
 
                 &:hover {
@@ -70,11 +69,11 @@
                 gap: 1rem;
                 margin-top: 0.4rem;
                 font-size: 0.8rem;
-                color: #999;
+                color: variaveis.$cor-do-texto;
 
                 .status {
                     &--ativo {
-                        color: #00c853;
+                        color: variaveis.$cor-success;
                     }
 
                     &--em-análise {
@@ -108,11 +107,12 @@
                 font-weight: 500;
                 cursor: pointer;
                 transition: background 0.3s ease;
+                margin-left: 8px;
             }
 
             .desativar {
                 background: #333;
-                color: #fff;
+                color: variaveis.$cor-do-p;
 
                 &:hover {
                     background: #444;
@@ -120,11 +120,11 @@
             }
 
             .editar {
-                background: #007bff;
-                color: #fff;
+                background: variaveis.$cor-secundaria;
+                color: variaveis.$cor-do-texto;
 
                 &:hover {
-                    background: #005fcc;
+                    transition: background 0.9 ease;
                 }
             }
         }
