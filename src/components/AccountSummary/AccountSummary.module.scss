@@ -1,3 +1,5 @@
+@use '../../styles/variaveis';
+
 .summaryContainer {
     display: flex;
     gap: 1rem;
@@ -6,21 +8,21 @@
 
 .card {
     background-color: #1e1e1e;
-    color: white;
+    color: variaveis.$cor-do-texto;
     padding: 1rem;
     border-radius: 10px;
     flex: 1;
 }
 
 .available {
-    background-color: #007bff;
+    background-color: variaveis.$cor-primaria;
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     button {
         background-color: white;
-        color: #007bff;
+        color: variaveis.$cor-primaria;
         border: none;
         border-radius: 5px;
         padding: 0.4rem 0.7rem;

@@ -1,27 +1,29 @@
+@use '../../styles/variaveis';
+
 .banner {
     text-align: center;
     padding: 4rem 2rem;
-    color: white;
+    color: variaveis.$cor-do-texto;
 
     h1 {
         font-size: 2.5rem;
         margin-bottom: 0.5rem;
 
         span {
-            color: #00aaff;
+            color: variaveis.$cor-secundaria;
             font-weight: bold;
         }
     }
 
     p {
         font-size: 1.2rem;
-        color: #ccc;
+        color: variaveis.$cor-do-p;
         margin-bottom: 1.5rem;
     }
 
     button {
-        background: #00aaff;
-        color: white;
+        background: variaveis.$cor-secundaria;
+        color: variaveis.$cor-do-texto;
         border: none;
         padding: 0.75rem 1.5rem;
         font-size: 1rem;
@@ -30,14 +32,14 @@
         transition: background 0.3s;
 
         &:hover {
-            background: #0077cc;
+            background: variaveis.$cor-secundaria;
         }
     }
 
     h2 {
         font-size: 1.8rem;
         margin: 3rem 0 1rem;
-        color: #00aaff;
+        color: variaveis.$cor-secundaria;
     }
 
     .cards {

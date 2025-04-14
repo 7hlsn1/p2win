@@ -1,6 +1,8 @@
+@use '../../styles/variaveis';
+
 .salesContainer {
     background-color: #1e1e1e;
-    color: white;
+    color: variaveis.$cor-do-texto;
     padding: 1rem;
     border-radius: 10px;
     margin-top: 1rem;
@@ -13,7 +15,7 @@
 
     button {
         background-color: #2e2e2e;
-        color: white;
+        color: variaveis.$cor-do-texto;
         border: none;
         padding: 0.3rem 0.7rem;
         border-radius: 5px;
@@ -21,6 +23,6 @@
     }
 
     .active {
-        background-color: #007bff;
+        background-color: variaveis.$cor-primaria;
     }
 }

@@ -1,9 +1,11 @@
+@use '../../styles/variaveis';
+
 .card {
     background: #1e1e1e;
     padding: 1rem;
     border-radius: 10px;
     text-align: center;
-    color: white;
+    color: variaveis.$cor-do-texto;
     transition: transform 0.3s, box-shadow 0.3s;
     cursor: pointer;
     width: 180px;

@@ -1,12 +1,14 @@
+@use '../../styles/variaveis';
+
 .verifierCard {
     background-color: #1e1e1e;
-    color: white;
+    color: variaveis.$cor-do-texto;
     padding: 1rem;
     border-radius: 10px;
     margin-top: 1rem;
 
     .new {
-        color: #00ff88;
+        color: variaveis.$cor-success;
         margin-left: 0.5rem;
     }
 

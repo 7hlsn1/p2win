@@ -1,3 +1,5 @@
+@use '../../styles/variaveis';
+
 .perfil-gerente {
     display: flex;
     justify-content: space-between;
@@ -5,7 +7,7 @@
     background: linear-gradient(145deg, #252525, #1a1a1a);
     padding: 1.5rem 2rem;
     border-radius: 12px;
-    color: #ffffff;
+    color: variaveis.$cor-do-texto;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
   
     &__info {
@@ -19,7 +21,7 @@
       width: 56px;
       height: 56px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #007bff, #00a1ff);
+      background: linear-gradient(135deg, variaveis.$cor-primaria, variaveis.$cor-secundaria);
       padding: 2px;
     }
   
@@ -37,7 +39,7 @@
         margin: 0;
         font-weight: 600;
         letter-spacing: 0.25px;
-        background: linear-gradient(to right, #ffffff, #e0e0e0);
+        background: linear-gradient(to right, variaveis.$cor-do-texto, #e0e0e0);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }
@@ -52,8 +54,8 @@
     }
   
     &__botao {
-      background: linear-gradient(to right, #007bff, #00a1ff);
-      color: #ffffff;
+      background: linear-gradient(to right, variaveis.$cor-primaria, variaveis.$cor-secundaria);
+      color: variaveis.$cor-do-texto;
       border: none;
       border-radius: 8px;
       padding: 0.75rem 1.5rem;

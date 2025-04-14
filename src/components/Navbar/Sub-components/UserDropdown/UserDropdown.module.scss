@@ -1,3 +1,5 @@
+@use '../../../../styles/variaveis';
+
 .profileArea {
     position: relative;
     display: flex;
@@ -8,13 +10,13 @@
 .menuIcon {
     background: none;
     border: none;
-    color: #ffffff;
+    color: variaveis.$cor-do-texto;
     font-size: 1.4rem;
     cursor: pointer;
     transition: color 0.3s ease;
 
     &:hover {
-        color: #00aaff;
+        color: variaveis.$cor-secundaria;
     }
 }
 
@@ -44,7 +46,7 @@
 
     a,
     button {
-        color: white;
+        color: variaveis.$cor-do-texto;
         text-decoration: none;
         background: none;
         border: none;
@@ -57,7 +59,7 @@
 
         &:hover {
             background: rgba(255, 255, 255, 0.05);
-            color: #00aaff;
+            color: variaveis.$cor-secundaria;
         }
     }
 
@@ -73,16 +75,16 @@
             font-weight: bold;
             font-size: 0.95rem;
             display: block;
-            color: #fff;
+            color: variaveis.$cor-do-texto;
         }
 
         a {
             font-size: 0.75rem;
-            color: #aaa;
+            color: variaveis.$cor-do-p;
             display: block;
 
             &:hover {
-                color: #00aaff;
+                color: variaveis.$cor-secundaria;
             }
         }
     }
@@ -95,7 +97,7 @@
         color: #eee;
 
         &:hover {
-            color: #00aaff;
+            color: variaveis.$cor-secundaria;
         }
     }
 }

@@ -1,6 +1,8 @@
+@use '../../styles/variaveis';
+
 .statusContainer {
     background-color: #1e1e1e;
-    color: white;
+    color: variaveis.$cor-do-texto;
     padding: 1rem;
     border-radius: 10px;
     margin-top: 1rem;
@@ -9,13 +11,13 @@
     align-items: center;
 
     .percent {
-        color: #00ff88;
+        color: variaveis.$cor-success;
         margin-left: 1rem;
     }
 
     button {
-        background-color: #007bff;
-        color: white;
+        background-color: variaveis.$cor-primaria;
+        color: variaveis.$cor-do-texto;
         border: none;
         border-radius: 8px;
         padding: 0.5rem 1rem;

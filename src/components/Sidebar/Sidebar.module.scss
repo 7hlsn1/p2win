@@ -1,7 +1,9 @@
+@use '../../styles/variaveis';
+
 .sidebar {
     width: 400px;
     background-color: #111;
-    color: #fff;
+    color: variaveis.$cor-do-texto;
     padding: 1rem;
     height: 100vh;
 

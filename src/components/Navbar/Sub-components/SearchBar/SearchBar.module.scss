@@ -1,3 +1,5 @@
+@use '../../../../styles/variaveis';
+
 .searchContainer {
     position: relative;
     display: flex;
@@ -11,13 +13,13 @@
         background: #222;
         border: none;
         border-radius: 5px;
-        color: white;
+        color: variaveis.$cor-do-texto;
     }
 
     .searchIcon {
         position: absolute;
         right: 10px;
-        color: #aaa;
+        color: variaveis.$cor-do-p;
         pointer-events: none;
     }
 

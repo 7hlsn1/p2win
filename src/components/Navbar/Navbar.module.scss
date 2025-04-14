@@ -1,17 +1,19 @@
+@use '../../styles/variaveis';
+
 .navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
     background: #111;
     padding: 1rem 2rem;
-    color: white;
+    color: variaveis.$cor-do-texto;
     position: relative;
     flex-wrap: wrap;
 
     .logo {
         font-weight: bold;
         font-size: 1.5rem;
-        color: #00aaff;
+        color: variaveis.$cor-secundaria;
         margin-right: 1rem;
 
         @media (max-width: 768px) {

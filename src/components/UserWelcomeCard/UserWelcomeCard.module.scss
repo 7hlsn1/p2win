@@ -1,6 +1,8 @@
+@use '../../styles/variaveis';
+
 .card {
     background-color: #1e1e1e;
-    color: white;
+    color: variaveis.$cor-do-texto;
     padding: 1rem;
     border-radius: 10px;
     display: flex;
@@ -15,8 +17,8 @@
 
     button {
         margin-left: auto;
-        background-color: #007bff;
-        color: white;
+        background-color: variaveis.$cor-primaria;
+        color: variaveis.$cor-do-texto;
         border: none;
         padding: 0.5rem 1rem;
         border-radius: 8px;

@@ -5,11 +5,12 @@ import { UserDropdown } from './Sub-components/UserDropdown';
 import { NavLinks } from './Sub-components/NavLink';
 import { IconButton } from './Sub-components/IconButton';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
     return (
         <header className={styles.navbar}>
-            <div className={styles.logo}>GGMAX</div>
+            <Link to="/" className={styles.logo}>GGMAX</Link>
             <SearchBar />
 
             <div className={styles.rightArea}>
