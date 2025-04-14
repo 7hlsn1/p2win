@@ -6,15 +6,15 @@ import { NavLinks } from './Sub-components/NavLink';
 import { IconButton } from './Sub-components/IconButton';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import LogoImg from '../../assets/images/logo.png';
 
 const Navbar: React.FC = () => {
     return (
         <header className={styles.navbar}>
-<<<<<<< HEAD
-            <Link to="/" className={styles.logo}>GGMAX</Link>
-=======
-            <Link to="/" className={styles.logo}>P2WIN</Link>
->>>>>>> e133fe0eb1cb9c15e8a0238cbb2b89cb79bdc71f
+            <Link to="/" className={styles.logo}>
+                <img src={LogoImg} alt="Logo" className={styles.logoImage} />
+                P2WIN
+            </Link>
             <SearchBar />
 
             <div className={styles.rightArea}>

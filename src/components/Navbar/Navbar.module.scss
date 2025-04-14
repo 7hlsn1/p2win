@@ -13,14 +13,34 @@
     .logo {
         font-weight: bold;
         font-size: 1.5rem;
-        color: variaveis.$cor-secundaria;
+        color: variaveis.$cor-do-texto;
         margin-right: 1rem;
+        display: flex;
+        align-items: center; 
+        gap: 0.5rem;
 
         @media (max-width: 768px) {
             border-bottom: 1px solid variaveis.$cor-do-p;
             width: 100%;
             text-align: center;
         }
+    }
+
+    .logoImage {
+        width: 30px; 
+        height: auto; 
+    }
+
+    .rightArea {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .iconGroup {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
     }
 
     .rightArea {

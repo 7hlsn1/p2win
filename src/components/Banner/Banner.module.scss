@@ -10,7 +10,7 @@
         margin-bottom: 0.5rem;
 
         span {
-            color: variaveis.$cor-secundaria;
+            color: variaveis.$cor-do-texto;
             font-weight: bold;
         }
     }
@@ -32,14 +32,14 @@
         transition: background 0.3s;
 
         &:hover {
-            background: variaveis.$cor-secundaria;
+            background: variaveis.$cor-do-texto;
         }
     }
 
     h2 {
         font-size: 1.8rem;
         margin: 3rem 0 1rem;
-        color: variaveis.$cor-secundaria;
+        color: variaveis.$cor-do-texto;
     }
 
     .cards {
