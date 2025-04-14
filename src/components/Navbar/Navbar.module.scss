@@ -8,6 +8,7 @@
     color: variaveis.$cor-do-texto;
     position: relative;
     flex-wrap: wrap;
+    border-bottom: 1px solid variaveis.$cor-secundaria;
 
     .logo {
         font-weight: bold;
