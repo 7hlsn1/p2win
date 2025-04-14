@@ -1,0 +1,110 @@
+.retiradas-container {
+    padding: 20px;
+    background-color: #0f111a;
+    color: white;
+    font-family: Arial, sans-serif;
+  
+    .topo-retirada {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+  
+      .sacar {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+  
+        label {
+          font-size: 13px;
+          color: #bbb;
+          margin-bottom: 4px;
+        }
+  
+        input {
+          background-color: #1c1e2a;
+          border: none;
+          padding: 10px;
+          color: white;
+          border-radius: 6px;
+          font-size: 14px;
+          cursor: pointer;
+        }
+      }
+  
+      .saldo {
+        background-color: #1c1e2a;
+        padding: 14px 20px;
+        border-radius: 6px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        min-width: 180px;
+  
+        span {
+          color: #bbb;
+          font-size: 13px;
+          margin-bottom: 4px;
+        }
+  
+        strong {
+          font-size: 20px;
+          color: white;
+        }
+      }
+    }
+  
+    .lista-retiradas {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+  
+      .retirada-item {
+        background-color: #1a1c27;
+        padding: 14px 16px;
+        border-radius: 6px;
+        border-left: 3px solid #2ecc71;
+  
+        .info-principal {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 14px;
+          margin-bottom: 8px;
+  
+          a {
+            color: #7abaff;
+            text-decoration: none;
+  
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+  
+          .status.aprovado {
+            color: #2ecc71;
+            font-weight: bold;
+          }
+        }
+  
+        .valores {
+          display: flex;
+          justify-content: space-between;
+          font-size: 13px;
+          color: #ccc;
+  
+          .valor {
+            font-weight: bold;
+            color: #fff;
+          }
+  
+          .data {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+  

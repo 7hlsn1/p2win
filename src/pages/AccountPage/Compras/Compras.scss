@@ -1,0 +1,116 @@
+.aba-compras {
+    font-family: "Segoe UI", sans-serif;
+    color: #fff;
+  
+    .filtros {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+  
+      select {
+        background: #1e1e1e;
+        color: #fff;
+        border: 1px solid #333;
+        border-radius: 6px;
+        padding: 0.4rem 0.75rem;
+        font-size: 0.9rem;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 0.75rem center;
+        background-size: 16px 16px;
+        cursor: pointer;
+        padding-right: 2rem;
+    }
+    }
+  
+    .lista-compras {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+  
+    .card-compra {
+      background: #121212;
+      border: 1px solid #2a2a2a;
+      border-radius: 10px;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+  
+      .cabecalho {
+        font-weight: bold;
+        .id {
+          color: #00aaff;
+          margin-left: 0.5rem;
+        }
+      }
+  
+      .produto {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.9rem;
+  
+        .nome-produto {
+          color: #00aaff;
+          flex: 1;
+          margin: 0 0.5rem;
+        }
+      }
+  
+      .pagamento {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.85rem;
+  
+        img {
+          width: 30px;
+          height: 30px;
+          border-radius: 6px;
+        }
+  
+        .aprovado {
+          color: #00c853;
+          font-weight: 500;
+        }
+      }
+  
+      .rodape {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.85rem;
+  
+        .status {
+          font-weight: bold;
+  
+          &.verde {
+            color: #00c853;
+          }
+  
+          &.amarelo {
+            color: #ffd600;
+          }
+        }
+  
+        .ver-pedido {
+          background: #007bff;
+          color: #fff;
+          border: none;
+          padding: 0.4rem 1rem;
+          border-radius: 6px;
+          cursor: pointer;
+          font-size: 0.8rem;
+  
+          &:hover {
+            background: #005fcc;
+          }
+        }
+      }
+    }
+  }
+  

@@ -1,0 +1,132 @@
+.aba-anuncios {
+    color: #fff;
+    font-family: "Segoe UI", sans-serif;
+
+    .filtro {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+
+        label {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        select {
+            background: #1e1e1e;
+            color: #fff;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 0.4rem 0.75rem;
+            font-size: 0.9rem;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 16px 16px;
+            cursor: pointer;
+            padding-right: 2rem;
+        }
+
+    }
+
+    .lista-anuncios {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .card-anuncio {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #121212;
+        border: 1px solid #2a2a2a;
+        padding: 1rem;
+        border-radius: 10px;
+        transition: box-shadow 0.3s ease;
+
+        &:hover {
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+        }
+
+        .conteudo {
+            .titulo {
+                font-weight: 600;
+                font-size: 0.95rem;
+                color: #00aaff;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+
+            .detalhes {
+                display: flex;
+                gap: 1rem;
+                margin-top: 0.4rem;
+                font-size: 0.8rem;
+                color: #999;
+
+                .status {
+                    &--ativo {
+                        color: #00c853;
+                    }
+
+                    &--em-análise {
+                        color: #ffd600;
+                    }
+
+                    &--reprovado {
+                        color: #ff5252;
+                    }
+
+                    &--desativado {
+                        color: #757575;
+                    }
+
+                    &--suspenso {
+                        color: #ff9100;
+                    }
+                }
+            }
+        }
+
+        .acoes {
+            display: flex;
+            gap: 0.5rem;
+
+            button {
+                border: none;
+                padding: 0.5rem 1rem;
+                border-radius: 6px;
+                font-size: 0.8rem;
+                font-weight: 500;
+                cursor: pointer;
+                transition: background 0.3s ease;
+            }
+
+            .desativar {
+                background: #333;
+                color: #fff;
+
+                &:hover {
+                    background: #444;
+                }
+            }
+
+            .editar {
+                background: #007bff;
+                color: #fff;
+
+                &:hover {
+                    background: #005fcc;
+                }
+            }
+        }
+    }
+}

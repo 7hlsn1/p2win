@@ -1,0 +1,108 @@
+.vendas-container {
+    padding: 20px;
+    background-color: #0f111a;
+    color: white;
+    font-family: Arial, sans-serif;
+
+    .filtros {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 20px;
+
+        label {
+            font-size: 12px;
+            color: #bbb;
+            margin-bottom: 4px;
+        }
+
+        select {
+            background: #1e1e1e;
+            color: #fff;
+            border: 1px solid #333;
+            border-radius: 6px;
+            padding: 0.4rem 0.75rem;
+            font-size: 0.9rem;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 16px 16px;
+            cursor: pointer;
+            padding-right: 2rem;
+        }
+    }
+
+    .vendas-lista {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+
+        .venda-item {
+            background-color: #1a1c27;
+            border-left: 3px solid #2ecc71;
+            padding: 16px;
+            border-radius: 6px;
+            position: relative;
+
+            .topo {
+                margin-bottom: 6px;
+
+                .codigo {
+                    font-weight: bold;
+                    color: #ccc;
+                }
+
+                .status-pagamento {
+                    color: #2ecc71;
+                    margin-left: 8px;
+                }
+            }
+
+            .produto {
+                color: #7abaff;
+                font-size: 14px;
+                margin-bottom: 8px;
+
+                a {
+                    color: #7abaff;
+                    text-decoration: none;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+
+            .detalhes {
+                font-size: 13px;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                margin-bottom: 10px;
+
+                strong {
+                    color: #fff;
+                }
+            }
+
+            .ver-pedido {
+                position: absolute;
+                right: 16px;
+                top: 16px;
+                background-color: #0066ff;
+                color: white;
+                border: none;
+                padding: 6px 12px;
+                font-size: 14px;
+                border-radius: 4px;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #0055cc;
+                }
+            }
+        }
+    }
+}
