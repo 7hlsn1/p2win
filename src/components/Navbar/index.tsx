@@ -10,7 +10,11 @@ import { Link } from 'react-router-dom';
 const Navbar: React.FC = () => {
     return (
         <header className={styles.navbar}>
+<<<<<<< HEAD
             <Link to="/" className={styles.logo}>GGMAX</Link>
+=======
+            <Link to="/" className={styles.logo}>P2WIN</Link>
+>>>>>>> e133fe0eb1cb9c15e8a0238cbb2b89cb79bdc71f
             <SearchBar />
 
             <div className={styles.rightArea}>
