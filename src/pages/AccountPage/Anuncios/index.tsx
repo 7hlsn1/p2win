@@ -23,7 +23,7 @@ const anunciosMock: Anuncio[] = [
 
 const Anuncios: React.FC = () => {
   const [statusFiltro, setStatusFiltro] = useState<Status | "Todos">("Ativo");
-  const [anuncios, setAnuncios] = useState(anunciosMock);
+  const [anuncios] = useState(anunciosMock);
 
   const filtrar = () =>
     statusFiltro === "Todos"

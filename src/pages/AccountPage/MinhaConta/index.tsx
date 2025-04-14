@@ -1,4 +1,3 @@
-import React from 'react';
 import './MinhaConta.scss';
 import { FaCheckCircle, FaEnvelope, FaHeart, FaUserPlus, FaBan, FaFlag } from 'react-icons/fa';
 

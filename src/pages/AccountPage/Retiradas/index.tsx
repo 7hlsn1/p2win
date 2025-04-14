@@ -1,4 +1,3 @@
-import React from 'react';
 import './Retiradas.scss';
 
 const retiradasFake = [
