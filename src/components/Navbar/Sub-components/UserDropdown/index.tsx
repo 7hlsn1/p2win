@@ -40,7 +40,7 @@ export function UserDropdown({ children }: UserDropdownProps) {
         };
     }, [menuOpen]);
 
-    return (
+    return profile.username ? (
         <div className={styles.profileArea} ref={dropdownRef}>
             <button onClick={toggleMenu} className={styles.menuIcon} aria-label="Abrir menu do usuário">
                 <FaBars />
@@ -60,6 +60,23 @@ export function UserDropdown({ children }: UserDropdownProps) {
                 <div className={styles.extraIcons}>
                     {children}
                 </div>
+
+                <button className={styles.themeToggle}>
+                    <FaMoon /> Tema claro
+                </button>
+            </div>
+        </div>
+    ) : (
+        <div className={styles.profileArea} ref={dropdownRef}>
+            <button onClick={toggleMenu} className={styles.menuIcon} aria-label="Abrir menu do usuário">
+                <FaBars />
+            </button>
+
+            <div className={`${styles.dropdown} ${menuOpen ? styles.show : ''}`}>
+
+                <a href="/login">Entrar / Cadastrar</a>
+                
+ 
 
                 <button className={styles.themeToggle}>
                     <FaMoon /> Tema claro

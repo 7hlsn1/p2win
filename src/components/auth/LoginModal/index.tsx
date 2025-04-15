@@ -17,6 +17,8 @@ const LoginModal: React.FC<LoginModalProps> = ({
 }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('');
+
     const [repeatPassword, setRepeatPassword] = useState('');
     const [activeTab, setActiveTab] = useState<'login' | 'register'>(defaultTab);
     const [rememberMe, setRememberMe] = useState(false);
@@ -30,18 +32,34 @@ const LoginModal: React.FC<LoginModalProps> = ({
             alert('As senhas não coincidem.');
             return;
         }
-        api.login(email, password).then((data: any) => {
-            if (data.token) {
-                localStorage.setItem('token', data.token)
-                document.location.href = '/'
-            } else {
-                console.log('auth error')
-                swal({
-                    title: data.error,
-                    icon: 'warning'
-                })
-            }
-        })
+        if (activeTab == 'login') {
+            api.login(email, password).then((data: any) => {
+                if (data.token) {
+                    localStorage.setItem('token', data.token)
+                    document.location.href = '/'
+                } else {
+                    console.log('auth error')
+                    swal({
+                        title: data.error,
+                        icon: 'warning'
+                    })
+                }
+            })
+        } else if (activeTab == 'register') {
+            api.register(email, password, username).then((data: any) => {
+                if (data.message) {
+                    swal({
+                        title: data.message,
+                        icon: 'success'
+                    })
+                } else {
+                    swal({
+                        title: data.error,
+                        icon: 'warning'
+                    })
+                }
+            })
+        }
         console.log({ email, password, rememberMe });
         // Aqui vai a lógica de autenticação ou criação de conta
     };
@@ -105,7 +123,16 @@ const LoginModal: React.FC<LoginModalProps> = ({
                             required
                         />
                     </div>
-
+                    {activeTab == 'register' ? <div className={styles.formGroup}>
+                        <label htmlFor="username">Nome de usuário</label>
+                        <input
+                            type="text"
+                            id="username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                        />
+                    </div> : <></>}
                     <div className={styles.formGroup}>
                         <label htmlFor="password">Senha</label>
                         <input

@@ -36,7 +36,7 @@ class Api {
         headers: {}
     }
     constructor(type_: string = 'closed') {
-        
+
         if (type_ == 'closed') {
             if (this.token != null) {
                 this.data.headers = {
@@ -50,6 +50,12 @@ class Api {
         this.api = axios.create(this.data)
     }
 
+    logout = () => new Promise(async (resolve, reject) => {
+        await this.api.get('/logout')
+       
+        resolve(1)
+        reject()
+    })
 
     login = (email: string, password: string) => new Promise(async (resolve, reject) => {
         const req = await this.api.post('/login', { email, password });
