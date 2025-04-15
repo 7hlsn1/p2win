@@ -11,6 +11,10 @@
     &:hover {
         color: variaveis.$cor-secundaria;
     }
+
+    @media (max-width: 768px) {
+        display: none;
+    }
 }
 
 .menuIcon {

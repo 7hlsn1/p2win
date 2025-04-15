@@ -15,7 +15,7 @@ function Banner() {
         <section className={styles.banner}>
             <h1><span>comprar e vender</span></h1>
             <p>contas, jogos, gift cards, gold, itens digitais e mais!</p>
-            <button>Como funciona?</button>''
+            <button>Como funciona?</button>
 
             <h2>Categorias Populares</h2>
             <div className={styles.cards}>

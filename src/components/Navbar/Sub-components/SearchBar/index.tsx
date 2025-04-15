@@ -9,7 +9,7 @@ export function SearchBar() {
                 placeholder="Moby"
                 className={styles.search}
             />
-            <FaSearch className={styles.searchIcon} />
+                <FaSearch className={styles.searchIcon} />
         </div>
     );
 }

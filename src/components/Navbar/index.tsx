@@ -13,17 +13,23 @@ const Navbar: React.FC = () => {
         <header className={styles.navbar}>
             <Link to="/" className={styles.logo}>
                 <img src={LogoImg} alt="Logo" className={styles.logoImage} />
-                P2WIN
+                <h1>P2WIN</h1>
             </Link>
+
             <SearchBar />
 
             <div className={styles.rightArea}>
                 <NavLinks />
-
-                <div className={styles.iconGroup}>
+                <div className={`${styles.iconGroup} ${styles.desktopOnly}`}>
                     <IconButton icon={FaBell} />
                     <IconButton icon={FaShoppingCart} />
                     <UserDropdown />
+                </div>
+                <div className={styles.mobileOnly}>
+                    <UserDropdown>
+                        <IconButton icon={FaBell} />
+                        <IconButton icon={FaShoppingCart} />
+                    </UserDropdown>
                 </div>
             </div>
         </header>

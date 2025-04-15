@@ -1,9 +1,13 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, ReactNode } from 'react';
 import { FaBars, FaUserCircle, FaMoon } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import styles from './UserDropdown.module.scss';
 
-export function UserDropdown() {
+interface UserDropdownProps {
+    children?: ReactNode;
+}
+
+export function UserDropdown({ children }: UserDropdownProps) {
     const [menuOpen, setMenuOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -41,9 +45,16 @@ export function UserDropdown() {
                         <Link to="/minha-conta">Ver minha conta</Link>
                     </div>
                 </div>
+
                 <a href="#">Minhas Compras</a>
                 <a href="#">Meus favoritos</a>
-                <button className={styles.themeToggle}><FaMoon /> Tema claro</button>
+                <div className={styles.extraIcons}>
+                    {children}
+                </div>
+
+                <button className={styles.themeToggle}>
+                    <FaMoon /> Tema claro
+                </button>
             </div>
         </div>
     );

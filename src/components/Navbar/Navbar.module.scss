@@ -10,43 +10,57 @@
     flex-wrap: wrap;
     border-bottom: 1px solid variaveis.$cor-secundaria;
 
+    @media (max-width: 768px) {
+        justify-content: center;
+        flex-wrap: nowrap;
+        padding: 0;
+    }
+
     .logo {
         font-weight: bold;
-        font-size: 1.5rem;
+        font-size: 10px;
         color: variaveis.$cor-do-texto;
-        margin-right: 1rem;
         display: flex;
-        align-items: center; 
+        align-items: center;
         gap: 0.5rem;
 
-        @media (max-width: 768px) {
-            border-bottom: 1px solid variaveis.$cor-do-p;
-            width: 100%;
-            text-align: center;
+        h1 {
+            @media (max-width: 768px) {
+                display: none;
+            }
         }
     }
 
     .logoImage {
-        width: 30px; 
-        height: auto; 
+        width: 30px;
+        height: auto;
+
+        @media (max-width: 768px) {
+            margin-right: 8px;
+        }
     }
 
     .rightArea {
         display: flex;
         align-items: center;
         gap: 1rem;
-    }
+        flex-wrap: wrap;
 
-    .iconGroup {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
+        @media (max-width: 768px) {
+            width: 0%;
+            justify-content: center;
+            margin: 0 auto;
+            align-items: center;
 
-    .rightArea {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
+            .mobileOnly {
+                display: flex;
+            }
+        }
+
+        .mobileOnly{
+            display: none;
+        }
+
     }
 
     .iconGroup {

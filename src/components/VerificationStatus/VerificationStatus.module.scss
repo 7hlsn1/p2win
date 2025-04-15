@@ -10,18 +10,54 @@
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+    margin-right: 16px;
 
-    .percent {
-        color: variaveis.$cor-success;
-        margin-left: 1rem;
+    @media (max-width: 768px) {
+        display: block;
+        margin-right: 0;
     }
 
-    button {
-        background-color: variaveis.$cor-secundaria;
-        color: variaveis.$cor-do-texto;
-        border: none;
-        border-radius: 8px;
-        padding: 0.5rem 1rem;
-        cursor: pointer;
+    .todos {
+
+        @media (max-width: 768px) {
+            margin: 0 auto;
+        }
+
+        .title {
+            @media (max-width: 768px) {
+                margin-bottom: 16px;
+            }
+        }
+
+        .percent {
+            color: variaveis.$cor-success;
+            margin-left: 1rem;
+        }
+
+        button {
+            background: variaveis.$cor-background-geral;
+            color: variaveis.$cor-do-texto;
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            margin-top: 16px;
+
+            @media (max-width: 768px) {
+                width: 100%;
+            }
+
+            &:hover {
+                transform: translateY(-1px);
+            }
+
+            &:active {
+                transform: translateY(0);
+            }
+        }
     }
 }
