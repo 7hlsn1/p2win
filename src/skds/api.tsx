@@ -1,4 +1,14 @@
 import axios from "axios";
+interface Category {
+    id: number,
+    name: string,
+    image: string
+}
+
+interface Auth {
+    email: string,
+    password: string,
+}
 
 class Api {
     static type = 'closed'
@@ -16,33 +26,25 @@ class Api {
     }
     static api = axios.create(Api.data)
 
-    login_ = async (username: string, password: string) => {
-        return await Api.api.post('/login', [{ username, password }])
-    }
+ 
 
-    login = () => new Promise(async (resolve, reject) => {
-        const req = await Api.api.post('/login', []);
+    login = (email: string, password: string) => new Promise(async (resolve, reject) => {
+        const req = await Api.api.post('/login', [{ email, password }]);
         resolve(req.data)
         if (!req) {
             reject('err')
         }
     })
 
-    getCategories = () => new Promise(async function (resolve, reject) {
+    getCategories = (search: string = '') => new Promise(async function (resolve, reject) {
 
-        interface Category {
-            id: number,
-            name: string,
-            image: string
-        }
 
-        const req = await Api.api.get('/categories')
-        const json_data = req.data
+        const req = await Api.api.get('/categories?search=' + search)
+        const data = req.data
         var result = [];
-        for (var i in json_data) {
-            let data: Category;
-            data = json_data[i]
-            result.push(data);
+        for (var i in data) {
+            let data_: Category = data[i];
+            result.push(data_);
         }
         resolve(result); // when successful
         reject();  // when error
@@ -58,12 +60,6 @@ class Api {
 }
 
 
-interface Category {
-    id: number,
-    name: string,
-    image: string
-}
-
 
 export { Api }
-export type { Category }
+export type { Category, Auth }
