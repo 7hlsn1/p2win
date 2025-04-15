@@ -15,6 +15,10 @@
         padding: 0;
         margin: 0;
     }
+
+    @media (max-width: 768px) {
+        display: none;
+    }
 }
 
 .link {
@@ -30,7 +34,7 @@
         margin: 10px 0;
 
         &:hover {
-            background-color: variaveis.$cor-secundaria;
+            background-color: variaveis.$cor-primaria;
         }
     }
 }

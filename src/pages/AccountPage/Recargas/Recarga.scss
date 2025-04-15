@@ -65,21 +65,23 @@
           flex-wrap: wrap;
   
           button {
-            background-color: #333;
-            color: white;
+            background:variaveis.$cor-secundaria;
+            color: variaveis.$cor-do-texto;
             border: none;
-            padding: 10px 16px;
-            border-radius: 6px;
-            font-size: 14px;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
             cursor: pointer;
-  
-            &.active {
-              background-color: variaveis.$cor-secundaria;
-              border-color: variaveis.$cor-secundaria;
-            }
-
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        
             &:hover {
               transform: translateY(-1px);
+            }
+        
+            &:active {
+              transform: translateY(0);
             }
           }
         }

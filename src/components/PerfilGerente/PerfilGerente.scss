@@ -9,11 +9,21 @@
     border-radius: 12px;
     color: variaveis.$cor-do-texto;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+
+    @media (max-width: 768px) {
+      display: block;
+      max-width: 250px;
+  }
   
     &__info {
       display: flex;
       align-items: center;
       gap: 1.25rem;
+
+      @media (max-width: 768px) {
+        display: block;
+        text-align: center;
+    }
     }
   
     &__avatar-container {
@@ -23,6 +33,12 @@
       border-radius: 50%;
       background: variaveis.$cor-primaria;
       padding: 2px;
+
+      @media (max-width: 768px) {
+        align-items: center;
+        display: flex;
+        margin: 0 auto;
+    }
     }
   
     &__foto {
@@ -71,6 +87,11 @@
       &:active {
         transform: translateY(0);
       }
+
+      @media (max-width: 768px) {
+        background-color: variaveis.$cor-background-geral;
+        margin-top: 8px;
+    }
     }
   
     @media (max-width: 768px) {

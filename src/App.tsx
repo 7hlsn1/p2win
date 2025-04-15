@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import AccountPage from './pages/AccountPage';
+import AnuncioPage from './pages/Anuncio';
 import Resumo from './pages/AccountPage/Resumo';
 import Transacoes from './pages/AccountPage/Transacoes';
 import Anuncios from './pages/AccountPage/Anuncios';
@@ -25,6 +26,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/anunciar" element={<AnuncioPage />} />
         <Route path="/minha-conta" element={<AccountPage />}>
           <Route index element={<Resumo />} />
           <Route path="transacoes" element={<Transacoes />} />
