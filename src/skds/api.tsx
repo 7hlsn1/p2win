@@ -32,7 +32,7 @@ class Api {
     static type = 'closed'
     public token = localStorage.getItem('token');
     public data = {
-        baseURL: 'http://localhost:3000',
+        baseURL: 'https://game-store-6d576f08fc9a.herokuapp.com',
         headers: {}
     }
     constructor(type_: string = 'closed') {
