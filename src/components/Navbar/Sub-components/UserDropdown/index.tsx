@@ -18,6 +18,11 @@ export function UserDropdown({ children }: UserDropdownProps) {
         })
     }, [])
 
+    const handleLogout = () => {
+        api.logout().then(() => {
+            document.location.href = '/'
+        })
+    }
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     const toggleMenu = () => setMenuOpen(prev => !prev);
@@ -57,9 +62,10 @@ export function UserDropdown({ children }: UserDropdownProps) {
 
                 <a href="#">Minhas Compras</a>
                 <a href="#">Meus favoritos</a>
-                <div className={styles.extraIcons}>
-                    {children}
-                </div>
+                <a style={{ color: 'red' }} onClick={handleLogout}>Sair</a>
+
+                {children}
+
 
                 <button className={styles.themeToggle}>
                     <FaMoon /> Tema claro
@@ -75,8 +81,8 @@ export function UserDropdown({ children }: UserDropdownProps) {
             <div className={`${styles.dropdown} ${menuOpen ? styles.show : ''}`}>
 
                 <a href="/login">Entrar / Cadastrar</a>
-                
- 
+
+
 
                 <button className={styles.themeToggle}>
                     <FaMoon /> Tema claro

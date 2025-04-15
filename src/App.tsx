@@ -20,15 +20,26 @@ import Notificacoes from './pages/AccountPage/Notificacoes';
 import { Container } from './components/Container';
 import Navbar from './components/Navbar';
 import LoginPage from './pages/login';
+import { Api } from './skds/api';
+import { useEffect, useState } from 'react';
+const api = new Api('closed')
 
 function App() {
+  const [logged_, setLogged] = useState(false)
+  useEffect(() => {
+    api.getProfile().then((data: any) => {
+      if (data.username) {
+        setLogged(true)
+      }
+    })
+  }, [])
   return (
     <Container>
-      <Navbar />
+      <Navbar logged={logged_} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/anunciar" element={<AnuncioPage />} />
-        <Route path="/login" element={<LoginPage/>} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/minha-conta" element={<AccountPage />}>
           <Route index element={<Resumo />} />
           <Route path="transacoes" element={<Transacoes />} />
