@@ -10,7 +10,7 @@ interface PerfilGerenteProps {
 
 const PerfilGerente: React.FC<PerfilGerenteProps> = ({
   nome,
-  saudacao = 'Seja bem-vindo(a) à sua conta da GGMAX!',
+  saudacao = 'Seja bem-vindo(a) à sua conta da P2Win!',
   imagemUrl = 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541',
   onVerPerfil,
 }) => {

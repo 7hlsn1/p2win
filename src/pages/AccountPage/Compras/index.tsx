@@ -66,7 +66,7 @@ const Compras: React.FC = () => {
             </div>
             <div className="pagamento">
               <img src="https://via.placeholder.com/30" alt="Produto" />
-              <span>Saldo GGMAX - R$ {compra.preco.toFixed(2)}</span>
+              <span>Saldo P2Win - R$ {compra.preco.toFixed(2)}</span>
               <span className="aprovado">{compra.pagamento}</span>
             </div>
             <div className="rodape">
