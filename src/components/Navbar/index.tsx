@@ -25,12 +25,6 @@ const Navbar: React.FC = () => {
                     <IconButton icon={FaShoppingCart} />
                     <UserDropdown />
                 </div>
-                <div className={styles.mobileOnly}>
-                    <UserDropdown>
-                        <IconButton icon={FaBell} />
-                        <IconButton icon={FaShoppingCart} />
-                    </UserDropdown>
-                </div>
             </div>
         </header>
     );

@@ -19,6 +19,7 @@ import Notificacoes from './pages/AccountPage/Notificacoes';
 
 import { Container } from './components/Container';
 import Navbar from './components/Navbar';
+import LoginPage from './pages/login';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/anunciar" element={<AnuncioPage />} />
+        <Route path="/login" element={<LoginPage/>} />
         <Route path="/minha-conta" element={<AccountPage />}>
           <Route index element={<Resumo />} />
           <Route path="transacoes" element={<Transacoes />} />
