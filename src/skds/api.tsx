@@ -44,7 +44,7 @@ class Api {
                 }
             } else {
 
-                window.location.href = '/login'
+              
             }
         }
         this.api = axios.create(this.data)
