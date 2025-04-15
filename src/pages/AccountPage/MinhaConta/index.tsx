@@ -1,7 +1,20 @@
 import './MinhaConta.scss';
 import { FaCheckCircle, FaEnvelope, FaHeart, FaUserPlus, FaBan, FaFlag } from 'react-icons/fa';
+import { Api } from '../../../skds/api'
+import { useState, useEffect } from 'react';
 
 export default function MinhaConta() {
+
+  const api = new Api('closed')
+  const [profile, setProfile] = useState<any>([])
+  useEffect(() => {
+    api.getProfile().then((data: any) => {
+       
+      setProfile(data)
+    })
+  }, [])
+
+
   return (
     <div className="minha-conta">
       <div className="header">
@@ -11,7 +24,7 @@ export default function MinhaConta() {
         </div>
 
         <div className="profile-info">
-          <h2 className="username">BLOXFINDS <span className="tag">BLOXFINDS</span></h2>
+          <h2 className="username">{profile.username}</h2>
           <div className="actions">
             <button><FaEnvelope /> Contato</button>
             <button><FaHeart /> Favorito</button>
@@ -21,9 +34,8 @@ export default function MinhaConta() {
           </div>
           <p className="member-since">MEMBRO DESDE JAN 2025</p>
           <p className="bio">
-            Welcome to BloxFinds! I’m selling Roblox in-game items!<br />
-            <span className="warning">⚠️ Please only buy when I'm online...</span>
-            <a href="#">CARREGAR MAIS...</a>
+            {profile.bio}
+
           </p>
         </div>
       </div>

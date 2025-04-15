@@ -2,13 +2,22 @@ import { useState, useRef, useEffect, ReactNode } from 'react';
 import { FaBars, FaUserCircle, FaMoon } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import styles from './UserDropdown.module.scss';
-
+import { Api, Profile } from '../../../../skds/api';
+const api = new Api('closed')
 interface UserDropdownProps {
     children?: ReactNode;
 }
 
 export function UserDropdown({ children }: UserDropdownProps) {
     const [menuOpen, setMenuOpen] = useState(false);
+    const [profile, setProfile] = useState<Profile | any>({})
+
+    useEffect(() => {
+        api.getProfile().then((data: any) => {
+            setProfile(data)
+        })
+    }, [])
+
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     const toggleMenu = () => setMenuOpen(prev => !prev);
@@ -41,7 +50,7 @@ export function UserDropdown({ children }: UserDropdownProps) {
                 <div className={styles.user}>
                     <FaUserCircle size={24} />
                     <div>
-                        <span>Olá, Gerente!</span>
+                        <span>Olá, {profile.username}!</span>
                         <Link to="/minha-conta">Ver minha conta</Link>
                     </div>
                 </div>

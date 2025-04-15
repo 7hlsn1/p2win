@@ -1,6 +1,6 @@
 import React from 'react';
 import "./PerfilGerente.scss"
-
+ 
 interface PerfilGerenteProps {
   nome: string;
   saudacao?: string;
@@ -11,7 +11,7 @@ interface PerfilGerenteProps {
 const PerfilGerente: React.FC<PerfilGerenteProps> = ({
   nome,
   saudacao = 'Seja bem-vindo(a) à sua conta da GGMAX!',
-  imagemUrl,
+  imagemUrl = 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541',
   onVerPerfil,
 }) => {
   return (

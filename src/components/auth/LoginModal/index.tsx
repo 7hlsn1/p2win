@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import styles from './LoginModal.module.scss';
-import SocialAuthButton from '../SocialAuthButton';
-
+// import SocialAuthButton from '../SocialAuthButton';
+import swal from 'sweetalert';
+import { Api } from '../../../skds/api';
+const api = new Api('open')
 interface LoginModalProps {
     isOpen: boolean;
     onClose: () => void;
@@ -28,15 +30,26 @@ const LoginModal: React.FC<LoginModalProps> = ({
             alert('As senhas não coincidem.');
             return;
         }
-
+        api.login(email, password).then((data: any) => {
+            if (data.token) {
+                localStorage.setItem('token', data.token)
+                document.location.href = '/'
+            } else {
+                console.log('auth error')
+                swal({
+                    title: data.error,
+                    icon: 'warning'
+                })
+            }
+        })
         console.log({ email, password, rememberMe });
         // Aqui vai a lógica de autenticação ou criação de conta
     };
 
-    const handleSocialLogin = (provider: 'google' | 'facebook') => {
-        console.log(`Logging in with ${provider}`);
-        // Integração com Firebase ou outra solução de autenticação
-    };
+    // const handleSocialLogin = (provider: 'google' | 'facebook') => {
+    //     console.log(`Logging in with ${provider}`);
+    //     // Integração com Firebase ou outra solução de autenticação
+    // };
 
     return (
         <div className={styles.modalOverlay} onClick={onClose}>
@@ -64,7 +77,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
                     {activeTab === 'login' ? 'Faça login na sua conta' : 'Crie sua conta gratuita'}
                 </h2>
 
-                <div className={styles.socialButtons}>
+                {/* <div className={styles.socialButtons}>
                     <SocialAuthButton
                         provider="google"
                         actionType={activeTab}
@@ -79,7 +92,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
 
                 <div className={styles.divider}>
                     <span>ou</span>
-                </div>
+                </div> */}
 
                 <form className={styles.form} onSubmit={handleSubmit}>
                     <div className={styles.formGroup}>

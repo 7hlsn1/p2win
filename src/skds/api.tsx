@@ -21,26 +21,38 @@ interface Auth {
     password: string,
 }
 
+interface Profile {
+    email: string,
+    username: string,
+    avatar: string
+}
+
 class Api {
+    public api
     static type = 'closed'
-    static token = localStorage.getItem('token');
-    static data = {
+    public token = localStorage.getItem('token');
+    public data = {
         baseURL: 'http://localhost:3000',
         headers: {}
     }
     constructor(type_: string = 'closed') {
+        
         if (type_ == 'closed') {
-            Api.data.headers = {
-                'Authorization': 'Bearer ' + Api.token
+            if (this.token != null) {
+                this.data.headers = {
+                    'Authorization': 'Bearer ' + this.token
+                }
+            } else {
+
+                window.location.href = '/login'
             }
         }
+        this.api = axios.create(this.data)
     }
-    static api = axios.create(Api.data)
-
 
 
     login = (email: string, password: string) => new Promise(async (resolve, reject) => {
-        const req = await Api.api.post('/login', [{ email, password }]);
+        const req = await this.api.post('/login', { email, password });
         resolve(req.data)
         if (!req) {
             reject()
@@ -49,16 +61,22 @@ class Api {
 
 
     register = (email: string, password: string, username: string) => new Promise(async (resolve, reject) => {
-        const req = await Api.api.post('/register', [{ email, password, username }]);
+        const req = await this.api.post('/register', { email, password, username });
         resolve(req.data)
         if (!req) {
             reject()
         }
     })
 
+    getProfile = () => new Promise(async (resolve, reject) => {
+        const req = await this.api.get('/profile');
+        resolve(req.data)
+        reject()
+    })
 
-    getCategories = (search: string = '') => new Promise(async function (resolve, reject) {
-        const req = await Api.api.get('/categories?search=' + search)
+
+    getCategories = (search: string = '') => new Promise(async (resolve, reject) => {
+        const req = await this.api.get('/categories?search=' + search);
         const data = req.data
         var result = [];
         for (var i in data) {
@@ -70,8 +88,8 @@ class Api {
     });
 
 
-    getProducts = (search: string = '', user: any = '') => new Promise(async function (resolve, reject) {
-        const req = await Api.api.get(`/products?search=${search}&user=${user}`)
+    getProducts = (search: string = '', user: any = '') => new Promise(async (resolve, reject) => {
+        const req = await this.api.get(`/products?search=${search}&user=${user}`)
         const data = req.data
         var result = [];
         for (var i in data) {
@@ -82,14 +100,14 @@ class Api {
         reject();
     });
 
-    createProduct = (category: number, type: number, title: string, description: string, price: number, banner: string) => new Promise(async function (resolve, reject) {
-        const req = await Api.api.post(`/products/create`, [{ category, type, title, description, price, banner }])
+    createProduct = (category: number, type: number, title: string, description: string, price: number, banner: string) => new Promise(async (resolve, reject) => {
+        const req = await this.api.post(`/products/create`, { category, type, title, description, price, banner })
         resolve(req.data);
         reject();
     });
 
     likeProduct = (id: number) => new Promise(async (resolve, reject) => {
-        const req = await Api.api.get(`/products/like/${id}`)
+        const req = await this.api.get(`/products/like/${id}`)
         resolve(req.data)
         reject()
     })
@@ -99,4 +117,4 @@ class Api {
 
 
 export { Api }
-export type { Category, Auth, Product }
+export type { Category, Auth, Product, Profile }

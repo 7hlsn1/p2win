@@ -5,7 +5,7 @@ export function NavLinks() {
   return (
     <nav className={styles.navLinks}>
       <a href="#">Categorias</a>
-      <a href="#">Blog</a>
+      {/* <a href="#">Blog</a> */}
       <Link to="/anunciar">
         <button className={styles.button}>Anunciar</button>
       </Link>

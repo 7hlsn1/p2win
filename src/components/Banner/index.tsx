@@ -1,14 +1,17 @@
 import styles from './Banner.module.scss';
 import GameCard from '../GameCard';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Api, Category } from '../../skds/api';
 const api = new Api('open')
 function Banner() {
     const [categories, setCategories] = useState<Category | any>([])
-    api.getCategories().then((data) => {
-        setCategories(data)
-    })
+    useEffect(() => {
+        api.getCategories().then((data) => {
+            setCategories(data)
+        })
+    }, [])
+
 
     return (
 
