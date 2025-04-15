@@ -1,19 +1,15 @@
 import styles from './Banner.module.scss';
 import GameCard from '../GameCard';
+import { useState } from 'react';
 
-import { Api } from '../../skds/api';
-Api.type = 'open'
-
-interface Category {
-    id: number,
-    name: string,
-    image: string
-}
-
-const cats = (await Api.getCategories());
-const categories: Category[] = cats;
-
+import { Api, Category } from '../../skds/api';
+const api = new Api('open')
 function Banner() {
+    const [categories, setCategories] = useState<Category | any>([])
+    api.getCategories().then((data) => {
+        setCategories(data)
+    })
+
     return (
 
         <section className={styles.banner}>
@@ -25,11 +21,8 @@ function Banner() {
             <div className={styles.cards}>
                 {
                     categories.map((category: Category) =>
-
                         <GameCard key={category.id} title={category.name} image={`${category.image}`} />
                     )
-
-
                 }
 
             </div>

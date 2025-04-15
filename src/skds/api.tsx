@@ -8,7 +8,6 @@ class Api {
         headers: {}
     }
     constructor(type_: string = 'closed') {
-        Api.type = type_
         if (type_ == 'closed') {
             Api.data.headers = {
                 'Authorization': 'Bearer ' + Api.token
@@ -17,22 +16,54 @@ class Api {
     }
     static api = axios.create(Api.data)
 
-    static login = async (username: string, password: string) => {
-        return await this.api.post('/login', [{ username, password }])
-
+    login_ = async (username: string, password: string) => {
+        return await Api.api.post('/login', [{ username, password }])
     }
-    static getCategories = async () => {
-        const req = await this.api.get('/categories')
+
+    login = () => new Promise(async (resolve, reject) => {
+        const req = await Api.api.post('/login', []);
+        resolve(req.data)
+        if (!req) {
+            reject('err')
+        }
+    })
+
+    getCategories = () => new Promise(async function (resolve, reject) {
+
+        interface Category {
+            id: number,
+            name: string,
+            image: string
+        }
+
+        const req = await Api.api.get('/categories')
         const json_data = req.data
         var result = [];
-        for (var i in json_data)
-            result.push(json_data[i]);
+        for (var i in json_data) {
+            let data: Category;
+            data = json_data[i]
+            result.push(data);
+        }
+        resolve(result); // when successful
+        reject();  // when error
+    });
 
-        return result
-    }
+
+
 
     static getProducts = async () => {
 
     }
+
 }
+
+
+interface Category {
+    id: number,
+    name: string,
+    image: string
+}
+
+
 export { Api }
+export type { Category }
