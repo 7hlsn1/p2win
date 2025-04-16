@@ -48,8 +48,7 @@ class Api {
                     'Authorization': 'Bearer ' + this.token
                 }
             } else {
-
-
+                
             }
         }
         this.api = axios.create(this.data)

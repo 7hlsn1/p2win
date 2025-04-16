@@ -4,7 +4,11 @@
     padding: 20px;
     color: variaveis.$cor-do-texto;
     font-family: Arial, sans-serif;
-  
+
+    @media (max-width:768px) {
+      padding: 0;
+    }
+
     .topo-retirada {
       display: flex;
       justify-content: space-between;
@@ -24,7 +28,7 @@
         }
   
         input {
-          background-color: variaveis.$cor-do-p;
+          background-color: variaveis.$cor-secundaria;
           border: none;
           padding: 10px;
           color: variaveis.$cor-do-texto;
@@ -76,7 +80,7 @@
           margin-bottom: 8px;
   
           a {
-            color: variaveis.$cor-secundaria;
+            color: variaveis.$cor-do-texto-claro;
             text-decoration: none;
   
             &:hover {
@@ -94,7 +98,7 @@
           display: flex;
           justify-content: space-between;
           font-size: 13px;
-          color: #ccc;
+          color: variaveis.$cor-do-texto-claro;
   
           .valor {
             font-weight: bold;

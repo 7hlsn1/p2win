@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, ReactNode } from 'react';
 import { FaBars, FaUserCircle, FaMoon } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import styles from './UserDropdown.module.scss';
 import { Api, Profile } from '../../../../skds/api';
 const api = new Api('closed')
@@ -46,12 +46,69 @@ export function UserDropdown({ children }: UserDropdownProps) {
     }, [menuOpen]);
 
     return profile.username ? (
+        
+
         <div className={styles.profileArea} ref={dropdownRef}>
             <button onClick={toggleMenu} className={styles.menuIcon} aria-label="Abrir menu do usuário">
                 <FaBars />
             </button>
 
             <div className={`${styles.dropdown} ${menuOpen ? styles.show : ''}`}>
+            <aside className={styles.sidebar}>
+            <nav>
+                <ul>
+                    <NavLink
+                        to="/minha-conta"
+                        end
+                        className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}
+                    >
+                        <li>Resumo</li>
+                    </NavLink>
+                    <NavLink to="/minha-conta/transacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                        <li>Transações</li>
+                    </NavLink>
+                    <NavLink to="/minha-conta/anuncios" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                        <li>Meus anúncios</li>
+                    </NavLink>
+                    <NavLink to="/minha-conta/compras" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                        <li>Minhas compras</li>
+                    </NavLink>
+                    <NavLink to="/minha-conta/vendas" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                        <li>Minhas vendas</li>
+                    </NavLink>
+                    <NavLink to="/minha-conta/minhas-perguntas" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                        <li>Minhas perguntas</li>
+                    </NavLink>
+                    <NavLink to="/minha-conta/perguntas-recebidas" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                        <li>Perguntas recebidas</li>
+                    </NavLink>
+                    <NavLink to="/minha-conta/retiradas" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                        <li>Minhas retiradas</li>
+                    </NavLink>
+                    <NavLink to="/minha-conta/recargas" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                        <li>Recargas</li>
+                    </NavLink>
+
+                    <li className={styles.sectionTitle}>CONFIGURAÇÕES</li>
+
+                    <NavLink to="/minha-conta/minha-conta" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                        <li>Minha conta</li>
+                    </NavLink>
+                    <NavLink to="/minha-conta/meus-dados" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                        <li>Meus dados</li>
+                    </NavLink>
+                    <NavLink to="/minha-conta/verificacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                        <li>Verificações</li>
+                    </NavLink>
+                    <NavLink to="/minha-conta/seguranca" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                        <li>Segurança</li>
+                    </NavLink>
+                    <NavLink to="/minha-conta/notificacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                        <li>Notificações</li>
+                    </NavLink>
+                </ul>
+            </nav>
+        </aside>
                 <div className={styles.user}>
                     <FaUserCircle size={24} />
                     <div>

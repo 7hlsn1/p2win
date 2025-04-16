@@ -5,11 +5,13 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
+
 }
 
-body {
+html, body {
   background: variaveis.$cor-background-geral;
   color: variaveis.$cor-do-texto;
+  overflow-x: hidden;
 }
 
 a {

@@ -8,7 +8,9 @@
     color: variaveis.$cor-do-texto;
     transition: transform 0.3s, box-shadow 0.3s;
     cursor: pointer;
-    width: 180px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+    max-width: 200px;
+    width: 100%;
 
     img {
         width: 100%;

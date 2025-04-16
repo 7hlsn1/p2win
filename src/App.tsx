@@ -23,7 +23,6 @@ import LoginPage from './pages/login';
 import { Api } from './skds/api';
 import { useEffect, useState } from 'react';
 import Produtos from './pages/Anuncios';
- 
 
 const api = new Api('closed')
 

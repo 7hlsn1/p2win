@@ -52,34 +52,37 @@ export default function Vendas() {
 
     return (
         <div className="vendas-container">
-            <div className="filtros">
-                <div className="filtro">
-                    <label>Pagamento</label>
-                    <select value={filtroPagamento} onChange={e => setFiltroPagamento(e.target.value)}>
-                        <option>Aprovados</option>
-                        <option>Pendentes</option>
-                    </select>
-                </div>
-                <div className="filtro">
-                    <label>Pedido</label>
-                    <select value={filtroPedido} onChange={e => setFiltroPedido(e.target.value)}>
-                        <option>Todos</option>
-                        <option>Entregues</option>
-                    </select>
-                </div>
-                <div className="filtro">
-                    <label>Avaliação</label>
-                    <select value={filtroAvaliacao} onChange={e => setFiltroAvaliacao(e.target.value)}>
-                        <option>Todas</option>
-                    </select>
-                </div>
-                <div className="filtro">
-                    <label>Ordenar por</label>
-                    <select value={ordenacao} onChange={e => setOrdenacao(e.target.value)}>
-                        <option>Código da venda</option>
-                    </select>
+            <div className="selectcontainer">
+                <div className="filtros">
+                    <div className="filtro">
+                        <label>Pagamento</label>
+                        <select value={filtroPagamento} onChange={e => setFiltroPagamento(e.target.value)}>
+                            <option>Aprovados</option>
+                            <option>Pendentes</option>
+                        </select>
+                    </div>
+                    <div className="filtro">
+                        <label>Pedido</label>
+                        <select value={filtroPedido} onChange={e => setFiltroPedido(e.target.value)}>
+                            <option>Todos</option>
+                            <option>Entregues</option>
+                        </select>
+                    </div>
+                    <div className="filtro">
+                        <label>Avaliação</label>
+                        <select value={filtroAvaliacao} onChange={e => setFiltroAvaliacao(e.target.value)}>
+                            <option>Todas</option>
+                        </select>
+                    </div>
+                    <div className="filtro">
+                        <label>Ordenar por</label>
+                        <select value={ordenacao} onChange={e => setOrdenacao(e.target.value)}>
+                            <option>Código da venda</option>
+                        </select>
+                    </div>
                 </div>
             </div>
+
 
 
             <div className="vendas-lista">

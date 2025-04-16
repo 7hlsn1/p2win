@@ -47,12 +47,14 @@ const Compras: React.FC = () => {
   return (
     <div className="aba-compras">
       <div className="filtros">
-        <select><option>Pagamento</option></select>
-        <select><option>Pedido</option></select>
-        <select><option>Avaliação</option></select>
-        <select value={filtro} onChange={(e) => setFiltro(e.target.value)}>
-          <option>Código do pedido</option>
-        </select>
+        <div className="select-container">
+          <select><option>Pagamento</option></select>
+          <select><option>Pedido</option></select>
+          <select><option>Avaliação</option></select>
+          <select value={filtro} onChange={(e) => setFiltro(e.target.value)}>
+            <option>Código do pedido</option>
+          </select>
+        </div>
       </div>
 
       <div className="lista-compras">

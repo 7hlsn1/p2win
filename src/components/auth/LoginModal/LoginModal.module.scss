@@ -1,3 +1,5 @@
+@use '../../../styles/variaveis';
+
 .modalOverlay {
     position: fixed;
     top: 0;
@@ -10,7 +12,43 @@
     align-items: center;
     z-index: 1000;
     backdrop-filter: blur(5px);
+    overflow-x: hidden;
+
+    @media (max-width: 768px) {
+        padding: 20px;
+        background-color: variaveis.$cor-background-geral;
+    }
 }
+
+.modalContent {
+    background-color: white;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 450px;
+    padding: 30px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    position: relative;
+    animation: modalFadeIn 0.3s ease-out;
+    overflow: hidden;
+
+    @media (max-width: 768px) {
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    @keyframes modalFadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
 
 .modalContent {
     background-color: white;
