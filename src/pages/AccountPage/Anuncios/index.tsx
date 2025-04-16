@@ -16,7 +16,7 @@ type Status = "Ativo" | "Em análise" | "Reprovado" | "Desativado" | "Suspenso";
 
 
 const Anuncios: React.FC = () => {
-  console.log('here')
+  
   const [statusFiltro, setStatusFiltro] = useState<Status | "Todos">("Ativo");
   const [anuncios, setAnuncios] = useState([]);
 

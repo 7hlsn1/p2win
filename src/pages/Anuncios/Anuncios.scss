@@ -60,6 +60,10 @@
         .conteudo {
             display: flex;
             flex-direction: column;
+
+            .product-user {
+                opacity: .8;
+            }
             .titulo {
                 font-weight: 600;
                 font-size: 0.95rem;

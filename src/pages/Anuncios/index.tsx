@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import "./Anuncios.scss";
 import { Api, Product } from "../../skds/api";
 import { Link } from "react-router-dom";
+import moment from "moment";
+moment.localeData('pt-br')
+moment.locale('pt-br')
 const api = new Api('closed')
 
 // type Status = "Ativo" | "Em análise" | "Reprovado" | "Desativado" | "Suspenso";
@@ -50,6 +53,8 @@ const Produtos: React.FC = () => {
                   {anuncio.description}
                 </h5>
                 <img src={anuncio.banner} alt="" />
+                <span style={{ fontSize: 10 }}>Publicado por</span> <span className="product-user"><Link to={`/usuarios/${anuncio.user_id}`}>{anuncio.user}</Link></span>
+                <span>{moment(anuncio.created_at).format('ddd, D MMMM, Y - H:m')}</span>
               </div>
             </div>
             {/* <div className="acoes">

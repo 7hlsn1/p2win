@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './LoginModal.module.scss';
 // import SocialAuthButton from '../SocialAuthButton';
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 import { Api } from '../../../skds/api';
 const api = new Api('open')
 interface LoginModalProps {
@@ -39,22 +39,23 @@ const LoginModal: React.FC<LoginModalProps> = ({
                     document.location.href = '/'
                 } else {
                     console.log('auth error')
-                    swal({
+                    Swal.fire({
                         text: data.error,
                         icon: 'warning',
                         
+
                     })
                 }
             })
         } else if (activeTab == 'register') {
             api.register(email, password, username).then((data: any) => {
                 if (data.message) {
-                    swal({
+                    Swal.fire({
                         title: data.message,
                         icon: 'success'
                     })
                 } else {
-                    swal({
+                    Swal.fire({
                         title: data.error,
                         icon: 'warning'
                     })

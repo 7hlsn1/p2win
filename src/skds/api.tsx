@@ -89,7 +89,7 @@ class Api {
     getCategories = (search: string = '') => new Promise(async (resolve, reject) => {
         const req = await this.api.get('/categories?search=' + search);
         const data = req.data
-         
+
         resolve(data);
         reject();
     });
@@ -102,8 +102,12 @@ class Api {
         reject();
     });
 
-    createProduct = (category: number, type: number, title: string, description: string, price: number, banner: string) => new Promise(async (resolve, reject) => {
-        const req = await this.api.post(`/products/create`, { category, type, title, description, price, banner })
+    createProduct = (category: number, type: number, title: string, description: string, price: number, banner: File) => new Promise(async (resolve, reject) => {
+        const req = await this.api.post(`/products/create`, { category, type, title, description, price, banner }, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
         resolve(req.data);
         reject();
     });
