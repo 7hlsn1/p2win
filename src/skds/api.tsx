@@ -11,9 +11,14 @@ interface Product {
     title: string,
     banner: string,
     price: number,
+    description: string,
     category_id: number,
+    type_id: number,
     user_id: number,
-    created_at: string
+    user: string,
+    category: string,
+    created_at: string,
+    status: string
 }
 
 interface Auth {
@@ -44,7 +49,7 @@ class Api {
                 }
             } else {
 
-              
+
             }
         }
         this.api = axios.create(this.data)
@@ -52,7 +57,7 @@ class Api {
 
     logout = () => new Promise(async (resolve, reject) => {
         await this.api.get('/logout')
-       
+
         resolve(1)
         reject()
     })
@@ -84,25 +89,16 @@ class Api {
     getCategories = (search: string = '') => new Promise(async (resolve, reject) => {
         const req = await this.api.get('/categories?search=' + search);
         const data = req.data
-        var result = [];
-        for (var i in data) {
-            let data_: Category = data[i];
-            result.push(data_);
-        }
-        resolve(result);
+         
+        resolve(data);
         reject();
     });
 
 
-    getProducts = (search: string = '', user: any = '') => new Promise(async (resolve, reject) => {
-        const req = await this.api.get(`/products?search=${search}&user=${user}`)
+    getProducts = (search: string | any = '', user: any = '', category: number = 0) => new Promise(async (resolve, reject) => {
+        const req = await this.api.get(`/products?search=${search}&user=${user}&category_id=${category}`)
         const data = req.data
-        var result = [];
-        for (var i in data) {
-            let data_: Product = data[i];
-            result.push(data_);
-        }
-        resolve(result);
+        resolve(data);
         reject();
     });
 

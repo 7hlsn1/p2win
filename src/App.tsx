@@ -22,6 +22,7 @@ import Navbar from './components/Navbar';
 import LoginPage from './pages/login';
 import { Api } from './skds/api';
 import { useEffect, useState } from 'react';
+import Produtos  from './pages/Anuncios';
 const api = new Api('closed')
 
 function App() {
@@ -40,6 +41,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/anunciar" element={<AnuncioPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/produtos" element={<Produtos />} />
+
         <Route path="/minha-conta" element={<AccountPage />}>
           <Route index element={<Resumo />} />
           <Route path="transacoes" element={<Transacoes />} />

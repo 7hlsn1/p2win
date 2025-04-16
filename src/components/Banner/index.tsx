@@ -24,7 +24,7 @@ function Banner() {
             <div className={styles.cards}>
                 {
                     categories.map((category: Category) =>
-                        <GameCard key={category.id} title={category.name} image={`${category.image}`} />
+                        <GameCard key={category.id} id={category.id} title={category.name} image={`${category.image}`} />
                     )
                 }
 

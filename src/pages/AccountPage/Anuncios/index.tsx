@@ -1,34 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Anuncios.scss";
+import { Api, Product } from "../../../skds/api";
+const api = new Api('closed')
 
 type Status = "Ativo" | "Em análise" | "Reprovado" | "Desativado" | "Suspenso";
 
-interface Anuncio {
-  id: number;
-  titulo: string;
-  status: Status;
-  tipo: string;
-  link: string;
-}
+// interface Anuncio {
+//   id: number;
+//   titulo: string;
+//   status: Status;
+//   tipo: string;
+//   link: string;
+// }
 
-const anunciosMock: Anuncio[] = [
-  {
-    id: 1,
-    titulo: "SSBM Phantom Megalodon / Fisch! / O mais barato do mercado!",
-    status: "Ativo",
-    tipo: "Anúncio dinâmico",
-    link: "#",
-  },
-];
+
 
 const Anuncios: React.FC = () => {
+  console.log('here')
   const [statusFiltro, setStatusFiltro] = useState<Status | "Todos">("Ativo");
-  const [anuncios] = useState(anunciosMock);
+  const [anuncios, setAnuncios] = useState([]);
+
+  useEffect(() => {
+    
+    api.getProducts().then((data: any) => {
+      console.log(data)
+      setAnuncios(data)
+    })
+  }, [])
 
   const filtrar = () =>
     statusFiltro === "Todos"
       ? anuncios
-      : anuncios.filter((a) => a.status === statusFiltro);
+      : anuncios.filter((a: any) => a.status === statusFiltro);
 
   return (
     <div className="aba-anuncios">
@@ -48,14 +51,14 @@ const Anuncios: React.FC = () => {
       </div>
 
       <div className="lista-anuncios">
-        {filtrar().map((anuncio) => (
+        {filtrar().map((anuncio: Product) => (
           <div key={anuncio.id} className="card-anuncio">
             <div className="conteudo">
-              <a href={anuncio.link} className="titulo">
-                {anuncio.titulo}
+              <a href={anuncio.id.toString()} className="titulo">
+                {anuncio.title}
               </a>
               <div className="detalhes">
-                <span>{anuncio.tipo}</span>
+                <span>{anuncio.type_id}</span>
                 <span className={`status status--${anuncio.status.toLowerCase().replace(" ", "-")}`}>
                   ● {anuncio.status}
                 </span>

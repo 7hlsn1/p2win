@@ -40,8 +40,9 @@ const LoginModal: React.FC<LoginModalProps> = ({
                 } else {
                     console.log('auth error')
                     swal({
-                        title: data.error,
-                        icon: 'warning'
+                        text: data.error,
+                        icon: 'warning',
+                        
                     })
                 }
             })

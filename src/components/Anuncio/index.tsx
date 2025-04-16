@@ -16,7 +16,7 @@ const Anuncio: React.FC = () => {
   }
   return (
     <div className={styles.container}>
-      <h1>Anúncio</h1>
+      <h2>Criar novo anúncio</h2>
 
       <div className={styles.formGroup}>
         <label htmlFor="titulo">Escolha um título para o seu anúncio</label>
