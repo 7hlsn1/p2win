@@ -47,6 +47,10 @@
         align-items: flex-end;
         justify-content: center;
         min-width: 180px;
+
+        @media (max-width:768px) {
+          width: 100%;          
+        }
   
         span {
           color: variaveis.$cor-do-texto;

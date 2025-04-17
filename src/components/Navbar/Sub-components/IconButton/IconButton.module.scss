@@ -9,7 +9,7 @@
     transition: color 0.2s ease;
 
     &:hover {
-        color: variaveis.$cor-secundaria;
+        color: variaveis.$cor-do-texto-claro;
     }
 
     @media (max-width: 768px) {

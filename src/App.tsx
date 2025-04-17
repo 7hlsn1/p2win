@@ -16,6 +16,7 @@ import MeusDados from './pages/AccountPage/MeusDados';
 import Verificacoes from './pages/AccountPage/Verificacoes';
 import Seguranca from './pages/AccountPage/Seguranca';
 import Notificacoes from './pages/AccountPage/Notificacoes';
+import AdminUsuarios from './components/AdminUsuarios';
 
 import { Container } from './components/Container';
 import Navbar from './components/Navbar';
@@ -60,6 +61,7 @@ function App() {
           <Route path="verificacoes" element={<Verificacoes />} />
           <Route path="seguranca" element={<Seguranca />} />
           <Route path="notificacoes" element={<Notificacoes />} />
+          <Route path="administracao" element={<AdminUsuarios />} />
         </Route>
       </Routes>
     </Container>
