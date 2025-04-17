@@ -13,6 +13,8 @@
     }
 
     .selectcontainer {
+        margin-bottom: 8px;
+
         @media (max-width: 768px) {
             overflow-x: auto;
             margin-bottom: 16px;
