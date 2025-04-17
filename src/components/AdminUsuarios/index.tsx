@@ -1,14 +1,20 @@
 import { useState } from 'react';
 import './AdminUsuarios.scss';
 
-const usuariosMock = [
+type Usuario = {
+    id: number;
+    nome: string;
+    email: string;
+};
+
+const usuariosMock: Usuario[] = [
     { id: 1, nome: 'João Silva', email: 'joao@email.com' },
     { id: 2, nome: 'Maria Oliveira', email: 'maria@email.com' },
     { id: 3, nome: 'Carlos Souza', email: 'carlos@email.com' },
 ];
 
 export default function AdminUsuarios() {
-    const [usuarios, setUsuarios] = useState([]);
+    const [usuarios, setUsuarios] = useState<Usuario[]>([]);
     const [listando, setListando] = useState(false);
 
     const listarUsuarios = () => {
@@ -21,7 +27,7 @@ export default function AdminUsuarios() {
         setListando(false);
     };
 
-    const excluirUsuario = (id) => {
+    const excluirUsuario = (id: number) => {
         const novaLista = usuarios.filter((usuario) => usuario.id !== id);
         setUsuarios(novaLista);
     };
