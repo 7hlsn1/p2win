@@ -16,7 +16,9 @@ import MeusDados from './pages/AccountPage/MeusDados';
 import Verificacoes from './pages/AccountPage/Verificacoes';
 import Seguranca from './pages/AccountPage/Seguranca';
 import Notificacoes from './pages/AccountPage/Notificacoes';
-import AdminUsuarios from './components/AdminUsuarios';
+import AdminUsuarios from './pages/AccountPage/Administracao/AdminUsuarios';
+import AdminTransacoes from './pages/AccountPage/Administracao/AdminTransacoes';
+import ScrollToTop from './components/ScrollToTop';
 
 import { Container } from './components/Container';
 import Navbar from './components/Navbar';
@@ -39,6 +41,7 @@ function App() {
   return (
     <Container>
       <Navbar logged={logged_} />
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/anunciar" element={<AnuncioPage />} />
@@ -61,7 +64,8 @@ function App() {
           <Route path="verificacoes" element={<Verificacoes />} />
           <Route path="seguranca" element={<Seguranca />} />
           <Route path="notificacoes" element={<Notificacoes />} />
-          <Route path="administracao" element={<AdminUsuarios />} />
+          <Route path="administracao/adminusuarios" element={<AdminUsuarios />} />
+          <Route path="administracao/admintransacoes" element={<AdminTransacoes />} />
         </Route>
       </Routes>
     </Container>
