@@ -7,12 +7,14 @@
 
     @media (max-width:768px) {
         padding: 0;
-        max-width: 250px;
+        max-width: 280px;
         width: 100%;
         margin-bottom: 16px;
     }
 
     .selectcontainer {
+        margin-bottom: 8px;
+
         @media (max-width: 768px) {
             overflow-x: auto;
             margin-bottom: 16px;

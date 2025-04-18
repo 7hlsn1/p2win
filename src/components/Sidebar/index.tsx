@@ -61,6 +61,9 @@ const Sidebar = () => {
                     <NavLink to="/minha-conta/notificacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
                         <li>Notificações</li>
                     </NavLink>
+                    <NavLink to="/minha-conta/administracao" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                        <li>Administração</li>
+                    </NavLink>
 
                     <NavLink to="/" className={styles.link}>
                         <li className={styles.logout} onClick={handleLogout}>Sair</li>

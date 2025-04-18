@@ -16,13 +16,12 @@
     transition: color 0.3s ease;
 
     &:hover {
-        color: variaveis.$cor-do-texto;
+        color: variaveis.$cor-do-texto-claro;
     }
 
     @media (max-width: 768px) {
         padding: 0;
         width: 0%;
-        margin-left: 16px;
     }
 }
 
