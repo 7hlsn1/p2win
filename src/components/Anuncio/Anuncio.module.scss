@@ -39,6 +39,7 @@
     outline: none;
     transition: all .2s;
   }
+
   input:focus {
     box-shadow: 10px 10px 15px -12px rgba(0, 0, 0, 0.464);
   }
@@ -51,6 +52,36 @@
   }
 }
 
+.iconGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  icon {
+    color: white;
+  }
+}
+
+.imageInputs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:5px;
+   
+
+  .imageGroup {
+    height: 300px;
+    font-size: smaller;
+
+
+    background-size: cover;
+    background-position: center;
+
+    label {
+      text-align: center;
+    }
+  }
+
+}
+
 .inlineInputs {
   display: flex;
   gap: 1rem;
@@ -58,6 +89,10 @@
   .formGroup {
     flex: 1;
   }
+
+  flex-wrap: wrap;
+
+
 
   @media (max-width: 600px) {
     flex-direction: column;

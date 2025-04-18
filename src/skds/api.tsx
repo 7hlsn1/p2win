@@ -48,7 +48,7 @@ class Api {
                     'Authorization': 'Bearer ' + this.token
                 }
             } else {
-                
+
             }
         }
         this.api = axios.create(this.data)
@@ -101,8 +101,9 @@ class Api {
         reject();
     });
 
-    createProduct = (category: number, type: number, title: string, description: string, price: number, banner: File) => new Promise(async (resolve, reject) => {
-        const req = await this.api.post(`/products/create`, { category, type, title, description, price, banner }, {
+    createProduct = (category: number, type: number, title: string, description: string, price: number, banner: File, images: any) => new Promise(async (resolve, reject) => {
+        console.log(images)
+        const req = await this.api.post(`/products/create`, { category, type, title, description, price, banner, images }, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }

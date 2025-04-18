@@ -9,7 +9,7 @@ interface IconButtonProps {
 export function IconButton({ icon: Icon, onClick }: IconButtonProps) {
     return (
         <button className={styles.iconButton} onClick={onClick}>
-            <Icon />
+            <Icon style={{ color: 'white' }} />
         </button>
     );
 }
