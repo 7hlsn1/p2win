@@ -19,6 +19,7 @@ import Notificacoes from './pages/AccountPage/Notificacoes';
 import AdminUsuarios from './pages/AccountPage/Administracao/AdminUsuarios';
 import AdminTransacoes from './pages/AccountPage/Administracao/AdminTransacoes';
 import ScrollToTop from './components/ScrollToTop';
+import Cart from './pages/Cart';
 
 import { Container } from './components/Container';
 import Navbar from './components/Navbar';
@@ -48,6 +49,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/produtos" element={<Produtos />} />
         <Route path="/usuarios/:id" element={<MinhaConta />} />
+        <Route path="/carrinho" element={<Cart />} />
 
         <Route path="/minha-conta" element={<AccountPage />}>
           <Route index element={<Resumo />} />
