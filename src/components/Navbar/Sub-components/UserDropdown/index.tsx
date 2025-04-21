@@ -9,6 +9,7 @@ interface UserDropdownProps {
 }
 
 export function UserDropdown({ children }: UserDropdownProps) {
+    const [adminOpen, setAdminOpen] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const [profile, setProfile] = useState<Profile | any>({})
 
@@ -106,9 +107,34 @@ export function UserDropdown({ children }: UserDropdownProps) {
                             <NavLink to="/minha-conta/notificacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
                                 <li>Notificações</li>
                             </NavLink>
-                            <NavLink to="/minha-conta/administracao" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                <li>Administração</li>
-                            </NavLink>
+                            <div>
+                                <li
+                                    className={`${styles.link} ${styles.dropdownToggle}`}
+                                    onClick={() => setAdminOpen(!adminOpen)}
+                                >
+                                    Administração ▾
+                                </li>
+                                {adminOpen && (
+                                    <ul className={styles.dropdownMenu}>
+                                        <NavLink
+                                            to="/minha-conta/administracao/adminusuarios"
+                                            className={({ isActive }) =>
+                                                `${styles.link} ${isActive ? styles.active : ''}`
+                                            }
+                                        >
+                                            <li>Listar Usuários</li>
+                                        </NavLink>
+                                        <NavLink
+                                            to="/minha-conta/administracao/admintransacoes"
+                                            className={({ isActive }) =>
+                                                `${styles.link} ${isActive ? styles.active : ''}`
+                                            }
+                                        >
+                                            <li>Listar Transações</li>
+                                        </NavLink>
+                                    </ul>
+                                )}
+                            </div>
                         </ul>
                     </nav>
                 </aside>

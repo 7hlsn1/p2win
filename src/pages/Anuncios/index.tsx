@@ -22,7 +22,7 @@ const Produtos: React.FC = () => {
 
   useEffect(() => {
     console.log('here')
-    api.getProducts(params.get('search') ?? '', '', parseInt(categoryId ? categoryId.toString() : '')).then((data: any) => {
+    api.getProducts(params.get('search') ?? '', 0, parseInt(categoryId ? categoryId.toString() : '')).then((data: any) => {
       setCategory(data[0].category)
       setAnuncios(data)
     }).catch(err => {

@@ -1,22 +1,23 @@
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Sidebar.module.scss';
 import { Api } from '../../skds/api';
+
 const Sidebar = () => {
-    const api = new Api('closed')
+    const [adminOpen, setAdminOpen] = useState(false);
+    const api = new Api('closed');
+
     const handleLogout = () => {
         api.logout().then(() => {
-            document.location.href = '/'
-        })
-    }
+            document.location.href = '/';
+        });
+    };
+
     return (
         <aside className={styles.sidebar}>
             <nav>
                 <ul>
-                    <NavLink
-                        to="/minha-conta"
-                        end
-                        className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}
-                    >
+                    <NavLink to="/minha-conta" end className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
                         <li>Resumo</li>
                     </NavLink>
                     <NavLink to="/minha-conta/transacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
@@ -61,9 +62,35 @@ const Sidebar = () => {
                     <NavLink to="/minha-conta/notificacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
                         <li>Notificações</li>
                     </NavLink>
-                    <NavLink to="/minha-conta/administracao" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                        <li>Administração</li>
-                    </NavLink>
+
+                    <div>
+                        <li
+                            className={`${styles.link} ${styles.dropdownToggle}`}
+                            onClick={() => setAdminOpen(!adminOpen)}
+                        >
+                            Administração ▾
+                        </li>
+                        {adminOpen && (
+                            <ul className={styles.dropdownMenu}>
+                                <NavLink
+                                    to="/minha-conta/administracao/adminusuarios"
+                                    className={({ isActive }) =>
+                                        `${styles.link} ${isActive ? styles.active : ''}`
+                                    }
+                                >
+                                    <li>Listar Usuários</li>
+                                </NavLink>
+                                <NavLink
+                                    to="/minha-conta/administracao/admintransacoes"
+                                    className={({ isActive }) =>
+                                        `${styles.link} ${isActive ? styles.active : ''}`
+                                    }
+                                >
+                                    <li>Listar Transações</li>
+                                </NavLink>
+                            </ul>
+                        )}
+                    </div>
 
                     <NavLink to="/" className={styles.link}>
                         <li className={styles.logout} onClick={handleLogout}>Sair</li>
@@ -71,7 +98,7 @@ const Sidebar = () => {
                 </ul>
             </nav>
         </aside>
-    )
+    );
 };
 
 export default Sidebar;
