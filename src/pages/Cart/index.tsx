@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Api, Product } from '../../skds/api'; 
+import { Api, Product } from '../../skds/api';
 import styles from './Cart.module.scss';
 
 const Cart: React.FC = () => {
@@ -9,6 +9,7 @@ const Cart: React.FC = () => {
   const addToCart = (product: Product) => {
     setCart((prevCart) => [...prevCart, product]);
   };
+  console.log(addToCart.arguments)
 
   // Função para remover do carrinho
   const removeFromCart = (productId: number) => {
@@ -22,8 +23,8 @@ const Cart: React.FC = () => {
 
   useEffect(() => {
     const api = new Api();
-    api.getProducts().then((products: Product[]) => {
-      console.log(products); 
+    api.getProducts().then((products: any) => {
+      console.log(products);
     });
   }, []);
 

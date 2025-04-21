@@ -1,6 +1,5 @@
 import axios from "axios";
-import { ReactElement } from "react";
-import { Container, createRoot } from "react-dom/client";
+ 
 
 interface Category {
     id: number,
@@ -129,6 +128,7 @@ class Api {
            
 
         }
+        reject()
     });
 
     createProduct = (category: number, type: number, title: string, description: string, price: number, banner: File, images: any) => new Promise(async (resolve, reject) => {

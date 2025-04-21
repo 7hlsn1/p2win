@@ -1,5 +1,5 @@
 import './MinhaConta.scss';
-import { FaCheckCircle, FaEnvelope, FaHeart, FaUserPlus, FaBan, FaFlag } from 'react-icons/fa';
+import { FaCheckCircle, FaHeart, FaUserPlus, FaBan, FaFlag } from 'react-icons/fa';
 import { Api, TLoader } from '../../skds/api';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
