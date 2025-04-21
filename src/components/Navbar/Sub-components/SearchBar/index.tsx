@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import styles from './SearchBar.module.scss';
 import { Api, Product } from '../../../../skds/api';
+import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 const api = new Api('open');
 
@@ -43,7 +45,7 @@ export function SearchBar() {
         <div className={styles.searchContainer} ref={searchRef}>
             <input
                 type="text"
-                placeholder="Buscar jogo..."
+                placeholder="Buscar anúncio..."
                 className={styles.searchInput}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -54,10 +56,24 @@ export function SearchBar() {
             {showDropdown && results.length > 0 && (
                 <div className={styles.dropdown}>
                     {results.map((item) => (
-                        <div key={item.id} className={styles.dropdownItem}>
-                            <img src={item.banner} alt={item.title} />
-                            <span>{item.title}</span>
-                        </div>
+                        <Link to={`/produtos/${item.id}`}>
+                            <div key={item.id} className={styles.dropdownItem}>
+
+                                <div>
+                                    <span className='title'>{item.title}</span>
+                                    <span className='price'>R$ {item.price}</span>
+                                </div>
+                                <div className={styles.description}>
+                                    {item.description}
+                                </div>
+                                <div>
+                                    <span className={styles.created_at}>{moment(item.created_at).format('D/MM/Y')}</span>
+                                    <span className={styles.user}>
+                                        {item.user}
+                                    </span>
+                                </div>
+                            </div>
+                        </Link>
                     ))}
                 </div>
             )}

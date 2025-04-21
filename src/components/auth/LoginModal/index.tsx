@@ -36,6 +36,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
             api.login(email, password).then((data: any) => {
                 if (data.token) {
                     localStorage.setItem('token', data.token)
+                    localStorage.setItem('user_id', data.user_id);
                     document.location.href = '/'
                 } else {
                     console.log('auth error')

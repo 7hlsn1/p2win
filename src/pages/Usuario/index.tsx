@@ -1,0 +1,149 @@
+import './MinhaConta.scss';
+import { FaCheckCircle, FaEnvelope, FaHeart, FaUserPlus, FaBan, FaFlag } from 'react-icons/fa';
+import { Api, TLoader } from '../../skds/api';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { Profile } from '../../skds/api';
+import moment from 'moment';
+import { Link } from 'react-router-dom';
+
+export default function Usuario() {
+
+  const api = new Api('closed')
+  const [userProfile, setUserProfile] = useState<Profile | any>({})
+  const [following, setFollowing] = useState(false)
+  const [blocked, setBlocked] = useState(false)
+  const [products, setProducts] = useState([])
+  const [search, setSearch] = useState('')
+  const [categories, setCategories] = useState<any>([])
+
+  const params = useParams<string | any>();
+  const userId = params.id
+  console.log(userId)
+  let id
+  if (userId) {
+    id = parseInt(userId)
+  } else {
+    id = 0
+  }
+  useEffect(() => {
+    TLoader.tLoader(1)
+    api.getProfile(id).then((data: any) => {
+      setUserProfile(data)
+      setFollowing(data.following)
+      setProducts(data.products)
+
+      data.products.map((product: any) => {
+
+        if (!categories.includes({
+          id: product.category_id,
+          name: product.category
+        })) {
+          setCategories([...categories, {
+            id: product.category_id,
+            name: product.category
+          }])
+        }
+      })
+
+
+      TLoader.tLoader(0)
+
+    })
+  }, [])
+  const handleSearch = (e: any) => {
+    setSearch(e.currentTarget.value)
+    api.getProducts(search, parseInt(userProfile.id)).then((data: any) => {
+      setProducts(data)
+    })
+  }
+  const handleFollow = () => {
+    TLoader.tLoader(1)
+    api.followUser(userProfile.id).then((data: any) => {
+      setFollowing(data.following)
+      TLoader.tLoader(0)
+    })
+  }
+
+  const handleBlock = () => {
+    TLoader.tLoader(1)
+    api.blockUser(userProfile.id).then((data: any) => {
+      setBlocked(data.blocked)
+      TLoader.tLoader(0)
+    })
+  }
+
+  
+  return (
+    <div className="minha-conta" >
+      <div className="header" style={{ display: userProfile.username ? 'flex' : 'none' }}>
+        <div className="avatar-wrapper" style={{ backgroundImage: `url("${userProfile.avatar ?? 'https://cdn-icons-png.flaticon.com/512/147/147142.png'}")` }}>
+
+          <span className="status"><FaCheckCircle /> Conectado</span>
+        </div>
+
+        <div className="profile-info">
+          <h2 className="username">{userProfile.username}</h2>
+          {
+            !userProfile.self ? (
+              <div className="actions">
+                <button><FaHeart /> Favorito</button>
+                <button onClick={handleFollow}><FaUserPlus /> {following ? 'Deixar de seguir' : 'Seguir'}</button>
+                <button onClick={handleBlock} className="danger"><FaBan /> {blocked ? 'Desbloquear' : 'Bloquear'}</button>
+                <button className="danger"><FaFlag /> Reportar</button>
+              </div>) : <></>
+          }
+          <p className="member-since">MEMBRO DESDE {moment(userProfile.created_at).format('MM/Y')}</p>
+          <p className="bio">
+            {userProfile.bio}
+
+          </p>
+        </div>
+      </div>
+
+
+
+      <div className="tabs">
+        <button className="active">ANÚNCIOS</button>
+        <button>AVALIAÇÕES</button>
+        <button>GALERIA</button>
+      </div>
+
+      <div className="filters">
+        <input type="text" placeholder="Pesquisar" value={search} onChange={handleSearch} />
+        <select>
+          <option>Categoria</option>
+          {
+            categories.map((cat: any) => {
+              return <option value={cat.id}>{cat.name}</option>
+            })
+          }
+        </select>
+        <select><option>À Venda</option></select>
+      </div>
+      <div className='products'>
+        {products ? (
+          products.map((product: any) => {
+            return (
+              <div className='product'>
+                <Link to={`/produtos/${product.id}`}>
+                  <h4>{product.title}</h4>
+                </Link>
+                <div className="banner" style={{ backgroundImage: `url("${import.meta.env.VITE_API_URL}${product.banner}")` }}>
+                </div>
+                <span className='description'>
+                  {product.description}
+                </span>
+                <span className="price">
+                  R$ {product.price}
+                </span>
+                <span>{moment(product.created_at).format('DD/MM/Y')}</span>
+                <span>{['Aguardando aprovação', 'Aprovado', 'Vendido', 'Reprovado'][product.status]}</span>
+              </div>
+            )
+          })
+        ) : <></>}
+      </div>
+    </div>
+  );
+}

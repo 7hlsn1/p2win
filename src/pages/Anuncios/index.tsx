@@ -25,7 +25,11 @@ const Produtos: React.FC = () => {
     api.getProducts(params.get('search') ?? '', '', parseInt(categoryId ? categoryId.toString() : '')).then((data: any) => {
       setCategory(data[0].category)
       setAnuncios(data)
-    })
+    }).catch(err => {
+      console.log('err:')
+      console.log(err)
+    }
+    )
   }, [])
 
 

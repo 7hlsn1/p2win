@@ -24,7 +24,8 @@ import LoginPage from './pages/login';
 import { Api } from './skds/api';
 import { useEffect, useState } from 'react';
 import Produtos from './pages/Anuncios';
-
+import Produto from './pages/Produtos';
+import Usuario from './pages/Usuario';
 const api = new Api('closed')
 
 function App() {
@@ -44,7 +45,8 @@ function App() {
         <Route path="/anunciar" element={<AnuncioPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/produtos" element={<Produtos />} />
-        <Route path="/usuarios/:id" element={<MinhaConta />} />
+        <Route path="/produtos/:id" element={<Produto />} />
+        <Route path="/usuarios/:id" element={<Usuario />} />
 
         <Route path="/minha-conta" element={<AccountPage />}>
           <Route index element={<Resumo />} />

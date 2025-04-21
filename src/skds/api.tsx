@@ -1,4 +1,6 @@
 import axios from "axios";
+import { ReactElement } from "react";
+import { Container, createRoot } from "react-dom/client";
 
 interface Category {
     id: number,
@@ -37,7 +39,7 @@ class Api {
     static type = 'closed'
     public token = localStorage.getItem('token');
     public data = {
-        baseURL: 'https://game-store-6d576f08fc9a.herokuapp.com',
+        baseURL: import.meta.env.VITE_API_URL,
         headers: {}
     }
     constructor(type_: string = 'closed') {
@@ -78,8 +80,8 @@ class Api {
         }
     })
 
-    getProfile = () => new Promise(async (resolve, reject) => {
-        const req = await this.api.get('/profile');
+    getProfile = (userId: number = 0) => new Promise(async (resolve, reject) => {
+        const req = await this.api.get(`/profile?user=${userId}`);
         resolve(req.data)
         reject()
     })
@@ -94,11 +96,39 @@ class Api {
     });
 
 
-    getProducts = (search: string | any = '', user: any = '', category: number = 0) => new Promise(async (resolve, reject) => {
+    getProducts = (search: string | any = '', user: number = 0, category: number = 0) => new Promise(async (resolve, reject) => {
         const req = await this.api.get(`/products?search=${search}&user=${user}&category_id=${category}`)
         const data = req.data
         resolve(data);
         reject();
+    });
+
+    getProduct = (id: number) => new Promise(async (resolve, reject) => {
+        const req = await this.api.get(`/products?id=${id}`)
+        const data = req.data
+        resolve(data);
+        reject();
+    });
+
+
+    getMyProducts = (search: string | any = '', status_: number | string = 10, category: number | string = '') => new Promise(async (resolve, reject) => {
+        if (status_ == 10) {
+            status_ = ''
+        }
+        try {
+            const req = await this.api.get(`/my_products?search=${search}&status=${status_}&category_id=${category}`)
+            const data = req.data
+            resolve(data);
+
+        } catch (err: any) {
+            console.log('err:')
+            console.log(err)
+            if (err.response.data.message.includes('Token')) {
+                document.location.href = '/login';
+            }
+           
+
+        }
     });
 
     createProduct = (category: number, type: number, title: string, description: string, price: number, banner: File, images: any) => new Promise(async (resolve, reject) => {
@@ -118,9 +148,58 @@ class Api {
         reject()
     })
 
+    followUser = (id: number) => new Promise(async (resolve, reject) => {
+        const req = await this.api.get(`/users/follow/${id}`)
+        resolve(req.data)
+        reject()
+    })
+    blockUser = (id: number) => new Promise(async (resolve, reject) => {
+        const req = await this.api.get(`/users/block/${id}`)
+        resolve(req.data)
+        reject()
+    })
+
+    favoriteUser = (id: number) => new Promise(async (resolve, reject) => {
+        const req = await this.api.get(`/users/favorite/${id}`)
+        resolve(req.data)
+        reject()
+    })
+
 }
 
+class TLoader {
 
 
-export { Api }
+    static tLoader = (value: number = 1) => {
+        const styles: any = {
+            position: 'fixed',
+            width: '100%',
+            height: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: 'rgba(0, 0, 0, .5)',
+            backdropFilter: 'blur(5px)',
+            color: 'white',
+            zIndex: '9999',
+            display: ['none', 'flex'][value]
+        }
+
+        const loader = `
+            
+                Carregando...
+            
+        `
+        let loaderFound = document.getElementById('tloader')
+        if (loaderFound) {
+            loaderFound.innerHTML = loader
+            Object.keys(styles).map((k: any) => {
+                loaderFound.style[k] = styles[k]
+            })
+        } else {
+            alert('err');
+        }
+    }
+}
+
+export { Api, TLoader }
 export type { Category, Auth, Product, Profile }
