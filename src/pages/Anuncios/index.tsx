@@ -3,6 +3,7 @@ import "./Anuncios.scss";
 import { Api, Product } from "../../skds/api";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import ProductCard from "../../components/ProductCard";
 moment.localeData('pt-br')
 moment.locale('pt-br')
 const api = new Api('closed')
@@ -41,31 +42,19 @@ const Produtos: React.FC = () => {
       <h3>{category}</h3>
       <br />
       <div className="lista-anuncios">
-        {anuncios.length > 0 ? anuncios.map((anuncio: Product) => (
-          <div key={anuncio.id} className="card-anuncio">
-            <div className="conteudo">
-              <a href={`/produtos/${anuncio.id.toString()}`} className="titulo">
-                {anuncio.title}
-              </a>
-              <div className="detalhes">
-                <span>{anuncio.type_id}</span>
+        {anuncios.length > 0 ? anuncios.map((product: Product) => (
+          <ProductCard
+            image={product.banner}
+            title={product.title}
+            id={product.id}
+            price={product.price}
+            description={product.description}
+            user={product.user}
+            user_id={product.user_id}
+          />
 
-                <h4 style={{ color: 'lime' }}>
-                  R$ {anuncio.price}
-                </h4>
-                <h5>
-                  {anuncio.description}
-                </h5>
-                <img src={anuncio.banner} alt="" />
-                <span style={{ fontSize: 10 }}>Publicado por</span> <span className="product-user"><Link to={`/usuarios/${anuncio.user_id}`}>{anuncio.user}</Link></span>
-                <span>{moment(anuncio.created_at).format('ddd, D MMMM, Y - H:m')}</span>
-              </div>
-            </div>
-            {/* <div className="acoes">
-              <button className="desativar">Desativar</button>
-              <button className="editar">Editar</button>
-            </div> */}
-          </div>
+
+
         )) :
           (
             <div>

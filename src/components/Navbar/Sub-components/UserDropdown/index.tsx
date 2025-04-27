@@ -14,9 +14,10 @@ export function UserDropdown({ children }: UserDropdownProps) {
     const [profile, setProfile] = useState<Profile | any>({})
 
     useEffect(() => {
-        api.getProfile().then((data: any) => {
-            setProfile(data)
+        api.getLoggedUser().then((user: any) => {
+            setProfile(user)
         })
+
     }, [])
 
     const handleLogout = () => {

@@ -1,5 +1,7 @@
 import './MinhaConta.scss';
-import { FaCheckCircle, FaHeart, FaUserPlus, FaBan, FaFlag } from 'react-icons/fa';
+// import styles from './MinhaConta.scss'
+import styles from '../Produtos/Produto.module.scss'
+import { FaCheckCircle, FaHeart, FaUserPlus, FaBan, FaFlag, FaStar } from 'react-icons/fa';
 import { Api, TLoader } from '../../skds/api';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
@@ -16,6 +18,7 @@ export default function Usuario() {
   const [products, setProducts] = useState([])
   const [search, setSearch] = useState('')
   const [categories, setCategories] = useState<any>([])
+  const [activeTab, setActiveTab] = useState('products')
 
   const params = useParams<string | any>();
   const userId = params.id
@@ -30,6 +33,7 @@ export default function Usuario() {
     TLoader.tLoader(1)
     api.getProfile(id).then((data: any) => {
       setUserProfile(data)
+      console.log(data)
       setFollowing(data.following)
       setProducts(data.products)
 
@@ -73,7 +77,7 @@ export default function Usuario() {
     })
   }
 
-  
+
   return (
     <div className="minha-conta" >
       <div className="header" style={{ display: userProfile.username ? 'flex' : 'none' }}>
@@ -104,9 +108,9 @@ export default function Usuario() {
 
 
       <div className="tabs">
-        <button className="active">ANÚNCIOS</button>
-        <button>AVALIAÇÕES</button>
-        <button>GALERIA</button>
+        <button onClick={() => { setActiveTab('products') }} className="active">ANÚNCIOS</button>
+        <button onClick={() => { setActiveTab('rates') }}>AVALIAÇÕES</button>
+        {/* <button>GALERIA</button> */}
       </div>
 
       <div className="filters">
@@ -121,29 +125,66 @@ export default function Usuario() {
         </select>
         <select><option>À Venda</option></select>
       </div>
-      <div className='products'>
-        {products ? (
-          products.map((product: any) => {
-            return (
-              <div className='product'>
-                <Link to={`/produtos/${product.id}`}>
-                  <h4>{product.title}</h4>
-                </Link>
-                <div className="banner" style={{ backgroundImage: `url("${import.meta.env.VITE_API_URL}${product.banner}")` }}>
+
+      {
+        activeTab == 'products' ? (
+          <div className='products'>
+
+            {products?.map((product: any) => {
+              return (
+                <div className='product'>
+                  <Link to={`/produtos/${product.id}`}>
+                    <h4>{product.title}</h4>
+                  </Link>
+                  <div className="banner" style={{ backgroundImage: `url("${import.meta.env.VITE_API_URL}${product.banner}")` }}>
+                  </div>
+                  <span className='description'>
+                    {product.description}
+                  </span>
+                  <span className="price">
+                    R$ {product.price}
+                  </span>
+                  <span>{moment(product.created_at).format('DD/MM/Y')}</span>
+                  <span>{['Aguardando aprovação', 'Aprovado', 'Vendido', 'Reprovado'][product.status]}</span>
                 </div>
-                <span className='description'>
-                  {product.description}
-                </span>
-                <span className="price">
-                  R$ {product.price}
-                </span>
-                <span>{moment(product.created_at).format('DD/MM/Y')}</span>
-                <span>{['Aguardando aprovação', 'Aprovado', 'Vendido', 'Reprovado'][product.status]}</span>
-              </div>
-            )
-          })
-        ) : <></>}
-      </div>
+              )
+            })}
+          </div>)
+          : <div className={styles.rates}>
+
+            {
+              userProfile.avaliations?.map((rate: any) => (
+                <div className={styles.rate}>
+
+                  <span>
+                    <div className={styles.avatar} style={{ backgroundImage: 'url("https://static.vecteezy.com/ti/vetor-gratis/p1/11483813-avatar-de-anime-de-cara-gratis-vetor.jpg")' }}>
+
+                    </div>
+                    <span className={styles.user}>{rate.user}</span><br />
+                    <span><span style={{ opacity: 0.5, fontSize: 'small' }}>Produto:</span>
+                      <br />
+                      <span style={{ fontSize: 'small' }}>{rate.product}</span></span>
+                    <span className={styles.avaliation}>{
+                      [...Array(rate.avaliation)].map(() => (
+                        <FaStar color='yellow' />
+                      ))
+                    }</span>
+                  </span>
+
+                  <span className={styles.content}>
+                    {rate.content}
+                  </span>
+                  <span className={styles.date}>{moment(rate.created_at).format('ddd, D MMMM, Y')}</span>
+                </div>
+              ))
+            }
+
+          </div>
+
+
+      }
+
     </div>
   );
+
 }

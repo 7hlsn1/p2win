@@ -9,7 +9,7 @@ const Cart: React.FC = () => {
   const addToCart = (product: Product) => {
     setCart((prevCart) => [...prevCart, product]);
   };
-  console.log(addToCart.arguments)
+  console.log(addToCart)
 
   // Função para remover do carrinho
   const removeFromCart = (productId: number) => {
@@ -22,7 +22,7 @@ const Cart: React.FC = () => {
   };
 
   useEffect(() => {
-    const api = new Api();
+    const api = new Api('open');
     api.getProducts().then((products: any) => {
       console.log(products);
     });

@@ -1,5 +1,5 @@
 import axios from "axios";
- 
+
 
 interface Category {
     id: number,
@@ -37,6 +37,7 @@ class Api {
     public api
     static type = 'closed'
     public token = localStorage.getItem('token');
+    public user = {}
     public data = {
         baseURL: import.meta.env.VITE_API_URL,
         headers: {}
@@ -54,10 +55,23 @@ class Api {
         }
         this.api = axios.create(this.data)
     }
-
+    getLoggedUser = () => new Promise(async (resolve, reject) => {
+        const userId = localStorage.getItem('user_id')
+        if (!userId) {
+            resolve(false)
+            return false;
+        }
+        await this.getProfile(parseInt(userId)).then(user => {
+            resolve(user)
+        })
+        reject()
+    })
     logout = () => new Promise(async (resolve, reject) => {
         await this.api.get('/logout')
-
+         
+        
+        localStorage.removeItem('token')
+        localStorage.removeItem('user_id')
         resolve(1)
         reject()
     })
@@ -125,7 +139,7 @@ class Api {
             if (err.response.data.message.includes('Token')) {
                 document.location.href = '/login';
             }
-           
+
 
         }
         reject()

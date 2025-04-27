@@ -1,11 +1,12 @@
 import styles from './Produto.module.scss';
 import { Api } from '../../skds/api';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Route, Router, useParams } from 'react-router-dom';
 const api = new Api('closed')
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { FaStar } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 
 function Produto() {
     const { id } = useParams();
@@ -18,19 +19,33 @@ function Produto() {
         );
     }
     const [product, setProduct] = useState<any>({})
-    useEffect(() => {
+    const [profile, setProfile] = useState<any>(false)
+     useEffect(() => {
         api.getProduct(parseInt(id.toString())).then((data: any) => {
             setProduct(data)
-            console.log(data.user)
+            api.getLoggedUser().then(user => {
+                setProfile(user)
+            })
+
         })
     }, [])
+    const handleBuy = () => {
+        if (!profile) {
+            document.location.href = '/login'
+        } else {
+            console.log(profile)
+            Swal.fire({
+                text: 'Ok'
+            })
+        }
+    }
     return (
         product.title ?
             (
                 <div className={styles.productWrapper}>
                     <div className={styles.productContainer}>
                         Categorias &gt;
-                        <Link to={`/produtos?category_id=${product.category_id}`} style={{color:'#0086c8'}}>
+                        <Link to={`/produtos?category_id=${product.category_id}`} style={{ color: '#0086c8' }}>
                             <h2>{product.category}</h2>
 
                         </Link>
@@ -39,10 +54,14 @@ function Produto() {
                         <div className={styles.description}>
                             {product.description}
                         </div>
+                        <div>
+                            R$ <b>{product.price}</b>
+                        </div>
                         {product.images ? (product.images.map((image: any) => { <img src={image.image} alt="" /> })) : <></>}
                         <span style={{ fontSize: 'small' }}>Publicado em</span> <span style={{ opacity: 0.7 }}>{moment(product.created_at).locale('pt-br').format('ddd, D MMMM, Y - H:m\\h')}</span><br />
                         <span style={{ fontSize: 'small' }}>Por</span> <Link to={`/usuarios/${product.user_id}`}> <span style={{ opacity: 0.7 }}>{product.user.username}</span></Link>
-                        <button>Comprar</button>
+
+                        <button onClick={handleBuy}>Comprar</button>
                     </div>
                     <div className={styles.sellerContainer}>
                         <h3>Vendedor</h3>

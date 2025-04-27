@@ -34,9 +34,15 @@ const api = new Api('closed')
 function App() {
   const [logged_, setLogged] = useState(false)
   useEffect(() => {
-    api.getProfile().then((data: any) => {
+    api.getLoggedUser().then((data: any) => {
+     
+      console.log(data)
+
       if (data.username) {
         setLogged(true)
+      } else {
+       
+        console.log(data)
       }
     })
   }, [])
