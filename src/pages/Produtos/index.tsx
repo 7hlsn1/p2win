@@ -1,7 +1,7 @@
 import styles from './Produto.module.scss';
 import { Api } from '../../skds/api';
 import { useEffect, useState } from 'react';
-import { Route, Router, useParams } from 'react-router-dom';
+import {   useParams } from 'react-router-dom';
 const api = new Api('closed')
 import moment from 'moment';
 import { Link } from 'react-router-dom';
