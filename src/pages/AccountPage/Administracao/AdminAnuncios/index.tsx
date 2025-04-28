@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import './AdminUsuarios.scss';
+import './AdminAnuncios.scss';
 import { Api } from '../../../../skds/api';
  
 import moment from 'moment';
@@ -7,18 +7,18 @@ const api = new Api('closed')
 
 
 
-export default function AdminUsuarios() {
-    const [usuarios, setUsuarios] = useState<any>([]);
+export default function AdminAnuncios() {
+    const [anuncios, setAnuncios] = useState<any>([]);
     useEffect(() => {
-        api.getUsers().then((users: any) => {
-            setUsuarios(users)
+        api.getAllProducts().then((anuncios_: any) => {
+            setAnuncios(anuncios_)
         })
     }, [])
     return (
         <div className="admin-container">
         
 
-            {usuarios.length > 0 && (
+            {anuncios.length > 0 && (
                 <table className="tabela-usuarios">
                     <thead>
                         <tr>
@@ -31,7 +31,7 @@ export default function AdminUsuarios() {
                         </tr>
                     </thead>
                     <tbody>
-                        {usuarios.map((usuario: any) => (
+                        {anuncios.map((usuario: any) => (
                             <tr key={usuario.id}>
                                 <td>{usuario.name ?? (<span style={{opacity:.5, textDecoration:'line-through', color:'red'}}>sem nome</span>)}</td>
                                 <td>{usuario.username}</td>

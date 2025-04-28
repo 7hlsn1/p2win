@@ -34,7 +34,7 @@ function Banner() {
                     products?.map((product: any) => {
                         return (
 
-                            <ProductCard image={product.banner} title={product.title} id={product.id} price={product.price} description={product.description} user={product.user} user_id={product.user_id}/>
+                            <ProductCard image={product.banner} title={product.title} id={product.id} price={product.price} description={product.description} user={product.user} user_id={product.user_id}  />
 
 
                         )

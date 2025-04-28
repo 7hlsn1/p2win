@@ -29,19 +29,20 @@ import { useEffect, useState } from 'react';
 import Produtos from './pages/Anuncios';
 import Produto from './pages/Produtos';
 import Usuario from './pages/Usuario';
+import AdminAnuncios from './pages/AccountPage/Administracao/AdminAnuncios';
 const api = new Api('closed')
 
 function App() {
   const [logged_, setLogged] = useState(false)
   useEffect(() => {
     api.getLoggedUser().then((data: any) => {
-     
+
       console.log(data)
 
       if (data.username) {
         setLogged(true)
       } else {
-       
+
         console.log(data)
       }
     })
@@ -57,7 +58,7 @@ function App() {
         <Route path="/produtos" element={<Produtos />} />
         <Route path="/produtos/:id" element={<Produto />} />
         <Route path="/usuarios/:id" element={<Usuario />} />
-        <Route path="/carrinho/:id" element={<Cart />}/>
+        <Route path="/carrinho/:id" element={<Cart />} />
         <Route path="/minha-conta" element={<AccountPage />}>
           <Route index element={<Resumo />} />
           <Route path="transacoes" element={<Transacoes />} />
@@ -73,8 +74,13 @@ function App() {
           <Route path="verificacoes" element={<Verificacoes />} />
           <Route path="seguranca" element={<Seguranca />} />
           <Route path="notificacoes" element={<Notificacoes />} />
-          <Route path="administracao/adminusuarios" element={<AdminUsuarios />} />
-          <Route path="administracao/admintransacoes" element={<AdminTransacoes />} />
+  
+        </Route>
+        <Route path="/admin" element={<AccountPage />}>
+          <Route path='usuarios' element={<AdminUsuarios />} />
+          <Route path='anuncios' element={<AdminAnuncios />} />
+          <Route path='transacoes' element={<AdminTransacoes />} />
+
         </Route>
       </Routes>
     </Container>

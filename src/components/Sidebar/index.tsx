@@ -110,29 +110,26 @@ const Sidebar = () => {
                     : profile.role == 'admin' ? (
                         <nav>
                             <ul>
-                                <NavLink to="/minha-conta" end className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                    <li>Resumo</li>
+                               
+                                <li className={styles.sectionTitle}>Gerenciamento</li>
+
+                                <NavLink to="/admin/usuarios" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                                    <li>Usuários</li>
                                 </NavLink>
-                                <NavLink to="/minha-conta/transacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                                <NavLink to="/admin/transacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
                                     <li>Transações</li>
                                 </NavLink>
-                                
-                                <li className={styles.sectionTitle}>CONFIGURAÇÕES</li>
-
-                                <NavLink to="/minha-conta/minha-conta" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                    <li>Minha conta</li>
-                                </NavLink>
-                                <NavLink to="/minha-conta/meus-dados" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                    <li>Meus dados</li>
+                                <NavLink to="/admin/anuncios" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                                    <li>Anúncios</li>
                                 </NavLink>
                                 <NavLink to="/minha-conta/verificacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                    <li>Verificações</li>
+                                    <li>Disputas</li>
                                 </NavLink>
                                 <NavLink to="/minha-conta/seguranca" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                    <li>Segurança</li>
+                                    <li>Reports</li>
                                 </NavLink>
                                 <NavLink to="/minha-conta/notificacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                    <li>Notificações</li>
+                                    <li>Opções</li>
                                 </NavLink>
 
                               

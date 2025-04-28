@@ -68,8 +68,8 @@ class Api {
     })
     logout = () => new Promise(async (resolve, reject) => {
         await this.api.get('/logout')
-         
-        
+
+
         localStorage.removeItem('token')
         localStorage.removeItem('user_id')
         resolve(1)
@@ -111,6 +111,13 @@ class Api {
 
     getProducts = (search: string | any = '', user: number = 0, category: number = 0) => new Promise(async (resolve, reject) => {
         const req = await this.api.get(`/products?search=${search}&user=${user}&category_id=${category}`)
+        const data = req.data
+        resolve(data);
+        reject();
+    });
+
+    getAllProducts = (search: string | any = '', user: number = 0, category: number = 0) => new Promise(async (resolve, reject) => {
+        const req = await this.api.get(`/admin/products?search=${search}&user=${user}&category_id=${category}`)
         const data = req.data
         resolve(data);
         reject();
@@ -175,6 +182,11 @@ class Api {
 
     favoriteUser = (id: number) => new Promise(async (resolve, reject) => {
         const req = await this.api.get(`/users/favorite/${id}`)
+        resolve(req.data)
+        reject()
+    })
+    getUsers = () => new Promise(async (resolve, reject) => {
+        const req = await this.api.get(`/admin/users/all`)
         resolve(req.data)
         reject()
     })

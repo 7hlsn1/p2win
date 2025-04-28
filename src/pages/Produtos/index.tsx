@@ -33,6 +33,7 @@ function Produto() {
         if (!profile) {
             document.location.href = '/login'
         } else {
+            /// TODO: Lógica de realizar o pedido
             console.log(profile)
             Swal.fire({
                 text: 'Ok'
@@ -50,7 +51,7 @@ function Produto() {
 
                         </Link>
                         <h3>{product.title}</h3>
-                        <img src={import.meta.env.VITE_API_URL + product.banner}></img>
+                        <img src={product.banner.startsWith('http') ? product.banner : import.meta.env.VITE_API_URL + product.banner}></img>
                         <div className={styles.description}>
                             {product.description}
                         </div>
