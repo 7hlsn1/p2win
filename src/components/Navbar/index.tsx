@@ -23,7 +23,7 @@ const Navbar: React.FC<Props> = ({ logged }: { logged: boolean }) => {
                     setExt('png')
                 }, 1000)
             }} onMouseLeave={() => { setExt('png') }} >
-                <img src={'/dist/assets/logo.' + ext} alt="Logo" className={styles.logoImage} />
+                <img src={'/assets/logo.' + ext} alt="Logo" className={styles.logoImage} />
                 <h1 style={{ color: '#cb2d2b' }}>P2WIN</h1>
             </Link>
 
