@@ -39,6 +39,8 @@ const Produtos: React.FC = () => {
 
     <div className="aba-anuncios">
       <br />
+      <Link style={{ color: 'rgb(0, 134, 200)', display: 'block', marginBottom:'1em' }} to='/categorias'>
+      Categorias <span>&gt;</span></Link>
       <h3>{category}</h3>
       <br />
       <div className="lista-anuncios">

@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import './AdminAnuncios.scss';
 import { Api } from '../../../../skds/api';
- 
+import CustomTable from '../../../../components/CustomTable';
+import { FaEye } from 'react-icons/fa';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 const api = new Api('closed')
 
 
@@ -10,40 +12,47 @@ const api = new Api('closed')
 export default function AdminAnuncios() {
     const [anuncios, setAnuncios] = useState<any>([]);
     useEffect(() => {
-        api.getAllProducts().then((anuncios_: any) => {
-            setAnuncios(anuncios_)
+        api.getAllProducts().then((r: any) => {
+            setAnuncios(r)
         })
     }, [])
     return (
         <div className="admin-container">
-        
 
-            {anuncios.length > 0 && (
-                <table className="tabela-usuarios">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Usuário</th>
-                            <th>Email</th>
-                            <th>Carteira</th>
-                            <th>Entrou em</th>
-                         
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {anuncios.map((usuario: any) => (
-                            <tr key={usuario.id}>
-                                <td>{usuario.name ?? (<span style={{opacity:.5, textDecoration:'line-through', color:'red'}}>sem nome</span>)}</td>
-                                <td>{usuario.username}</td>
-                                <td>{usuario.email}</td>
-                                <td style={{color:'green'}}>R$ {usuario.wallet}</td>
-                                <td style={{opacity:.5}}>{moment(usuario.created_at).format('DD/MM/YYYY H:mm\\h')}</td>
-                                
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            )}
+
+            {
+                anuncios.length > 0 ? (
+                    <CustomTable
+                        columns={['Título', 'Valor', 'Publicado em', 'Status', 'Publicado por', '']}
+                        rows=
+                        {
+                            anuncios.map(
+                                (anuncio: any) => [
+                                    [
+                                        anuncio.title,
+                                        `R$ ${anuncio.price}`,
+                                        moment(anuncio.created_at).format('D/MM/yyyy - H:m\\h'),
+                                        [
+                                            <span>Aguardando aprovação</span>,
+                                            <span style={{ color: 'green' }}>Aprovado</span>,
+                                            <span>Vendido</span>
+                                        ]
+                                        [anuncio.status],
+                                        <Link to={`/usuarios/${anuncio.user_id}`}>{anuncio.user}</Link>
+                                        ,
+
+                                        <Link to='/'><FaEye color='blue' /></Link>
+
+
+                                    ]
+                                ]
+                            )
+                        }
+
+
+                    />
+                ) : <></>
+            }
         </div>
-    );
+    )
 }

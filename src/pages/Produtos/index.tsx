@@ -1,7 +1,7 @@
 import styles from './Produto.module.scss';
 import { Api } from '../../skds/api';
 import { useEffect, useState } from 'react';
-import {   useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 const api = new Api('closed')
 import moment from 'moment';
 import { Link } from 'react-router-dom';
@@ -20,7 +20,7 @@ function Produto() {
     }
     const [product, setProduct] = useState<any>({})
     const [profile, setProfile] = useState<any>(false)
-     useEffect(() => {
+    useEffect(() => {
         api.getProduct(parseInt(id.toString())).then((data: any) => {
             setProduct(data)
             api.getLoggedUser().then(user => {
@@ -45,7 +45,8 @@ function Produto() {
             (
                 <div className={styles.productWrapper}>
                     <div className={styles.productContainer}>
-                        Categorias &gt;
+                        <Link style={{ color: 'rgb(0, 134, 200)', display: 'inline' }} to='/categorias'>
+                            Categorias <span>&gt;</span></Link>
                         <Link to={`/produtos?category_id=${product.category_id}`} style={{ color: '#0086c8' }}>
                             <h2>{product.category}</h2>
 
