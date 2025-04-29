@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect, ReactNode } from 'react';
-import { FaBars, FaUserCircle, FaMoon } from 'react-icons/fa';
+import { FaBars, FaUserCircle } from 'react-icons/fa';
 import { Link, NavLink } from 'react-router-dom';
 import styles from './UserDropdown.module.scss';
-import { Api, Profile } from '../../../../skds/api';
+import { Api } from '../../../../skds/api';
 const api = new Api('closed')
 interface UserDropdownProps {
     children?: ReactNode;
@@ -11,12 +11,13 @@ interface UserDropdownProps {
 export function UserDropdown({ children }: UserDropdownProps) {
     const [adminOpen, setAdminOpen] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
-    const [profile, setProfile] = useState<Profile | any>({})
+    const [profile, setProfile] = useState<any>({})
 
     useEffect(() => {
         api.getLoggedUser().then((user: any) => {
             setProfile(user)
         })
+
 
     }, [])
 
@@ -47,7 +48,8 @@ export function UserDropdown({ children }: UserDropdownProps) {
         };
     }, [menuOpen]);
 
-    return profile.username ? (
+    console.log(profile)
+    return (profile && profile.username) ? (
 
 
         <div className={styles.profileArea} ref={dropdownRef}>
@@ -161,10 +163,10 @@ export function UserDropdown({ children }: UserDropdownProps) {
                 <a style={{ color: 'red' }} onClick={handleLogout}>Sair</a>
                 {children}
 
-
+                {/* 
                 <button className={styles.themeToggle}>
                     <FaMoon /> Tema claro
-                </button>
+                </button> */}
             </div >
         </div >
     ) : (
@@ -179,9 +181,9 @@ export function UserDropdown({ children }: UserDropdownProps) {
 
 
 
-                <button className={styles.themeToggle}>
+                {/* <button className={styles.themeToggle}>
                     <FaMoon /> Tema claro
-                </button>
+                </button> */}
             </div>
         </div>
     );

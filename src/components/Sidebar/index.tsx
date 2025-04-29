@@ -116,21 +116,11 @@ const Sidebar = () => {
                                 <NavLink to="/admin/usuarios" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
                                     <li>Usuários</li>
                                 </NavLink>
-                                <NavLink to="/admin/transacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                    <li>Transações</li>
-                                </NavLink>
+                              
                                 <NavLink to="/admin/anuncios" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
                                     <li>Anúncios</li>
                                 </NavLink>
-                                <NavLink to="/minha-conta/verificacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                    <li>Disputas</li>
-                                </NavLink>
-                                <NavLink to="/minha-conta/seguranca" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                    <li>Reports</li>
-                                </NavLink>
-                                <NavLink to="/minha-conta/notificacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                    <li>Opções</li>
-                                </NavLink>
+                                
 
                               
                                 <NavLink to="/" className={styles.link}>

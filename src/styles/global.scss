@@ -8,7 +8,8 @@
 
 }
 
-html, body {
+html,
+body {
   background: variaveis.$cor-background-geral;
   color: variaveis.$cor-do-texto;
   overflow-x: hidden;
@@ -21,4 +22,8 @@ a {
 
 button {
   font-family: inherit;
+}
+
+.link {
+  color: #2790cd !important;
 }

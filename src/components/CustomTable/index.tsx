@@ -12,7 +12,7 @@ export default function CustomTable({ columns, rows }: any) {
             <tbody>
                 {
                     rows.map((row: any) => (
-                        <tr key={row[0]}>
+                        <tr key={row[0].id}>
                             {
                                 row[0].map((value: any) => (
                                     <td> {value}</td>

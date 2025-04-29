@@ -61,8 +61,8 @@ class Api {
             resolve(false)
             return false;
         }
-        await this.getProfile(parseInt(userId)).then(user => {
-            resolve(user)
+        await this.api.get('/verify_token').then((user: any) => {
+            resolve(user.data.user)
         })
         reject()
     })
@@ -116,8 +116,8 @@ class Api {
         reject();
     });
 
-    getAllProducts = (search: string | any = '', user: number = 0, category: number = 0) => new Promise(async (resolve, reject) => {
-        const req = await this.api.get(`/admin/products?search=${search}&user=${user}&category_id=${category}`)
+    getAllProducts = (search: string | any = '', user: string = '', category: number = 0, status = 0) => new Promise(async (resolve, reject) => {
+        const req = await this.api.get(`/admin/products?search=${search}&user=${user}&category_id=${category}&status=${status}`)
         const data = req.data
         resolve(data);
         reject();
@@ -130,6 +130,12 @@ class Api {
         reject();
     });
 
+    approveProduct = (id: number) => new Promise(async (resolve, reject) => {
+        const req = await this.api.get(`/products/approve/${id}`)
+        const data = req.data
+        resolve(data);
+        reject();
+    });
 
     getMyProducts = (search: string | any = '', status_: number | string = 10, category: number | string = '') => new Promise(async (resolve, reject) => {
         if (status_ == 10) {

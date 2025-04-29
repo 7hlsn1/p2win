@@ -31,15 +31,23 @@ import Produto from './pages/Produtos';
 import Usuario from './pages/Usuario';
 import AdminAnuncios from './pages/AccountPage/Administracao/AdminAnuncios';
 import Categorias from './pages/Categorias';
+import Footer from './components/Footer';
 const api = new Api('closed')
 
 function App() {
   const [logged_, setLogged] = useState(false)
+  const [admin, setAdmin] = useState(false)
+
   useEffect(() => {
     api.getLoggedUser().then((data: any) => {
 
       console.log(data)
 
+      if (data.role == 'admin') {
+        setAdmin(true)
+        
+
+      }
       if (data.username) {
         setLogged(true)
       } else {
@@ -50,7 +58,7 @@ function App() {
   }, [])
   return (
     <Container>
-      <Navbar logged={logged_} />
+      <Navbar logged={logged_} admin_={admin} />
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -76,7 +84,7 @@ function App() {
           <Route path="verificacoes" element={<Verificacoes />} />
           <Route path="seguranca" element={<Seguranca />} />
           <Route path="notificacoes" element={<Notificacoes />} />
-  
+
         </Route>
         <Route path="/admin" element={<AccountPage />}>
           <Route path='usuarios' element={<AdminUsuarios />} />
@@ -85,6 +93,7 @@ function App() {
 
         </Route>
       </Routes>
+      <Footer></Footer>
     </Container>
   );
 }

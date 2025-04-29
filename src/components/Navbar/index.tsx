@@ -10,9 +10,10 @@ import { Link } from 'react-router-dom';
 
 interface Props {
     logged: boolean;
+    admin_: boolean;
 }
 
-const Navbar: React.FC<Props> = ({ logged }: { logged: boolean }) => {
+const Navbar: React.FC<Props> = ({ logged, admin_ }: any) => {
     const [ext, setExt] = useState('png');
 
     return (
@@ -30,7 +31,7 @@ const Navbar: React.FC<Props> = ({ logged }: { logged: boolean }) => {
             <SearchBar />
 
             <div className={styles.rightArea}>
-                <NavLinks logged={logged} />
+                <NavLinks logged={logged} admin={admin_} />
                 <div className={`${styles.iconGroup} ${styles.desktopOnly}`}>
                     <IconButton icon={FaBell} color='black' />
                     <Link to="/carrinho">
