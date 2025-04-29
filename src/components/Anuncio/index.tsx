@@ -190,7 +190,7 @@ const Anuncio: React.FC = () => {
 
                       <div className={styles.imageGroup} style={{ backgroundImage: `url("${image.image}")` }}>
                         <div className={styles.iconGroup} datatype={image.image} onClick={handleDeleteImage} >
-                          <IconButton icon={FaTrash} />
+                          <IconButton color={'black'} icon={FaTrash} />
                         </div>
                       </div>
 

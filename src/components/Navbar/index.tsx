@@ -4,20 +4,27 @@ import { SearchBar } from './Sub-components/SearchBar';
 import { UserDropdown } from './Sub-components/UserDropdown';
 import { NavLinks } from './Sub-components/NavLink';
 import { IconButton } from './Sub-components/IconButton';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import LogoImg from '../../assets/images/logo.png';
+
 
 interface Props {
     logged: boolean;
 }
 
 const Navbar: React.FC<Props> = ({ logged }: { logged: boolean }) => {
+    const [ext, setExt] = useState('png');
+
     return (
         <header className={styles.navbar}>
-            <Link to="/" className={styles.logo}>
-                <img src={LogoImg} alt="Logo" className={styles.logoImage} />
-                <h1>P2WIN</h1>
+            <Link to="/" className={styles.logo} onMouseEnter={() => {
+                setExt('gif')
+                setTimeout(() => {
+                    setExt('png')
+                }, 1000)
+            }} onMouseLeave={() => { setExt('png') }} >
+                <img src={'/src/assets/images/logo.' + ext} alt="Logo" className={styles.logoImage} />
+                <h1 style={{ color: '#cb2d2b' }}>P2WIN</h1>
             </Link>
 
             <SearchBar />
@@ -25,9 +32,9 @@ const Navbar: React.FC<Props> = ({ logged }: { logged: boolean }) => {
             <div className={styles.rightArea}>
                 <NavLinks logged={logged} />
                 <div className={`${styles.iconGroup} ${styles.desktopOnly}`}>
-                    <IconButton icon={FaBell} />
+                    <IconButton icon={FaBell} color='black' />
                     <Link to="/carrinho">
-                        <IconButton icon={FaShoppingCart} />
+                        <IconButton color='black' icon={FaShoppingCart} />
                     </Link>
                     <UserDropdown />
                 </div>

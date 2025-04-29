@@ -1,0 +1,158 @@
+@use '../../styles/_variaveis';
+
+
+.cards {
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    padding-top: 1rem;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 0 auto;
+ 
+}
+
+.aba-anuncios {
+    color: variaveis.$cor-do-texto;
+    font-family: "Segoe UI", sans-serif;
+
+    .filtro {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+
+        label {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        select {
+            background: variaveis.$cor-do-p;
+            color: variaveis.$cor-do-texto;
+            border-radius: 6px;
+            border: none;
+            padding: 0.4rem 0.75rem;
+            font-size: 0.9rem;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 16px 16px;
+            cursor: pointer;
+            padding-right: 2rem;
+        }
+
+    }
+
+    .lista-anuncios {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        margin-bottom: 1em;
+    }
+
+    .card-anuncio {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        background: variaveis.$cor-do-p;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+        padding: 1rem;
+        border-radius: 10px;
+        transition: box-shadow 0.3s ease;
+        width: 400px;
+        img {
+            width: 100%;
+        }
+
+        .conteudo {
+            display: flex;
+            flex-direction: column;
+
+            .product-user {
+                opacity: .8;
+            }
+            .titulo {
+                font-weight: 600;
+                font-size: 0.95rem;
+                color: variaveis.$cor-do-texto;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+
+            .detalhes {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                margin-top: 0.4rem;
+                font-size: 0.8rem;
+                color: variaveis.$cor-do-texto;
+
+                .status {
+                    &--ativo {
+                        color: variaveis.$cor-success;
+                    }
+
+                    &--em-análise {
+                        color: #ffd600;
+                    }
+
+                    &--reprovado {
+                        color: #ff5252;
+                    }
+
+                    &--desativado {
+                        color: #757575;
+                    }
+
+                    &--suspenso {
+                        color: #ff9100;
+                    }
+                }
+            }
+        }
+
+        .acoes {
+            display: flex;
+            gap: 0.5rem;
+
+            button {
+                border: none;
+                padding: 0.5rem 1rem;
+                border-radius: 6px;
+                font-size: 0.8rem;
+                font-weight: 500;
+                cursor: pointer;
+                transition: background 0.3s ease;
+                margin-left: 8px;
+            }
+
+            .desativar {
+                background: #333;
+                color: variaveis.$cor-do-p;
+
+                &:hover {
+                    background: #444;
+                }
+            }
+
+            .editar {
+                background: variaveis.$cor-secundaria;
+                color: variaveis.$cor-do-texto;
+
+                &:hover {
+                    transition: background 0.9 ease;
+                }
+            }
+        }
+    }
+}

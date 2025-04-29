@@ -30,6 +30,7 @@ import Produtos from './pages/Anuncios';
 import Produto from './pages/Produtos';
 import Usuario from './pages/Usuario';
 import AdminAnuncios from './pages/AccountPage/Administracao/AdminAnuncios';
+import Categorias from './pages/Categorias';
 const api = new Api('closed')
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
         <Route path="/produtos" element={<Produtos />} />
         <Route path="/produtos/:id" element={<Produto />} />
         <Route path="/usuarios/:id" element={<Usuario />} />
+        <Route path="/categorias" element={<Categorias />} />
         <Route path="/carrinho/:id" element={<Cart />} />
         <Route path="/minha-conta" element={<AccountPage />}>
           <Route index element={<Resumo />} />

@@ -143,22 +143,30 @@ export function UserDropdown({ children }: UserDropdownProps) {
                     <FaUserCircle size={24} />
                     <div>
                         <span>Olá, {profile.username}!</span>
-                        <Link to="/minha-conta">Ver minha conta</Link>
+                        <Link to={profile.role == 'admin' ? '/admin/usuarios' : '/minha-conta'}>{profile.role == 'admin' ? 'Painel de administração' : 'Ver minha conta'}</Link>
                     </div>
                 </div>
+                {
+                    profile.role == 'admin' ?
+                        (
+                            <></>
+                        ) :
+                        (
+                            <>
+                                <a href="#">Minhas Compras</a>
+                                <a href="#">Meus favoritos</a>
 
-                <a href="#">Minhas Compras</a>
-                <a href="#">Meus favoritos</a>
+                            </>)
+                }
                 <a style={{ color: 'red' }} onClick={handleLogout}>Sair</a>
-
                 {children}
 
 
                 <button className={styles.themeToggle}>
                     <FaMoon /> Tema claro
                 </button>
-            </div>
-        </div>
+            </div >
+        </div >
     ) : (
         <div className={styles.profileArea} ref={dropdownRef}>
             <button onClick={toggleMenu} className={styles.menuIcon} aria-label="Abrir menu do usuário">

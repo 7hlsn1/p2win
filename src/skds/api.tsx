@@ -100,8 +100,8 @@ class Api {
     })
 
 
-    getCategories = (search: string = '') => new Promise(async (resolve, reject) => {
-        const req = await this.api.get('/categories?search=' + search);
+    getCategories = (search: string = '', limit: number = 10000) => new Promise(async (resolve, reject) => {
+        const req = await this.api.get(`/categories?search=${search}&limit=${limit}`);
         const data = req.data
 
         resolve(data);
