@@ -61,7 +61,7 @@ function Produto() {
 
                         </Link>
                         <h3>{product.title}</h3>
-                        
+
                         <div className={styles.description}>
                             {product.description}
                         </div>
@@ -79,7 +79,7 @@ function Produto() {
 
 
                                 </div>
-                                {product.images ? (product.images.map((image: any) => (
+                                {product.images.length > 0 ? (product.images.map((image: any) => (
                                     <div className={styles.imageWrapper} key={image.id}>
                                         <div className={styles.image} key={image.id} style={{
                                             backgroundImage: `url('${import.meta.env.VITE_API_URL + image.file}')`
