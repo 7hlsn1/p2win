@@ -45,7 +45,7 @@ function App() {
 
       if (data.role == 'admin') {
         setAdmin(true)
-        
+
 
       }
       if (data.username) {
@@ -57,44 +57,47 @@ function App() {
     })
   }, [])
   return (
-    <Container>
-      <Navbar logged={logged_} admin_={admin} />
-      <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/anunciar" element={<AnuncioPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/produtos" element={<Produtos />} />
-        <Route path="/produtos/:id" element={<Produto />} />
-        <Route path="/usuarios/:id" element={<Usuario />} />
-        <Route path="/categorias" element={<Categorias />} />
-        <Route path="/carrinho/:id" element={<Cart />} />
-        <Route path="/minha-conta" element={<AccountPage />}>
-          <Route index element={<Resumo />} />
-          <Route path="transacoes" element={<Transacoes />} />
-          <Route path="anuncios" element={<Anuncios />} />
-          <Route path="compras" element={<Compras />} />
-          <Route path="vendas" element={<Vendas />} />
-          <Route path="minhas-perguntas" element={<MinhasPerguntas />} />
-          <Route path="perguntas-recebidas" element={<PerguntasRecebidas />} />
-          <Route path="retiradas" element={<Retiradas />} />
-          <Route path="recargas" element={<Recargas />} />
-          <Route path="minha-conta" element={<MinhaConta />} />
-          <Route path="meus-dados" element={<MeusDados />} />
-          <Route path="verificacoes" element={<Verificacoes />} />
-          <Route path="seguranca" element={<Seguranca />} />
-          <Route path="notificacoes" element={<Notificacoes />} />
+    <>
+      <Container>
+        <Navbar logged={logged_} admin_={admin} />
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/anunciar" element={<AnuncioPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/produtos" element={<Produtos />} />
+          <Route path="/produtos/:id" element={<Produto />} />
+          <Route path="/usuarios/:id" element={<Usuario />} />
+          <Route path="/categorias" element={<Categorias />} />
+          <Route path="/carrinho/:id" element={<Cart />} />
+          <Route path="/minha-conta" element={<AccountPage />}>
+            <Route index element={<Resumo />} />
+            <Route path="transacoes" element={<Transacoes />} />
+            <Route path="anuncios" element={<Anuncios />} />
+            <Route path="compras" element={<Compras />} />
+            <Route path="vendas" element={<Vendas />} />
+            <Route path="minhas-perguntas" element={<MinhasPerguntas />} />
+            <Route path="perguntas-recebidas" element={<PerguntasRecebidas />} />
+            <Route path="retiradas" element={<Retiradas />} />
+            <Route path="recargas" element={<Recargas />} />
+            <Route path="minha-conta" element={<MinhaConta />} />
+            <Route path="meus-dados" element={<MeusDados />} />
+            <Route path="verificacoes" element={<Verificacoes />} />
+            <Route path="seguranca" element={<Seguranca />} />
+            <Route path="notificacoes" element={<Notificacoes />} />
 
-        </Route>
-        <Route path="/admin" element={<AccountPage />}>
-          <Route path='usuarios' element={<AdminUsuarios />} />
-          <Route path='anuncios' element={<AdminAnuncios />} />
-          <Route path='transacoes' element={<AdminTransacoes />} />
+          </Route>
+          <Route path="/admin" element={<AccountPage />}>
+            <Route path='usuarios' element={<AdminUsuarios />} />
+            <Route path='anuncios' element={<AdminAnuncios />} />
+            <Route path='transacoes' element={<AdminTransacoes />} />
 
-        </Route>
-      </Routes>
-      <Footer></Footer>
-    </Container>
+          </Route>
+        </Routes>
+
+      </Container>
+      <Footer />
+    </>
   );
 }
 

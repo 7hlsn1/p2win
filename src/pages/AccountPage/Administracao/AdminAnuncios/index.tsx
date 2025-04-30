@@ -45,7 +45,7 @@ export default function AdminAnuncios() {
 
             {
                 isModalOpen ? (
-                    <Modal onClose={() => {
+                    <Modal styles={{ width: '800px', maxWidth:'unset' }} onClose={() => {
                         setIsModalOpen(false)
                     }}>
                         <form action="">
@@ -92,14 +92,14 @@ export default function AdminAnuncios() {
             }
 
             Status
-            <div className="filters">
+            < div className="filters" >
                 <select name="" id="" onChange={handleChangeStatus}>
                     <option value="0">Aguardando aprovação</option>
                     <option value="1">Aprovado</option>
                     <option value="2">Vendido</option>
 
                 </select>
-            </div>
+            </div >
             {
                 anuncios.length > 0 ? (
                     <CustomTable
@@ -135,6 +135,6 @@ export default function AdminAnuncios() {
                     />
                 ) : <></>
             }
-        </div>
+        </div >
     )
 }

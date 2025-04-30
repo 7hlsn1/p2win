@@ -77,7 +77,7 @@ const Anuncio: React.FC = () => {
   }
 
   useEffect(() => {
-    api.getCategories().then((data: any) => {
+    api.getCategories('', 10000, true).then((data: any) => {
       setCategories(data)
     })
   }, [])

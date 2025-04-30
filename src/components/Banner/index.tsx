@@ -25,8 +25,9 @@ function Banner() {
     return (
 
         <section className={styles.banner}>
+            <img className={styles.banners} alt="" style={{ backgroundImage: `url('/assets/banner02.png')` }} />
             <h2>Produtos em destaque</h2>
-
+            
             <br />
             <div className="products">
 
