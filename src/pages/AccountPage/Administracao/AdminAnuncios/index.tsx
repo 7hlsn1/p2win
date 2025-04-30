@@ -7,6 +7,7 @@ import { FaEye } from 'react-icons/fa';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import Modal from '../../../../components/Modal';
+import Swal from 'sweetalert2';
 const api = new Api('closed')
 
 
@@ -37,6 +38,31 @@ export default function AdminAnuncios() {
             TLoader.tLoader(0)
         })
     }
+    const handleReject = () => {
+        api.rejectProduct(anuncio.id).then((data: any) => {
+            getAnuncios(status)
+            Swal.fire({
+                icon: 'success',
+                text: data.message
+            }).then((r: any) => {
+                console.log(r)
+                setIsModalOpen(false)
+            })
+        })
+    }
+    const handleSubmit = (e: any) => {
+        e.preventDefault()
+        api.approveProduct(anuncio.id).then((data: any) => {
+            getAnuncios(status)
+            Swal.fire({
+                icon: 'success',
+                text: data.message
+            }).then((r: any) => {
+                console.log(r)
+                setIsModalOpen(false)
+            })
+        })
+    }
     useEffect(() => {
         getAnuncios(status)
     }, [])
@@ -45,10 +71,10 @@ export default function AdminAnuncios() {
 
             {
                 isModalOpen ? (
-                    <Modal styles={{ width: '800px', maxWidth:'unset' }} onClose={() => {
+                    <Modal styles={{ width: '800px', maxWidth: 'unset' }} onClose={() => {
                         setIsModalOpen(false)
                     }}>
-                        <form action="">
+                        <form action="" onSubmit={handleSubmit}>
                             <div style={{ marginBottom: '1em' }}>
                                 Publicado por: <Link className='link' to={`/usuarios/${anuncio.user_id}`}>{anuncio.user.username}</Link>
 
@@ -81,7 +107,7 @@ export default function AdminAnuncios() {
                             </div>
                             <div className="buttons">
                                 <button type="submit" style={{ backgroundColor: '#2ecc71' }}>Aprovar</button>
-                                <button type="submit" style={{ backgroundColor: 'rgb(221, 76, 76)' }}>Rejeitar</button>
+                                <button type="button" onClick={handleReject} style={{ backgroundColor: 'rgb(221, 76, 76)' }}>Rejeitar</button>
 
                             </div>
 
@@ -97,6 +123,8 @@ export default function AdminAnuncios() {
                     <option value="0">Aguardando aprovação</option>
                     <option value="1">Aprovado</option>
                     <option value="2">Vendido</option>
+                    <option value="3">Rejeitado</option>
+
 
                 </select>
             </div >
@@ -115,13 +143,14 @@ export default function AdminAnuncios() {
                                         [
                                             <span>Aguardando aprovação</span>,
                                             <span style={{ color: 'green' }}>Aprovado</span>,
-                                            <span>Vendido</span>
+                                            <span>Vendido</span>,
+                                            <span style={{ color: 'red' }}>Rejeitado</span>
                                         ]
                                         [anuncio.status],
                                         <Link className='link' to={`/usuarios/${anuncio.user_id}`}>{anuncio.user}</Link>
                                         ,
 
-                                        <FaEye color='blue' onClick={() => {
+                                        <FaEye size={'20px'} cursor={'pointer'} color='blue' onClick={() => {
                                             handleOpenModal(anuncio.id)
                                         }} />
 

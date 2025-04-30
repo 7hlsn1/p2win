@@ -131,11 +131,19 @@ class Api {
     });
 
     approveProduct = (id: number) => new Promise(async (resolve, reject) => {
-        const req = await this.api.get(`/products/approve/${id}`)
+        const req = await this.api.get(`/admin/products/approve/${id}`)
         const data = req.data
         resolve(data);
         reject();
     });
+
+    rejectProduct = (id: number) => new Promise(async (resolve, reject) => {
+        const req = await this.api.get(`/admin/products/reject/${id}`)
+        const data = req.data
+        resolve(data);
+        reject();
+    });
+
 
     getMyProducts = (search: string | any = '', status_: number | string = 10, category: number | string = '') => new Promise(async (resolve, reject) => {
         if (status_ == 10) {

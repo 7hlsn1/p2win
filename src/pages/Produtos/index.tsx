@@ -7,8 +7,17 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { FaStar } from 'react-icons/fa';
 import Swal from 'sweetalert2';
-
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 function Produto() {
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
+    };
     const { id } = useParams();
     if (!id) {
         return (
@@ -52,14 +61,36 @@ function Produto() {
 
                         </Link>
                         <h3>{product.title}</h3>
-                        <img src={product.banner.startsWith('http') ? product.banner : import.meta.env.VITE_API_URL + product.banner}></img>
+                        
                         <div className={styles.description}>
                             {product.description}
                         </div>
                         <div>
                             R$ <b>{product.price}</b>
                         </div>
-                        {product.images ? (product.images.map((image: any) => { <img src={image.image} alt="" /> })) : <></>}
+                        <div className={styles.images}>
+                            <Slider {...settings}  >
+                                <div className={styles.imageWrapper}  >
+                                    <div className={styles.image} style={{
+                                        backgroundImage: `url('${product.banner.startsWith('http') ? product.banner : import.meta.env.VITE_API_URL + product.banner}')`
+                                    }}>
+
+                                    </div>
+
+
+                                </div>
+                                {product.images ? (product.images.map((image: any) => (
+                                    <div className={styles.imageWrapper} key={image.id}>
+                                        <div className={styles.image} key={image.id} style={{
+                                            backgroundImage: `url('${import.meta.env.VITE_API_URL + image.file}')`
+                                        }}>
+
+                                        </div>
+
+
+                                    </div>))) : <>Sem imagens</>}
+                            </Slider>
+                        </div>
                         <span style={{ fontSize: 'small' }}>Publicado em</span> <span style={{ opacity: 0.7 }}>{moment(product.created_at).locale('pt-br').format('ddd, D MMMM, Y - H:m\\h')}</span><br />
                         <span style={{ fontSize: 'small' }}>Por</span> <Link to={`/usuarios/${product.user_id}`}> <span style={{ opacity: 0.7 }}>{product.user.username}</span></Link>
 

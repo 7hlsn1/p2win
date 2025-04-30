@@ -16,7 +16,7 @@ const Anuncio: React.FC = () => {
   const [categoryId, setCategoryId] = useState('')
   const [valor, setValor] = useState('')
   const [images, setImages] = useState<any>([])
-
+  const [type, setType] = useState<any>({})
   const handleCreateProduct = () => {
 
     const newImages: any = []
@@ -86,6 +86,10 @@ const Anuncio: React.FC = () => {
     console.log(bannerFile)
     setBanner(URL.createObjectURL(e.target.files[0]))
   }
+  const handleSetType = (e: any) => {
+    console.log(e.target.value)
+    setType(JSON.parse(e.target.value))
+  }
   return (
     <div className={styles.container}>
       <h2>Criar novo anúncio</h2>
@@ -144,18 +148,61 @@ const Anuncio: React.FC = () => {
       }
 
       {categoryId ? (
-        <div className={styles.inlineInputs}>
-          <div className={styles.formGroup}>
-            <label htmlFor="valor">Valor do anúncio</label>
-            <input type="number" step="0.1" id="valor" placeholder="R$ 0,00"
-              onChange={(e) => {
-                setValor(e.target.value)
-              }}
-              value={valor}
-            />
+        <>
+          <div className={styles.inlineInputs}>
+            <div className={styles.formGroup}>
+              <label htmlFor="type">Tipo do anúncio</label>
+              <select name="type" id="type" onChange={handleSetType}>
+                {
+                  [
+                    {
+                      id: 1,
+                      tax: 10,
+                      title: 'Pro',
+                      position: 'Inicial'
+                    },
+                    {
+                      id: 2,
+                      tax: 15,
+                      position: 'Média',
+                      title: 'Premium',
+                    },
+                    {
+                      id: 3,
+                      tax: 20,
+                      position: 'Máxima',
+                      title: 'Max'
+                    }
+                  ].map((t: any) => (
+                    <option value={JSON.stringify(t)} key={t.id}>Anúncio {t.title}</option>
+                  ))
+                }
+              </select>
+              {
+                type ?
+                  <>
+                    <br />
+                    <br />
+                    Taxa de {type.tax}%<br /><br />
+                    Posição no rank {type.position}
+                  </>
+                  : null
+              }
+            </div>
           </div>
-        </div>
-      ) : <></>}
+          <div className={styles.inlineInputs}>
+            <div className={styles.formGroup}>
+              <label htmlFor="valor">Valor do anúncio</label>
+              <input type="number" step="0.1" id="valor" placeholder="R$ 0,00"
+                onChange={(e) => {
+                  setValor(e.target.value)
+                }}
+                value={valor}
+              />
+              Valor final: R$ {(parseFloat(valor) + (parseFloat(valor) * (type.tax / 100))).toFixed(2)}
+            </div>
+          </div>
+        </>) : <></>}
 
       {
         valor ? (

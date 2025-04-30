@@ -13,6 +13,29 @@
     h3 {
         margin: 1em 0;
     }
+
+    .images {
+        width: 100%;
+        margin: 1em auto;
+    
+
+        .imageWrapper {
+            
+            .image {
+                border-radius: 3px;
+                height: 100%;
+                background-size: cover;
+                background-position: center;
+            }
+
+
+            height: 400px;
+
+            img {
+                width: 100%;
+            }
+        }
+    }
 }
 
 .productContainer {
@@ -44,7 +67,7 @@
 
     flex-direction: column;
 
-    
+
 }
 
 .rates {
