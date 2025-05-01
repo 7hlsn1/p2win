@@ -228,7 +228,8 @@ class TLoader {
         setTimeout(() => {
             resolve(true)
         }, time)
-        reject()
+        if (0)
+            reject()
     })
     static tLoader = async (value: number = 1) => {
 
@@ -252,7 +253,7 @@ class TLoader {
             zIndex: '99933399',
             display: ['none', 'flex'][value]
         }
-     
+
         const loader = `
  
             <img src='/assets/logo.gif' />
