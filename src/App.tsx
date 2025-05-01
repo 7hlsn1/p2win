@@ -42,13 +42,12 @@ function App() {
     api.getLoggedUser().then((data: any) => {
 
       console.log(data)
-
-      if (data.role == 'admin') {
+      if (data && data.role == 'admin') {
         setAdmin(true)
 
 
       }
-      if (data.username) {
+      if (data && data.username) {
         setLogged(true)
       } else {
 

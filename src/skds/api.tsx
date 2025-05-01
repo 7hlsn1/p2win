@@ -56,16 +56,19 @@ class Api {
         this.api = axios.create(this.data)
     }
     getLoggedUser = () => new Promise(async (resolve, reject) => {
+        TLoader.tLoader(1)
+        await this.api.get('/verify_token').then(async (user: any) => {
+            TLoader.tLoader(0, 1000)
+            resolve(user.data.user)
+        })
+
         const userId = localStorage.getItem('user_id')
         if (!userId) {
             resolve(false)
             return false;
         }
-        TLoader.tLoader(1)
-        await this.api.get('/verify_token').then((user: any) => {
-            TLoader.tLoader(0)
-            resolve(user.data.user)
-        })
+
+
         reject()
     })
     logout = () => new Promise(async (resolve, reject) => {
@@ -211,15 +214,31 @@ class Api {
 
 class TLoader {
 
+    static sleep = (time: number) => new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(true)
 
-    static tLoader = (value: number = 1) => {
+        }, time)
+        reject('End')
+    })
+    static tLoader = async (value: number = 1, time: number = 0) => {
+        console.log('here1')
+        console.log(time)
+
+
+        await TLoader.sleep(time)
+        console.log('end')
+
+
+
         const styles: any = {
             position: 'fixed',
+            flexDirection: 'column',
             width: '100%',
             height: '100%',
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: 'rgba(0, 0, 0, .5)',
+            backgroundColor: 'rgba(0, 0, 0, .8)',
             backdropFilter: 'blur(5px)',
             color: 'white',
             zIndex: '9999',
@@ -229,8 +248,9 @@ class TLoader {
         const loader = `
 
             <img src='/assets/logo.gif' />
+            <span style="color: white">Carregando...</span>
 
-        )`
+        `
         let loaderFound = document.getElementById('tloader')
         if (loaderFound) {
             loaderFound.innerHTML = loader
@@ -240,6 +260,8 @@ class TLoader {
         } else {
             alert('err');
         }
+
+
     }
 }
 

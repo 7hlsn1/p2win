@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styles from './ProductCard.module.scss';
 import moment from 'moment';
 
-function ProductCard({ id, title, image, description, price, created_at, user, user_id, status }: any) {
+function ProductCard({ id, title, image, description, price, created_at, user, user_id, status, user_online = 0 }: any) {
     console.log(user)
     {/* <div className='product'>
                                     <Link to={`/produtos/${product.id}`}>
@@ -42,8 +42,14 @@ function ProductCard({ id, title, image, description, price, created_at, user, u
                         <Link to={`/usuarios/${user_id}`} className={styles.link}>
                             {user}
                         </Link>
+                        <span className={user_online == 1 ? styles.online : styles.offline}>
+
+                            {/* {[<span>Offline</span >, <span>Online</span >][user_online]} */}
+
+                        </span>
                     </span>
                     : <></>
+
             }
         </div>
 

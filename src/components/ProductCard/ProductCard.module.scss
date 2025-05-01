@@ -16,13 +16,37 @@
     flex-direction: column;
     align-items: self-start;
 
+
+    .online,
+    .offline {
+        padding: 3px;
+        border-radius: 100%;
+        margin: 3px;
+
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+
+    }
+
+    .online {
+        background-color: greenyellow;
+
+    }
+    .offline {
+        background-color: rgb(87, 87, 87);
+
+    }
     .date {
         opacity: .5;
         font-size: small;
     }
+
     .user {
         font-size: small;
+
     }
+
     .link {
         color: variaveis.$cor-do-link;
 
@@ -45,6 +69,8 @@
         font-size: 0.95rem;
         font-weight: 500;
         color: variaveis.$cor-do-texto;
+
+
     }
 
     // &:hover {
