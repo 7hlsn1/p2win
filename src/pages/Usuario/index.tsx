@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 import { Profile } from '../../skds/api';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
+import ProductCard from '../../components/ProductCard';
 
 export default function Usuario() {
 
@@ -37,7 +38,7 @@ export default function Usuario() {
       setFollowing(data.following)
       setProducts(data.products)
       setBlocked(data.blocked)
- 
+
       data.products.map((product: any) => {
 
         if (!categories.includes({
@@ -131,23 +132,9 @@ export default function Usuario() {
         activeTab == 'products' ? (
           <div className='products'>
 
-            {products?.map((product: any) => {
+            {products?.map((product_: any) => {
               return (
-                <div className='product'>
-                  <Link to={`/produtos/${product.id}`}>
-                    <h4>{product.title}</h4>
-                  </Link>
-                  <div className="banner" style={{ backgroundImage: `url("${import.meta.env.VITE_API_URL}${product.banner}")` }}>
-                  </div>
-                  <span className='description'>
-                    {product.description}
-                  </span>
-                  <span className="price">
-                    R$ {product.price}
-                  </span>
-                  <span>{moment(product.created_at).format('DD/MM/Y')}</span>
-                  <span>{['Aguardando aprovação', 'Aprovado', 'Vendido', 'Reprovado'][product.status]}</span>
-                </div>
+                <ProductCard product={product_}/>
               )
             })}
           </div>)

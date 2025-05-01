@@ -2,23 +2,9 @@ import { Link } from 'react-router-dom';
 import styles from './ProductCard.module.scss';
 import moment from 'moment';
 
-function ProductCard({ id, title, image, description, price, created_at, user, user_id, status, user_online = 0 }: any) {
-    console.log(user)
-    {/* <div className='product'>
-                                    <Link to={`/produtos/${product.id}`}>
-                                        <h4>{product.title}</h4>
-                                    </Link>
-                                    <div className="banner" style={{ backgroundImage: `url("${import.meta.env.VITE_API_URL}${product.banner}")` }}>
-                                    </div>
-                                    <span className='description'>
-                                        {product.description}
-                                    </span>
-                                    <span className="price">
-                                        R$ {product.price}
-                                    </span>
-                                    <span>{moment(product.created_at).format('DD/MM/Y')}</span>
-                                    <span>{['Aguardando aprovação', 'Aprovado', 'Vendido', 'Reprovado'][product.status]}</span>
-                                </div> */}
+function ProductCard(props: any) {
+    const { id, title, banner, description, price, created_at, user, user_id, status, user_online = 0 } = props.product
+    
 
     return (
 
@@ -27,13 +13,13 @@ function ProductCard({ id, title, image, description, price, created_at, user, u
                 <h4 className={styles.title}>{title}</h4>
             </Link>
 
-            <img src={image.startsWith('http') ? image : import.meta.env.VITE_API_URL + image} alt={'Carregando imagem...'} />
+            <img src={banner.startsWith('http') ? banner : import.meta.env.VITE_API_URL + banner} alt={'Carregando imagem...'} />
             <span>{description}</span>
             <span className="price">
                 R$ {price}
             </span>
             <span className={styles.date}>{moment(created_at).format('DD/MM/Y')}</span>
-            <span>{['Aguardando aprovação', 'Aprovado', 'Vendido', 'Reprovado'][status]}</span>
+            {/* <span>{['Aguardando aprovação', 'Aprovado', 'Vendido', 'Reprovado'][status]}</span> */}
 
             {
                 user ?

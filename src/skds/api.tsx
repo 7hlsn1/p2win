@@ -104,7 +104,12 @@ class Api {
         reject()
     })
 
-
+    getSellers = () => new Promise(async (resolve, reject) => {
+        const req = await this.api.get('/sellers');
+        const data = req.data
+        resolve(data)
+        reject()
+    })
     getCategories = (search: string = '', limit: number = 10000, all: boolean = false) => new Promise(async (resolve, reject) => {
         const req = await this.api.get(`/categories?search=${search}&limit=${limit}` + (all ? '&all=1' : ''));
         const data = req.data

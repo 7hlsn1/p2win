@@ -1,0 +1,94 @@
+@use '../../styles/variaveis';
+
+.card {
+    background: variaveis.$cor-do-p;
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+    color: variaveis.$cor-do-texto;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+    max-width: 300px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: self-start;
+
+    .userLine {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: center;
+        gap: 3px;
+    }
+
+    .avatar {
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
+    }
+
+    .online,
+    .offline {
+        padding: 3px;
+        border-radius: 100%;
+        margin: 3px;
+
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+
+    }
+
+    .online {
+        background-color: greenyellow;
+
+    }
+
+    .offline {
+        background-color: rgb(87, 87, 87);
+
+    }
+
+    .date {
+        opacity: .5;
+        font-size: small;
+    }
+
+    .user {
+        font-size: small;
+
+    }
+
+    .link {
+        color: variaveis.$cor-do-link;
+
+    }
+
+    h4 {
+        margin-bottom: 1em;
+    }
+
+    img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 0.5rem;
+    }
+
+    span {
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: variaveis.$cor-do-texto;
+
+
+    }
+
+    // &:hover {
+    //     transform: translateY(-5px);
+    //     box-shadow: 0 8px 20px rgba(0, 170, 255, 0.25);
+    // }
+}

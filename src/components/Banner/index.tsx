@@ -6,17 +6,24 @@ import ProductCard from '../ProductCard';
 import { useEffect, useState } from 'react';
 
 import { Api } from '../../skds/api';
+import SellerCard from '../SellerCard';
 
 const api = new Api('open')
 function Banner() {
     const [categories, setCategories] = useState<any>([])
     const [products, setProducts] = useState<any>([])
+    const [sellers, setSellers] = useState<any>([])
+
     useEffect(() => {
+        api.getSellers().then(data => {
+            setSellers(data)
+            console.log(data)
+        })
         api.getCategories('', 6).then((data) => {
             setCategories(data)
         })
-        api.getProducts().then(products_ => {
-            setProducts(products_)
+        api.getProducts().then(data => {
+            setProducts(data)
 
         })
     }, [])
@@ -26,8 +33,14 @@ function Banner() {
 
         <section className={styles.banner}>
             <img className={styles.banners} alt="" style={{ backgroundImage: `url('/assets/banner02.png')` }} />
+            <h4>Vendedores em destaque</h4>
+            <div className='products'>
+                {sellers.map((seller_: any) => (
+                    <SellerCard seller={seller_} />
+                ))}
+            </div>
             <h2>Produtos em destaque</h2>
-            
+
             <br />
             <div className="products">
 
@@ -35,7 +48,7 @@ function Banner() {
                     products?.map((product: any) => {
                         return (
 
-                            <ProductCard image={product.banner} title={product.title} id={product.id} price={product.price} description={product.description} user={product.user} user_id={product.user_id} user_online={product.user_online}/>
+                            <ProductCard product={product} />
 
 
                         )
