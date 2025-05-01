@@ -12,7 +12,7 @@ function Banner() {
     const [categories, setCategories] = useState<any>([])
     const [products, setProducts] = useState<any>([])
     useEffect(() => {
-        api.getCategories('', 8).then((data) => {
+        api.getCategories('', 6).then((data) => {
             setCategories(data)
         })
         api.getProducts().then(products_ => {

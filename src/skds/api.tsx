@@ -61,7 +61,9 @@ class Api {
             resolve(false)
             return false;
         }
+        TLoader.tLoader(1)
         await this.api.get('/verify_token').then((user: any) => {
+            TLoader.tLoader(0)
             resolve(user.data.user)
         })
         reject()
@@ -225,10 +227,10 @@ class TLoader {
         }
 
         const loader = `
-            
-                Carregando...
-            
-        `
+
+            <img src='/assets/logo.gif' />
+
+        )`
         let loaderFound = document.getElementById('tloader')
         if (loaderFound) {
             loaderFound.innerHTML = loader

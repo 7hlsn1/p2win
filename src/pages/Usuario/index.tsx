@@ -36,7 +36,8 @@ export default function Usuario() {
       console.log(data)
       setFollowing(data.following)
       setProducts(data.products)
-
+      setBlocked(data.blocked)
+ 
       data.products.map((product: any) => {
 
         if (!categories.includes({
