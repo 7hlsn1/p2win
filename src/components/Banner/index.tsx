@@ -7,12 +7,24 @@ import { useEffect, useState } from 'react';
 
 import { Api } from '../../skds/api';
 import SellerCard from '../SellerCard';
+import Slider from 'react-slick';
+import '../../../node_modules/slick-carousel/slick/slick.css'
+import '../../../node_modules/slick-carousel/slick/slick-theme.css'
+
 
 const api = new Api('open')
 function Banner() {
     const [categories, setCategories] = useState<any>([])
     const [products, setProducts] = useState<any>([])
     const [sellers, setSellers] = useState<any>([])
+
+    const settings = {
+        dots: true,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
+    };
 
     useEffect(() => {
         api.getSellers().then(data => {
@@ -31,12 +43,19 @@ function Banner() {
 
     return (
 
-        <section className={styles.banner}>
-            <img className={styles.banners} alt="" style={{ backgroundImage: `url('/assets/banner02.png')` }} />
-            <h4>Vendedores em destaque</h4>
+        <section className={styles.banner} >
+            <Slider {...settings} >
+                <div>
+                    <img src={'/assets/banner02.png'} style={{ width: '100%' }} />
+                </div>
+                <div>
+                    <img src={'/assets/banner02.png'} style={{ width: '100%' }} />
+                </div>
+            </Slider>
+            <h4 style={{ marginTop: '1em' }}>Vendedores em destaque</h4>
             <div className='products'>
                 {sellers.map((seller_: any) => (
-                    <SellerCard seller={seller_} />
+                    <SellerCard seller={seller_} key={seller_.id} />
                 ))}
             </div>
             <h2>Produtos em destaque</h2>
@@ -48,7 +67,7 @@ function Banner() {
                     products?.map((product: any) => {
                         return (
 
-                            <ProductCard product={product} />
+                            <ProductCard product={product} key={product.id} />
 
 
                         )

@@ -57,8 +57,11 @@ class Api {
     }
     getLoggedUser = () => new Promise(async (resolve, reject) => {
         TLoader.tLoader(1)
+
         await this.api.get('/verify_token').then(async (user: any) => {
-            TLoader.tLoader(0, 1000)
+            await TLoader.sleep(1000)
+            TLoader.tLoader(0)
+
             resolve(user.data.user)
         })
 
@@ -82,7 +85,9 @@ class Api {
     })
 
     login = (email: string, password: string) => new Promise(async (resolve, reject) => {
+        TLoader.tLoader(1)
         const req = await this.api.post('/login', { email, password });
+        TLoader.tLoader(0)
         resolve(req.data)
         if (!req) {
             reject()
@@ -219,42 +224,41 @@ class Api {
 
 class TLoader {
 
-    static sleep = (time: number) => new Promise((resolve, reject) => {
+    static sleep = async (time: number) => new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve(true)
-
         }, time)
-        reject('End')
+        reject()
     })
-    static tLoader = async (value: number = 1, time: number = 0) => {
-        console.log('here1')
-        console.log(time)
+    static tLoader = async (value: number = 1) => {
 
 
-        await TLoader.sleep(time)
-        console.log('end')
+
 
 
 
         const styles: any = {
             position: 'fixed',
+            top: 0,
+            left: 0,
             flexDirection: 'column',
-            width: '100%',
-            height: '100%',
+            width: '100vw',
+            height: '100vh',
             alignItems: 'center',
             justifyContent: 'center',
             backgroundColor: 'rgba(0, 0, 0, .8)',
             backdropFilter: 'blur(5px)',
             color: 'white',
-            zIndex: '9999',
+            zIndex: '99933399',
             display: ['none', 'flex'][value]
         }
+        alert(value)
 
         const loader = `
-
+ 
             <img src='/assets/logo.gif' />
             <span style="color: white">Carregando...</span>
-
+ 
         `
         let loaderFound = document.getElementById('tloader')
         if (loaderFound) {
@@ -262,9 +266,10 @@ class TLoader {
             Object.keys(styles).map((k: any) => {
                 loaderFound.style[k] = styles[k]
             })
-        } else {
-            alert('err');
         }
+
+
+
 
 
     }

@@ -8,7 +8,7 @@ function SellerCard(props: any) {
     
     return (
 
-        <div className={styles.card}>
+        <div className={styles.card} >
             <Link to={`/usuarios/${id}`}>
                 <span className={styles.userLine}>
                     {
