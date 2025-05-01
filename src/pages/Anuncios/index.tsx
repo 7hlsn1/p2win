@@ -39,20 +39,14 @@ const Produtos: React.FC = () => {
 
     <div className="aba-anuncios">
       <br />
-      <Link style={{ color: 'rgb(0, 134, 200)', display: 'block', marginBottom:'1em' }} to='/categorias'>
-      Categorias <span>&gt;</span></Link>
+      <Link style={{ color: 'rgb(0, 134, 200)', display: 'block', marginBottom: '1em' }} to='/categorias'>
+        Categorias <span>&gt;</span></Link>
       <h3>{category}</h3>
       <br />
       <div className="lista-anuncios">
-        {anuncios.length > 0 ? anuncios.map((product: Product) => (
+        {anuncios.length > 0 ? anuncios.map((product_: any) => (
           <ProductCard
-            image={product.banner}
-            title={product.title}
-            id={product.id}
-            price={product.price}
-            description={product.description}
-            user={product.user}
-            user_id={product.user_id}
+            product={product_}
           />
 
 
