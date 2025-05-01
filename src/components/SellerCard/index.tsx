@@ -4,8 +4,10 @@ import moment from 'moment';
 
 function SellerCard(props: any) {
 
-    const { avatar, username, online, created_at, id } = props.seller
-    
+    const { avatar, username, online, created_at, id, products } = props.seller
+    console.log('props.seller')
+    console.log(props.seller)
+    console.log(products)
     return (
 
         <div className={styles.card} >
@@ -18,16 +20,18 @@ function SellerCard(props: any) {
                             <img className={styles.avatar} src={'https://cdn-icons-png.flaticon.com/512/147/147142.png'} />
                     }
 
-
                     <span >{username}</span>
                     <span className={online == 1 ? styles.online : styles.offline}>
 
 
                     </span>
                 </span>
-
+                
             </Link>
 
+
+
+            <span className={styles.date}>Anúncios atuais {products?.length}</span>
 
             <span className={styles.date}>Entrou em: {moment(created_at).format('DD/MM/Y')}</span>
 

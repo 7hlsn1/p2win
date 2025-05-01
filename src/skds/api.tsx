@@ -247,8 +247,8 @@ class TLoader {
             height: '100vh',
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: 'rgba(0, 0, 0, .8)',
-            backdropFilter: 'blur(5px)',
+            backgroundColor: 'rgba(0, 0, 0, 0.76)',
+            backdropFilter: 'blur(15px)',
             color: 'white',
             zIndex: '99933399',
             display: ['none', 'flex'][value]

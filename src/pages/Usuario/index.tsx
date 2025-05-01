@@ -34,6 +34,7 @@ export default function Usuario() {
     TLoader.tLoader(1)
     api.getProfile(id).then((data: any) => {
       setUserProfile(data)
+      console.log('data')
       console.log(data)
       setFollowing(data.following)
       setProducts(data.products)
