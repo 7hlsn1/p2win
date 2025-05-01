@@ -252,8 +252,7 @@ class TLoader {
             zIndex: '99933399',
             display: ['none', 'flex'][value]
         }
-        alert(value)
-
+     
         const loader = `
  
             <img src='/assets/logo.gif' />
