@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Anuncios.scss";
-import { Api, Product } from "../../skds/api";
+import { Api  } from "../../skds/api";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import ProductCard from "../../components/ProductCard";

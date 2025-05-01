@@ -64,10 +64,10 @@ function Banner() {
             <div className="products">
 
                 {
-                    products?.map((product: any) => {
+                    products?.map((product_: any) => {
                         return (
 
-                            <ProductCard product={product} key={product.id} />
+                            <ProductCard product={product_} key={product_.id} />
 
 
                         )
