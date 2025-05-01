@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Profile } from '../../skds/api';
 import moment from 'moment';
-import { Link } from 'react-router-dom';
+ 
 import ProductCard from '../../components/ProductCard';
 
 export default function Usuario() {

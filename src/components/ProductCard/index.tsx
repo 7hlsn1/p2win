@@ -3,7 +3,7 @@ import styles from './ProductCard.module.scss';
 import moment from 'moment';
 
 function ProductCard(props: any) {
-    const { id, title, banner, description, price, created_at, user, user_id, status, user_online = 0 } = props.product
+    const { id, title, banner, description, price, created_at, user, user_id, user_online = 0 } = props.product
     
 
     return (
