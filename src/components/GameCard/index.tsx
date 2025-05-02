@@ -7,7 +7,7 @@ interface GameCardProps {
     image: string;
 }
 
-function GameCard({ id, title, image, ...buy }: GameCardProps) {
+function GameCard({ id, title, image  }: GameCardProps) {
     return (
         <Link to={`/produtos?category_id=${id}`}>
             <div className={styles.card}>
