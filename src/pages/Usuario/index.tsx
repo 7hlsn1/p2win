@@ -118,7 +118,7 @@ export default function Usuario() {
 
       <div className="filters">
         <input type="text" placeholder="Pesquisar" value={search} onChange={handleSearch} />
-        <select>
+        {/* <select>
           <option>Categoria</option>
           {
             categories.map((cat: any) => {
@@ -126,7 +126,7 @@ export default function Usuario() {
             })
           }
         </select>
-        <select><option>À Venda</option></select>
+        <select><option>À Venda</option></select> */}
       </div>
 
       {
@@ -135,7 +135,7 @@ export default function Usuario() {
 
             {products?.map((product_: any) => {
               return (
-                <ProductCard product={product_}/>
+                  <ProductCard product={product_} buy={true}/>
               )
             })}
           </div>)

@@ -19,7 +19,8 @@ function Banner() {
     const [sellers, setSellers] = useState<any>([])
 
     const settings = {
-        dots: true,
+        dots: false,
+        buttons: false,
         infinite: false,
         speed: 500,
         slidesToShow: 1,
@@ -67,7 +68,7 @@ function Banner() {
                     products?.map((product_: any) => {
                         return (
 
-                            <ProductCard product={product_} key={product_.id} />
+                            <ProductCard product={product_} key={product_.id} buy={true}/>
 
 
                         )

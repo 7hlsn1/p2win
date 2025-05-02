@@ -4,11 +4,11 @@ import moment from 'moment';
 
 function ProductCard(props: any) {
     const { id, title, banner, description, price, created_at, user, user_id, user_online = 0 } = props.product
-    
+    const buy = props.buy
 
     return (
 
-        <div className={styles.card}>
+        <div className={styles.card} >
             <Link to={`/produtos/${id}`}>
                 <h4 className={styles.title}>{title}</h4>
             </Link>
@@ -19,6 +19,15 @@ function ProductCard(props: any) {
                 R$ {price}
             </span>
             <span className={styles.date}>{moment(created_at).format('DD/MM/Y')}</span>
+            {buy ? <div className={styles.buttons}>
+                <Link to={`/produtos/${id}`}>
+                <button style={{ backgroundColor: '#00a500', color: 'white' , 'padding': '5px 10px'}}>Visualizar</button>
+           
+                </Link>
+                </div>
+
+                : <></>}
+
             {/* <span>{['Aguardando aprovação', 'Aprovado', 'Vendido', 'Reprovado'][status]}</span> */}
 
             {
