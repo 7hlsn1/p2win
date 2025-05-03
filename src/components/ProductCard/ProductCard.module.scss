@@ -9,8 +9,8 @@
     transition: transform 0.3s, box-shadow 0.3s;
     cursor: pointer;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
-    max-width: 300px;
-    width: 100%;
+    width: 400px;
+    
     position: relative;
 
     display: flex;
@@ -18,9 +18,17 @@
     justify-content: space-between;
 
     .buttons {
-     
-         
-        
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        margin: 10px auto;
+        button {
+            background-color: #00a500;
+            color: white;
+            margin: auto 10px;
+        }
+
+
     }
 
     .online,
@@ -33,16 +41,18 @@
         width: 10px;
         height: 10px;
 
-    }   
+    }
 
     .online {
         background-color: greenyellow;
 
     }
+
     .offline {
         background-color: rgb(87, 87, 87);
 
     }
+
     .date {
         opacity: .5;
         font-size: small;

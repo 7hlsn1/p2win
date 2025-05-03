@@ -16,6 +16,7 @@ const Produtos: React.FC = () => {
 
   const [anuncios, setAnuncios] = useState([]);
   const [category, setCategory] = useState('')
+  const [userProfile, setUserProfile] = useState<any>({})
   console.log(window.location)
   const params = new URLSearchParams(window.location.search)
   let categoryId: string | null = params.get('category_id')
@@ -23,6 +24,9 @@ const Produtos: React.FC = () => {
 
   useEffect(() => {
     console.log('here')
+    api.getLoggedUser().then(data => {
+      setUserProfile(data)
+    })
     api.getProducts(params.get('search') ?? '', 0, parseInt(categoryId ? categoryId.toString() : '')).then((data: any) => {
       setCategory(data[0].category)
       setAnuncios(data)
@@ -47,6 +51,7 @@ const Produtos: React.FC = () => {
         {anuncios.length > 0 ? anuncios.map((product_: any) => (
           <ProductCard
             product={product_}
+            buy={product_.user_id != userProfile?.id}
           />
 
 

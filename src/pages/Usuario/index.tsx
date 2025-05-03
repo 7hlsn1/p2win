@@ -1,13 +1,13 @@
 import './MinhaConta.scss';
 // import styles from './MinhaConta.scss'
 import styles from '../Produtos/Produto.module.scss'
-import { FaCheckCircle, FaHeart, FaUserPlus, FaBan, FaFlag, FaStar } from 'react-icons/fa';
+import { FaCheckCircle, FaHeart, FaUserPlus, FaBan, FaFlag, FaStar, FaTimes } from 'react-icons/fa';
 import { Api, TLoader } from '../../skds/api';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Profile } from '../../skds/api';
 import moment from 'moment';
- 
+
 import ProductCard from '../../components/ProductCard';
 
 export default function Usuario() {
@@ -20,7 +20,7 @@ export default function Usuario() {
   const [search, setSearch] = useState('')
   const [categories, setCategories] = useState<any>([])
   const [activeTab, setActiveTab] = useState('products')
-
+  const [user, setUser] = useState<any>([])
   const params = useParams<string | any>();
   const userId = params.id
   console.log(userId)
@@ -32,6 +32,9 @@ export default function Usuario() {
   }
   useEffect(() => {
     TLoader.tLoader(1)
+    api.getLoggedUser().then(data => {
+      setUser(data)
+    })
     api.getProfile(id).then((data: any) => {
       setUserProfile(data)
       console.log('data')
@@ -85,14 +88,19 @@ export default function Usuario() {
     <div className="minha-conta" >
       <div className="header" style={{ display: userProfile.username ? 'flex' : 'none' }}>
         <div className="avatar-wrapper" style={{ backgroundImage: `url("${userProfile.avatar ?? 'https://cdn-icons-png.flaticon.com/512/147/147142.png'}")` }}>
+          {userProfile?.online ? <span className="status">
+            <FaCheckCircle /> Conectado
+          </span> : <span className="status" style={{ backgroundColor: '#ff4f4f' }}>
+            <FaTimes /> Desconectado
+          </span>}
 
-          <span className="status"><FaCheckCircle /> Conectado</span>
+
         </div>
 
         <div className="profile-info">
           <h2 className="username">{userProfile.username}</h2>
           {
-            !userProfile.self ? (
+            !userProfile.self && user ? (
               <div className="actions">
                 <button><FaHeart /> Favorito</button>
                 <button onClick={handleFollow}><FaUserPlus /> {following ? 'Deixar de seguir' : 'Seguir'}</button>
@@ -135,7 +143,7 @@ export default function Usuario() {
 
             {products?.map((product_: any) => {
               return (
-                  <ProductCard product={product_} buy={true}/>
+                <ProductCard product={product_} buy={true} />
               )
             })}
           </div>)

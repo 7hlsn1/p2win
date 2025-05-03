@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styles from './ProductCard.module.scss';
 import moment from 'moment';
-
+import { FaCartPlus, FaEye } from 'react-icons/fa6';
 function ProductCard(props: any) {
     const { id, title, banner, description, price, created_at, user, user_id, user_online = 0 } = props.product
     const buy = props.buy
@@ -21,8 +21,10 @@ function ProductCard(props: any) {
             <span className={styles.date}>{moment(created_at).format('DD/MM/Y')}</span>
             {buy ? <div className={styles.buttons}>
                 <Link to={`/produtos/${id}`}>
-                <button style={{ backgroundColor: '#00a500', color: 'white' , 'padding': '5px 10px'}}>Visualizar</button>
-           
+                <button   >  <FaEye/> Ver</button>
+                </Link>
+                <Link to={`/produtos/${id}`}>
+                <button  > <FaCartPlus  /> Adicionar ao carrinho </button>
                 </Link>
                 </div>
 

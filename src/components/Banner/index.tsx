@@ -13,7 +13,8 @@ import '../../../node_modules/slick-carousel/slick/slick-theme.css'
 
 
 const api = new Api('open')
-function Banner() {
+function Banner(props: any) {
+    const userProfile = props.userProfile
     const [categories, setCategories] = useState<any>([])
     const [products, setProducts] = useState<any>([])
     const [sellers, setSellers] = useState<any>([])
@@ -28,6 +29,7 @@ function Banner() {
     };
 
     useEffect(() => {
+
         api.getSellers().then(data => {
             setSellers(data)
             console.log(data)
@@ -68,7 +70,9 @@ function Banner() {
                     products?.map((product_: any) => {
                         return (
 
-                            <ProductCard product={product_} key={product_.id} buy={true}/>
+                            <ProductCard product={product_} key={product_.id}
+                                buy={product_.user_id != userProfile?.id}
+                            />
 
 
                         )

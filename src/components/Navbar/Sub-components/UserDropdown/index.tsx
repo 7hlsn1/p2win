@@ -61,83 +61,83 @@ export function UserDropdown({ children }: UserDropdownProps) {
                 <aside className={styles.sidebar}>
                     <nav>
                         <ul>
-                            <NavLink
-                                to="/minha-conta"
-                                end
-                                className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}
-                            >
-                                <li>Resumo</li>
-                            </NavLink>
-                            <NavLink to="/minha-conta/transacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                <li>Transações</li>
-                            </NavLink>
-                            <NavLink to="/minha-conta/anuncios" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                <li>Meus anúncios</li>
-                            </NavLink>
-                            <NavLink to="/minha-conta/compras" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                <li>Minhas compras</li>
-                            </NavLink>
-                            <NavLink to="/minha-conta/vendas" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                <li>Minhas vendas</li>
-                            </NavLink>
-                            <NavLink to="/minha-conta/minhas-perguntas" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                <li>Minhas perguntas</li>
-                            </NavLink>
-                            <NavLink to="/minha-conta/perguntas-recebidas" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                <li>Perguntas recebidas</li>
-                            </NavLink>
-                            <NavLink to="/minha-conta/retiradas" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                <li>Minhas retiradas</li>
-                            </NavLink>
-                            <NavLink to="/minha-conta/recargas" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                <li>Recargas</li>
-                            </NavLink>
+                            {profile?.role == 'user' ?
+                                <>
+                                    <NavLink
+                                        to="/minha-conta"
+                                        end
+                                        className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}
+                                    >
+                                        <li>Resumo</li>
+                                    </NavLink>
+                                    <NavLink to="/minha-conta/transacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                                        <li>Transações</li>
+                                    </NavLink>
+                                    <NavLink to="/minha-conta/anuncios" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                                        <li>Meus anúncios</li>
+                                    </NavLink>
+                                    <NavLink to="/minha-conta/compras" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                                        <li>Minhas compras</li>
+                                    </NavLink>
+                                    <NavLink to="/minha-conta/vendas" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                                        <li>Minhas vendas</li>
+                                    </NavLink>
+                                    <NavLink to="/minha-conta/minhas-perguntas" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                                        <li>Minhas perguntas</li>
+                                    </NavLink>
+                                    <NavLink to="/minha-conta/perguntas-recebidas" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                                        <li>Perguntas recebidas</li>
+                                    </NavLink>
+                               
 
-                            <li className={styles.sectionTitle}>CONFIGURAÇÕES</li>
+                                    <li className={styles.sectionTitle}>CONFIGURAÇÕES</li>
 
-                            <NavLink to="/minha-conta/minha-conta" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                <li>Minha conta</li>
-                            </NavLink>
-                            <NavLink to="/minha-conta/meus-dados" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                <li>Meus dados</li>
-                            </NavLink>
-                            <NavLink to="/minha-conta/verificacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                <li>Verificações</li>
-                            </NavLink>
-                            <NavLink to="/minha-conta/seguranca" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                <li>Segurança</li>
-                            </NavLink>
-                            <NavLink to="/minha-conta/notificacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                <li>Notificações</li>
-                            </NavLink>
-                            <div>
-                                <li
-                                    className={`${styles.link} ${styles.dropdownToggle}`}
-                                    onClick={() => setAdminOpen(!adminOpen)}
-                                >
-                                    Administração ▾
-                                </li>
-                                {adminOpen && (
-                                    <ul className={styles.dropdownMenu}>
-                                        <NavLink
-                                            to="/minha-conta/administracao/adminusuarios"
-                                            className={({ isActive }) =>
-                                                `${styles.link} ${isActive ? styles.active : ''}`
-                                            }
-                                        >
-                                            <li>Listar Usuários</li>
-                                        </NavLink>
-                                        <NavLink
-                                            to="/minha-conta/administracao/admintransacoes"
-                                            className={({ isActive }) =>
-                                                `${styles.link} ${isActive ? styles.active : ''}`
-                                            }
-                                        >
-                                            <li>Listar Transações</li>
-                                        </NavLink>
-                                    </ul>
-                                )}
-                            </div>
+                                    <NavLink to="/minha-conta/minha-conta" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                                        <li>Minha conta</li>
+                                    </NavLink>
+                                    <NavLink to="/minha-conta/meus-dados" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                                        <li>Meus dados</li>
+                                    </NavLink>
+                                    <NavLink to="/minha-conta/verificacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                                        <li>Verificações</li>
+                                    </NavLink>
+                                    <NavLink to="/minha-conta/seguranca" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                                        <li>Segurança</li>
+                                    </NavLink>
+                                    <NavLink to="/minha-conta/notificacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                                        <li>Notificações</li>
+                                    </NavLink>
+                                </>
+                                :
+                                <div>
+                                    <li
+                                        className={`${styles.link} ${styles.dropdownToggle}`}
+                                        onClick={() => setAdminOpen(!adminOpen)}
+                                    >
+                                        Administração ▾
+                                    </li>
+                                    {adminOpen && (
+                                        <ul className={styles.dropdownMenu}>
+                                            <NavLink
+                                                to="/admin/usuarios"
+                                                className={({ isActive }) =>
+                                                    `${styles.link} ${isActive ? styles.active : ''}`
+                                                }
+                                            >
+                                                <li>Listar Usuários</li>
+                                            </NavLink>
+                                            <NavLink
+                                                to="/admin/anuncios"
+                                                className={({ isActive }) =>
+                                                    `${styles.link} ${isActive ? styles.active : ''}`
+                                                }
+                                            >
+                                                <li>Listar Anúncios</li>
+                                            </NavLink>
+                                        </ul>
+                                    )}
+                                </div>
+                            }
                         </ul>
                     </nav>
                 </aside>
