@@ -1,4 +1,5 @@
 import axios from "axios";
+ 
 
 
 interface Category {
@@ -33,6 +34,7 @@ interface Profile {
     avatar: string
 }
 
+
 class Api {
     public api
     static type = 'closed'
@@ -55,6 +57,70 @@ class Api {
         }
         this.api = axios.create(this.data)
     }
+
+    getCart = (): Array<any> => {
+        const cart = localStorage.getItem('cart')
+        return JSON.parse(cart ?? '[]')
+    }
+    addToCart = (id: number) => new Promise(async (resolve, reject) => {
+        const cart = this.getCart()
+        TLoader.tLoader(1)
+        const product = await this.getProduct(id)
+        cart.push(product)
+        localStorage.setItem('cart', JSON.stringify(cart))
+        TLoader.tLoader(0)
+
+        resolve(cart)
+        reject()
+    })
+    removeFromCart = (item: number) => {
+        const cart = this.getCart()
+        console.log('cart:')
+        console.log(cart)
+        const newCart: Array<any> = []
+        cart.map((i) => {
+            if (i.id != item) {
+                newCart.push(i)
+            }
+        })
+        console.log('newCart')
+        console.log(newCart)
+        localStorage.setItem('cart', JSON.stringify(newCart))
+        return newCart
+    }
+
+    createOrder = (cart: any) => new Promise(async (resolve, reject) => {
+        this.api.post('/order', {
+            cart: cart
+        }).then((data: any) => {
+
+            resolve(data.data)
+        })
+        reject()
+    })
+
+    renewPassword = (password: any, code: any) => new Promise(async (resolve, reject) => {
+        await this.api.post('/renew_password/', { password, code }).then((data: any) => {
+            resolve(data.data)
+        })
+        reject()
+    })
+    verifyPasswordToken = (token: any) => new Promise(async (resolve, reject) => {
+        await this.api.get('/reset_password/' + token).then((data: any) => {
+            resolve(data.data)
+        })
+        reject()
+    })
+
+    resetPassword = (email_: string) => new Promise(async (resolve, reject) => {
+        await this.api.post('/forgot_password', {
+            email: email_
+        }).then((data: any) => {
+
+            resolve(data.data)
+        })
+        reject()
+    })
     getLoggedUser = () => new Promise(async (resolve, reject) => {
         TLoader.tLoader(1)
 
@@ -170,8 +236,7 @@ class Api {
             resolve(data);
 
         } catch (err: any) {
-            console.log('err:')
-            console.log(err)
+
             if (err.response.data.message.includes('Token')) {
                 document.location.href = '/login';
             }
@@ -182,7 +247,7 @@ class Api {
     });
 
     createProduct = (category: number, type: number, title: string, description: string, price: number, banner: File, images: any) => new Promise(async (resolve, reject) => {
-        console.log(images)
+
         const req = await this.api.post(`/products/create`, { category, type, title, description, price, banner, images }, {
             headers: {
                 'Content-Type': 'multipart/form-data'
@@ -275,5 +340,5 @@ class TLoader {
     }
 }
 
-export { Api, TLoader }
+export { Api, TLoader, }
 export type { Category, Auth, Product, Profile }

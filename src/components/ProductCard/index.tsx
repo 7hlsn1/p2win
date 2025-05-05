@@ -2,10 +2,45 @@ import { Link } from 'react-router-dom';
 import styles from './ProductCard.module.scss';
 import moment from 'moment';
 import { FaCartPlus, FaEye } from 'react-icons/fa6';
+import { Api } from '../../skds/api';
+import Swal from 'sweetalert2';
+const api = new Api('open')
 function ProductCard(props: any) {
+
     const { id, title, banner, description, price, created_at, user, user_id, user_online = 0 } = props.product
     const buy = props.buy
+    const handleAddToCart = async () => {
+        const currentCart = api.getCart()
+        const ids = currentCart.map((i: any) => i.id)
 
+        if (ids.includes(id)) {
+            return Swal.fire({
+                icon: 'info',
+                text: 'Produto já adicionado ao carrinho',
+                showCancelButton: true,
+                cancelButtonText: 'Ir para o carrinho',
+                cancelButtonColor: 'green',
+            }).then((res: any) => {
+                if (res.dismiss == 'cancel') {
+                    document.location.href = '/carrinho'
+                }
+            })
+        }
+        await api.addToCart(id).then((cart: any) => {
+            Swal.fire({
+                icon: 'success',
+                text: 'Adicionado ao carrinho',
+                showCancelButton: true,
+                cancelButtonText: 'Ir para o carrinho',
+                cancelButtonColor: 'green',
+            }).then((res: any) => {
+                if (res.dismiss == 'cancel') {
+                    document.location.href = '/carrinho'
+                }
+            })
+            console.log(cart)
+        })
+    }
     return (
 
         <div className={styles.card} >
@@ -21,12 +56,12 @@ function ProductCard(props: any) {
             <span className={styles.date}>{moment(created_at).format('DD/MM/Y')}</span>
             {buy ? <div className={styles.buttons}>
                 <Link to={`/produtos/${id}`}>
-                <button   >  <FaEye/> Ver</button>
+                    <button   >  <FaEye /> Ver</button>
                 </Link>
-                <Link to={`/produtos/${id}`}>
-                <button  > <FaCartPlus  /> Adicionar ao carrinho </button>
-                </Link>
-                </div>
+
+                <button onClick={handleAddToCart}> <FaCartPlus /> Adicionar ao carrinho </button>
+
+            </div>
 
                 : <></>}
 

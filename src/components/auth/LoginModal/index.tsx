@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, {  useState } from 'react';
 import styles from './LoginModal.module.scss';
 // import SocialAuthButton from '../SocialAuthButton';
 import Swal from 'sweetalert2';
-import { Api } from '../../../skds/api';
+import { Api, TLoader } from '../../../skds/api';
 const api = new Api('open')
 interface LoginModalProps {
     isOpen: boolean;
@@ -18,22 +18,81 @@ const LoginModal: React.FC<LoginModalProps> = ({
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
-
+    const [code, setCode] = useState('');
+    // const [token, setToken] = useState('');
     const [repeatPassword, setRepeatPassword] = useState('');
-    const [activeTab, setActiveTab] = useState<'login' | 'register'>(defaultTab);
+    const [activeTab, setActiveTab] = useState<'login' | 'register' | 'recover' | 'reset' | 'renew'>(defaultTab);
     const [rememberMe, setRememberMe] = useState(false);
 
     if (!isOpen) return null;
 
+    const handleForgotPassword = () => {
+
+        if (!email) {
+            return Swal.fire({
+                icon: 'warning',
+                text: 'Insira o email da conta que deseja recuperar'
+            })
+        }
+        setActiveTab('recover')
+        TLoader.tLoader(1)
+        api.resetPassword(email).then((data: any) => {
+            TLoader.tLoader(0)
+            if (data.message) {
+                Swal.fire({
+                    icon: 'success',
+                    text: data.message
+                })
+            } else if (data.error) {
+                Swal.fire({
+                    icon: 'error',
+                    text: data.error
+                })
+            }
+        })
+    }
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (activeTab == 'renew') {
+            api.renewPassword(password, code).then((data: any) => {
+                Swal.fire({
+                    text: data.message
+                }).then(() => {
+                    setActiveTab('login')
+                })
+            })
+        }
+        if (activeTab == 'recover') {
+
+            api.verifyPasswordToken(code).then((data: any) => {
+
+                if (data.error) {
+
+                    return Swal.fire({
+                        icon: 'error',
+                        text: data.error
+                    })
+
+                }
+                if (data.message) {
+                    setActiveTab('renew')
+                    return Swal.fire({
+                        icon: 'success',
+                        text: data.message
+                    })
+                }
+            })
+        }
 
         if (activeTab === 'register' && password !== repeatPassword) {
             alert('As senhas não coincidem.');
             return;
         }
         if (activeTab == 'login') {
+            TLoader.tLoader(1)
             api.login(email, password).then((data: any) => {
+                TLoader.tLoader(0)
                 if (data.token) {
                     localStorage.setItem('token', data.token)
                     localStorage.setItem('user_id', data.user_id);
@@ -43,7 +102,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
                     Swal.fire({
                         text: data.error,
                         icon: 'warning',
-                        
+
 
                     })
                 }
@@ -95,7 +154,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
                 </div>
 
                 <h2 className={styles.title}>
-                    {activeTab === 'login' ? 'Faça login na sua conta' : 'Crie sua conta gratuita'}
+                    {activeTab === 'login' ? 'Faça login na sua conta' : activeTab == 'recover' || activeTab == 'renew' ? 'Recuperar senha' : 'Crie sua conta gratuita'}
                 </h2>
 
                 {/* <div className={styles.socialButtons}>
@@ -114,38 +173,92 @@ const LoginModal: React.FC<LoginModalProps> = ({
                 <div className={styles.divider}>
                     <span>ou</span>
                 </div> */}
+                {
+                    activeTab == 'reset' ?
+                        <>
 
+                        </> : <></>
+                }
                 <form className={styles.form} onSubmit={handleSubmit}>
-                    <div className={styles.formGroup}>
-                        <label htmlFor="email">E-mail</label>
-                        <input
-                            type="email"
-                            id="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                    </div>
-                    {activeTab == 'register' ? <div className={styles.formGroup}>
-                        <label htmlFor="username">Nome de usuário</label>
-                        <input
-                            type="text"
-                            id="username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            required
-                        />
-                    </div> : <></>}
-                    <div className={styles.formGroup}>
-                        <label htmlFor="password">Senha</label>
-                        <input
-                            type="password"
-                            id="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-                    </div>
+                    {activeTab == 'register' || activeTab == 'login'
+                        ?
+                        <div className={styles.formGroup}>
+                            <label htmlFor="email">E-mail</label>
+                            <input
+                                type="email"
+                                id="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
+                        </div>
+                        :
+                        <></>
+                    }
+
+                    {
+                        activeTab == 'recover'
+                            ?
+                            <div className={styles.formGroup}>
+                                <label htmlFor="code">Código de verificação</label>
+                                <input
+                                    type="text"
+                                    id="code"
+                                    value={code}
+                                    onChange={(e) => setCode(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            :
+                            <></>
+
+                    }
+
+                    {
+                        activeTab == 'renew'
+                            ?
+                            <div className={styles.formGroup}>
+                                <label htmlFor="code">Nova senha</label>
+                                <input
+                                    type="password"
+                                    id="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            :
+                            <></>
+
+                    }
+
+                    {
+                        activeTab == 'register' ? <div className={styles.formGroup}>
+                            <label htmlFor="username">Nome de usuário</label>
+                            <input
+                                type="text"
+                                id="username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                required
+                            />
+                        </div> : <></>}
+                    {
+                        activeTab == 'register' || activeTab == 'login' || activeTab == 'reset' ?
+                            < div className={styles.formGroup}>
+                                <div className={styles.formGroup}>
+                                    <label htmlFor="password">Senha</label>
+                                    <input
+                                        type="password"
+                                        id="password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        required
+                                    />
+                                </div>
+
+                            </div> : <></>}
+
 
                     {activeTab === 'register' && (
                         <div className={styles.formGroup}>
@@ -170,7 +283,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
                                 />
                                 Lembrar de mim
                             </label>
-                            <a href="#forgot-password" className={styles.forgotPassword}>
+                            <a onClick={handleForgotPassword} className={styles.forgotPassword}>
                                 Esqueceu a senha?
                             </a>
                         </div>
@@ -185,11 +298,11 @@ const LoginModal: React.FC<LoginModalProps> = ({
                     )}
 
                     <button type="submit" className={styles.submitButton}>
-                        {activeTab === 'login' ? 'Entrar' : 'Criar conta'}
+                        {activeTab === 'login' ? 'Entrar' : activeTab == 'recover' ? 'Verificar código' : activeTab == 'renew' ? 'Salvar senha' : 'Criar conta'}
                     </button>
                 </form>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 

@@ -37,7 +37,9 @@ const api = new Api('closed')
 function App() {
   const [logged_, setLogged] = useState(false)
   const [admin, setAdmin] = useState(false)
-
+  setInterval(() => {
+    
+  }, 3000);
   useEffect(() => {
     api.getLoggedUser().then((data: any) => {
 
@@ -68,7 +70,7 @@ function App() {
           <Route path="/produtos/:id" element={<Produto />} />
           <Route path="/usuarios/:id" element={<Usuario />} />
           <Route path="/categorias" element={<Categorias />} />
-          <Route path="/carrinho/:id" element={<Cart />} />
+          <Route path="/carrinho" element={<Cart />} />
           <Route path="/minha-conta" element={<AccountPage />}>
             <Route index element={<Resumo />} />
             <Route path="transacoes" element={<Transacoes />} />
