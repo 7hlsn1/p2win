@@ -3,14 +3,14 @@ import { Api, TLoader } from '../../skds/api';
 import styles from './Cart.module.scss';
 import { Link } from 'react-router-dom';
 import { FaTrash } from 'react-icons/fa6';
-import Swal from 'sweetalert2'; 
+import Swal from 'sweetalert2';
 
 const api = new Api('open')
 const Cart: React.FC = () => {
 
   const [total, setTotal] = useState<number>(0);
   const [cart, setCart] = useState<any>([]);
- 
+
   const removeFromCart = (productId: number) => {
     const newCart = api.removeFromCart(productId)
     setCart(newCart)
@@ -27,17 +27,24 @@ const Cart: React.FC = () => {
   const handleOrder = () => {
     const orderApi = new Api('closed')
     TLoader.tLoader(1)
-    orderApi.createOrder(cart).then((data: any) => {
-      if (data.order.includes('mercadopago')) {
-        document.location.href = data.order
+    orderApi.getLoggedUser().then(user => {
+      if (!user) {
+        document.location.href = '/login';
       } else {
-        Swal.fire({
-          icon: 'error',
-          text: 'Erro inesperado, por favor contate o suporte'
+        orderApi.createOrder(cart).then((data: any) => {
+          if (data.order.includes('mercadopago')) {
+            document.location.href = data.order
+          } else {
+            Swal.fire({
+              icon: 'error',
+              text: 'Erro inesperado, por favor contate o suporte'
+            })
+          }
+          console.log(data)
         })
       }
-      console.log(data)
     })
+
   }
 
 
