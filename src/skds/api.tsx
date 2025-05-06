@@ -90,7 +90,7 @@ class Api {
     }
 
     createOrder = (cart: any) => new Promise(async (resolve, reject) => {
-        this.api.post('/order', {
+        await this.api.post('/order', {
             cart: cart
         }).then((data: any) => {
 
