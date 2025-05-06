@@ -29,6 +29,7 @@
 .cartItems {
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
      
 }
 
@@ -38,12 +39,13 @@
     flex-direction: column;
     background-color: color.adjust($cor-secundaria, $lightness: 5%);
     padding: 20px;
+    width: 500px;
     border-radius: 12px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
     overflow: hidden;
     .banner {
-        width: 300px;
+        height: 100px;
     }
     // &:hover {
     //     transform: translateY(-2px);
