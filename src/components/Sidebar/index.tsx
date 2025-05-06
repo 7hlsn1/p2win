@@ -4,7 +4,7 @@ import styles from './Sidebar.module.scss';
 import { Api } from '../../skds/api';
 
 const Sidebar = () => {
-    const [adminOpen, setAdminOpen] = useState(false);
+ 
     const [profile, setProfile] = useState<any>({})
     const api = new Api('closed');
     useEffect(() => {
@@ -71,35 +71,7 @@ const Sidebar = () => {
                                 <NavLink to="/minha-conta/notificacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
                                     <li>Notificações</li>
                                 </NavLink>
-
-                                <div>
-                                    <li
-                                        className={`${styles.link} ${styles.dropdownToggle}`}
-                                        onClick={() => setAdminOpen(!adminOpen)}
-                                    >
-                                        Administração ▾
-                                    </li>
-                                    {adminOpen && (
-                                        <ul className={styles.dropdownMenu}>
-                                            <NavLink
-                                                to="/minha-conta/administracao/adminusuarios"
-                                                className={({ isActive }) =>
-                                                    `${styles.link} ${isActive ? styles.active : ''}`
-                                                }
-                                            >
-                                                <li>Listar Usuários</li>
-                                            </NavLink>
-                                            <NavLink
-                                                to="/minha-conta/administracao/admintransacoes"
-                                                className={({ isActive }) =>
-                                                    `${styles.link} ${isActive ? styles.active : ''}`
-                                                }
-                                            >
-                                                <li>Listar Transações</li>
-                                            </NavLink>
-                                        </ul>
-                                    )}
-                                </div>
+ 
 
                                 <NavLink to="/" className={styles.link}>
                                     <li className={styles.logout} onClick={handleLogout}>Sair</li>

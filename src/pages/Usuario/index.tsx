@@ -143,7 +143,7 @@ export default function Usuario() {
 
             {products?.map((product_: any) => {
               return (
-                <ProductCard product={product_} buy={true} />
+                <ProductCard product={product_} buy={true} key={product_.id}/>
               )
             })}
           </div>)

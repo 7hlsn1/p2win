@@ -1,5 +1,5 @@
 import axios from "axios";
- 
+
 
 
 interface Category {
@@ -88,12 +88,18 @@ class Api {
         localStorage.setItem('cart', JSON.stringify(newCart))
         return newCart
     }
+    getOrders = (status?: number) => new Promise(async (resolve, reject) => {
+        await this.api.get(`/orders${status ? '?status=' + status.toString() : ''}`).then((data: any) => {
+            resolve(data.data)
+        })
+        reject()
+    })
 
-    createOrder = (cart: any) => new Promise(async (resolve, reject) => {
+
+    createOrder = (cart: any, method: string) => new Promise(async (resolve, reject) => {
         await this.api.post('/order', {
-            cart: cart
+           cart, method
         }).then((data: any) => {
-
             resolve(data.data)
         })
         reject()

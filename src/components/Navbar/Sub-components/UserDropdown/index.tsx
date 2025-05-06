@@ -9,7 +9,7 @@ interface UserDropdownProps {
 }
 
 export function UserDropdown({ children }: UserDropdownProps) {
-    const [adminOpen, setAdminOpen] = useState(false);
+ 
     const [menuOpen, setMenuOpen] = useState(false);
     const [profile, setProfile] = useState<any>({})
 
@@ -88,7 +88,7 @@ export function UserDropdown({ children }: UserDropdownProps) {
                                     <NavLink to="/minha-conta/perguntas-recebidas" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
                                         <li>Perguntas recebidas</li>
                                     </NavLink>
-                               
+
 
                                     <li className={styles.sectionTitle}>CONFIGURAÇÕES</li>
 
@@ -109,34 +109,35 @@ export function UserDropdown({ children }: UserDropdownProps) {
                                     </NavLink>
                                 </>
                                 :
-                                <div>
-                                    <li
-                                        className={`${styles.link} ${styles.dropdownToggle}`}
-                                        onClick={() => setAdminOpen(!adminOpen)}
-                                    >
-                                        Administração ▾
-                                    </li>
-                                    {adminOpen && (
-                                        <ul className={styles.dropdownMenu}>
-                                            <NavLink
-                                                to="/admin/usuarios"
-                                                className={({ isActive }) =>
-                                                    `${styles.link} ${isActive ? styles.active : ''}`
-                                                }
-                                            >
-                                                <li>Listar Usuários</li>
-                                            </NavLink>
-                                            <NavLink
-                                                to="/admin/anuncios"
-                                                className={({ isActive }) =>
-                                                    `${styles.link} ${isActive ? styles.active : ''}`
-                                                }
-                                            >
-                                                <li>Listar Anúncios</li>
-                                            </NavLink>
-                                        </ul>
-                                    )}
-                                </div>
+                                // <div>
+                                //     <li
+                                //         className={`${styles.link} ${styles.dropdownToggle}`}
+                                //         onClick={() => setAdminOpen(!adminOpen)}
+                                //     >
+                                //         Administração ▾
+                                //     </li>
+                                //     {adminOpen && (
+                                //         <ul className={styles.dropdownMenu}>
+                                //             <NavLink
+                                //                 to="/admin/usuarios"
+                                //                 className={({ isActive }) =>
+                                //                     `${styles.link} ${isActive ? styles.active : ''}`
+                                //                 }
+                                //             >
+                                //                 <li>Listar Usuários</li>
+                                //             </NavLink>
+                                //             <NavLink
+                                //                 to="/admin/anuncios"
+                                //                 className={({ isActive }) =>
+                                //                     `${styles.link} ${isActive ? styles.active : ''}`
+                                //                 }
+                                //             >
+                                //                 <li>Listar Anúncios</li>
+                                //             </NavLink>
+                                //         </ul>
+                                //     )}
+                                // </div>
+                                null
                             }
                         </ul>
                     </nav>
@@ -155,8 +156,8 @@ export function UserDropdown({ children }: UserDropdownProps) {
                         ) :
                         (
                             <>
-                                <a href="#">Minhas Compras</a>
-                                <a href="#">Meus favoritos</a>
+                                <Link to='/minha-conta/compras'>Meus pedidos</Link>
+                                <Link to='/minha-conta/favoritos'>Vendedores favoritos</Link>
 
                             </>)
                 }

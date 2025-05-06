@@ -26,7 +26,7 @@ function ProductCard(props: any) {
                 }
             })
         }
-        await api.addToCart(id).then((cart: any) => {
+        api.addToCart(id).then(() => {
             Swal.fire({
                 icon: 'success',
                 text: 'Adicionado ao carrinho',
@@ -38,7 +38,6 @@ function ProductCard(props: any) {
                     document.location.href = '/carrinho'
                 }
             })
-            console.log(cart)
         })
     }
     return (

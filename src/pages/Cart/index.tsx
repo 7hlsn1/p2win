@@ -4,13 +4,15 @@ import styles from './Cart.module.scss';
 import { Link } from 'react-router-dom';
 import { FaTrash } from 'react-icons/fa6';
 import Swal from 'sweetalert2';
+import { OrderModal } from '../../components/OrderModal';
 
 const api = new Api('open')
 const Cart: React.FC = () => {
 
   const [total, setTotal] = useState<number>(0);
   const [cart, setCart] = useState<any>([]);
-
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [order_, setOrder] = useState<any>({})
   const removeFromCart = (productId: number) => {
     const newCart = api.removeFromCart(productId)
     setCart(newCart)
@@ -25,22 +27,25 @@ const Cart: React.FC = () => {
 
   };
   const handleOrder = () => {
+
     const orderApi = new Api('closed')
     TLoader.tLoader(1)
     orderApi.getLoggedUser().then(user => {
       if (!user) {
         document.location.href = '/login';
       } else {
-        orderApi.createOrder(cart).then((data: any) => {
-          if (data.order.includes('mercadopago')) {
-            document.location.href = data.order
-          } else {
+        orderApi.createOrder(cart, 'create').then((data: any) => {
+          console.log(data.data)
+          if (data.error) {
             Swal.fire({
               icon: 'error',
-              text: 'Erro inesperado, por favor contate o suporte'
+              text: data.error
             })
+          } else {
+            setIsModalOpen(true)
+            setOrder(data.data)
+            console.log(data.data)
           }
-          console.log(data)
         })
       }
     })
@@ -58,6 +63,14 @@ const Cart: React.FC = () => {
 
   return (
     <div className={styles.cartPage}>
+      {
+        isModalOpen && order_ ? (
+          <OrderModal order={order_} onClose={() => {
+            setIsModalOpen(false)
+          }} />
+
+        ) : null
+      }
       <h2>Seu Carrinho</h2>
       <br />
       <Link to='/' className='link'>Voltar</Link>
@@ -68,16 +81,20 @@ const Cart: React.FC = () => {
         ) : (
           cart.map((product: any) => (
             <div key={product.id} className={styles.cartItem}>
-              <img src={import.meta.env.VITE_API_URL + product.banner} alt={product.title} className={styles.banner} />
-              <div>
-                <h3>{product.title}</h3>
-                <p>{product.description}</p>
-                <p>R$ {product.price}</p>
-                <Link to={`/usuarios/${product.user.id}`} className='link'>
-                  {product.user.username}
-                </Link>
-              </div>
-              <button onClick={() => removeFromCart(product.id)} style={{ backgroundColor: 'rgb(221, 76, 76)', color: 'white', position: 'absolute', right: 10, bottom: 10 }}><FaTrash /> Remover</button>
+              <Link to={`/produtos/${product.id}`}>
+                <img src={import.meta.env.VITE_API_URL + product.banner} alt={product.title} className={styles.banner} />
+
+                <div>
+                  <h3>{product.title}</h3>
+                  <p>{product.description}</p>
+                  <p>R$ {product.price}</p>
+                  <Link to={`/usuarios/${product.user.id}`} className='link'>
+                    {product.user.username}
+                  </Link>
+
+                </div>
+              </Link>
+              <button className={styles.removeBtn} onClick={() => removeFromCart(product.id)}  ><FaTrash />  </button>
             </div>
           ))
         )}
@@ -86,7 +103,7 @@ const Cart: React.FC = () => {
         <h5>Total: R${parseFloat(total.toString()).toFixed(2)}</h5>
       </div>
       {cart.length > 0 && <button className={styles.checkoutBtn} onClick={handleOrder}>Finalizar Compra</button>}
-    </div>
+    </div >
   );
 };
 

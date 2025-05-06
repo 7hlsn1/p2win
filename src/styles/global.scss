@@ -15,7 +15,7 @@ body {
   overflow-x: hidden;
 }
 
- 
+
 
 a {
   color: inherit;
@@ -24,6 +24,22 @@ a {
 
 button {
   font-family: inherit;
+}
+button {
+  background-color: variaveis.$cor-secundaria;
+  color: variaveis.$cor-do-texto;
+  border: none;
+  border-radius: 5px;
+  padding: 0.4rem 0.7rem;
+  cursor: pointer;
+  margin-left: 16px;
+
+  @media (max-width: 768px) {
+      margin: 0;
+      background-color: variaveis.$cor-background-geral;
+      border-radius: 5px;
+      margin-top: 8px;
+  }
 }
 
 .link {

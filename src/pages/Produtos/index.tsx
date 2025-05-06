@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 import Slider from "react-slick";
 import '../../../node_modules/slick-carousel/slick/slick.css'
 import '../../../node_modules/slick-carousel/slick/slick-theme.css'
- 
+
 function Produto() {
     const settings = {
         dots: true,
@@ -44,10 +44,21 @@ function Produto() {
             document.location.href = '/login'
         } else {
             /// TODO: Lógica de realizar o pedido
-            console.log(profile)
-            Swal.fire({
-                text: 'Ok'
+            api.addToCart(product.id).then(() => {
+                Swal.fire({
+                    icon: 'success',
+                    text: 'Adicionado ao carrinho',
+                    showCancelButton: true,
+                    cancelButtonText: 'Ir para o carrinho',
+                    cancelButtonColor: 'green',
+                }).then((res: any) => {
+                    if (res.dismiss == 'cancel') {
+                        document.location.href = '/carrinho'
+                    }
+                })
             })
+            console.log(profile)
+
         }
     }
     return (
@@ -95,7 +106,7 @@ function Produto() {
                         <span style={{ fontSize: 'small' }}>Publicado em</span> <span style={{ opacity: 0.7 }}>{moment(product.created_at).locale('pt-br').format('ddd, D MMMM, Y - H:m\\h')}</span><br />
                         <span style={{ fontSize: 'small' }}>Por</span> <Link to={`/usuarios/${product.user_id}`}> <span style={{ opacity: 0.7 }}>{product.user.username}</span></Link>
 
-                        <button onClick={handleBuy}>Comprar</button>
+                        <button onClick={handleBuy}>Adicionar ao carrinho</button>
                     </div>
                     <div className={styles.sellerContainer}>
                         <h3>Vendedor</h3>
@@ -117,7 +128,7 @@ function Produto() {
                                 <div className={styles.rates}>
                                     {
                                         product.user.rates.map((rate: any) => (
-                                            <div className={styles.rate}>
+                                            <div className={styles.rate} key={rate.id}>
 
                                                 <span>
                                                     <div className={styles.avatar} style={{ backgroundImage: 'url("https://static.vecteezy.com/ti/vetor-gratis/p1/11483813-avatar-de-anime-de-cara-gratis-vetor.jpg")' }}>
@@ -129,7 +140,7 @@ function Produto() {
                                                         <span style={{ fontSize: 'small' }}>{rate.product}</span></span>
                                                     <span className={styles.avaliation}>{
                                                         [...Array(rate.avaliation)].map(() => (
-                                                            <FaStar color='yellow' />
+                                                            <FaStar key={1} color='yellow' />
                                                         ))
                                                     }</span>
                                                 </span>
