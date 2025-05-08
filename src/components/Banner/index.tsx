@@ -4,7 +4,7 @@ import '../../pages/Usuario/MinhaConta.scss'
 import GameCard from '../GameCard';
 import ProductCard from '../ProductCard';
 import { useEffect, useState } from 'react';
-
+import { Link } from 'react-router-dom';
 import { Api } from '../../skds/api';
 import SellerCard from '../SellerCard';
 import Slider from 'react-slick';
@@ -22,8 +22,10 @@ function Banner(props: any) {
     const settings = {
         dots: true,
         buttons: false,
-        infinite: false,
+        infinite: true,
         speed: 500,
+        autoplay: true,
+        autoplaySpeed: 3000,
         slidesToShow: 1,
         slidesToScroll: 1
     };
@@ -48,11 +50,15 @@ function Banner(props: any) {
 
         <section className={styles.banner} >
             <Slider {...settings} >
-                <div>
-                    <img src={'/assets/banner02.png'} style={{ width: '100%' }} />
+                <div className={styles.slide}>
+                    <Link to='/produtos?category_id=78'>
+                        <img src={'https://i.redd.it/gw4h3begfrc81.jpg'} />
+                    </Link>
                 </div>
-                <div>
-                    <img src={'/assets/banner02.png'} style={{ width: '100%' }} />
+                <div className={styles.slide}>
+                    <Link to='/produtos?category_id=129'>
+                        <img src={'/assets/banner02.png'} />
+                    </Link>
                 </div>
             </Slider>
             <h4>Vendedores em destaque</h4>
@@ -80,7 +86,7 @@ function Banner(props: any) {
                         })
                     }
                 </div>
-            </> : <h4 style={{color:'red', opacity: .5, background: 'rgba(106, 106, 106, 0.13)', padding: '1em'}}>Infelizmente não temos nenhum anúncio disponível no momento </h4>}
+            </> : <h4 style={{ color: 'red', opacity: .5, background: 'rgba(106, 106, 106, 0.13)', padding: '1em' }}>Infelizmente não temos nenhum anúncio disponível no momento </h4>}
 
 
             <h4>Categorias Populares</h4>
