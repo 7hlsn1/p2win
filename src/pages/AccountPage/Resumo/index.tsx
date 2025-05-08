@@ -1,5 +1,5 @@
 import { AccountSummary } from "../../../components/AccountSummary";
- 
+
 import { useState, useEffect } from "react";
 import { Api, Profile, TLoader } from "../../../skds/api";
 import PerfilGerente from "../../../components/PerfilGerente";
@@ -15,7 +15,7 @@ const Resumo = () => {
         TLoader.tLoader(1)
         api.getLoggedUser().then((data: any) => {
             setProfile(data)
-      
+
             TLoader.tLoader(0)
         })
 
@@ -27,6 +27,8 @@ const Resumo = () => {
             profile={profile_}
 
         />
+       
+
         <div className="container-status">
             {/* <VerificationStatus />
             <SalesSummary /> */}

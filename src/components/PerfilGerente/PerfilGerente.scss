@@ -1,105 +1,109 @@
 @use '../../styles/variaveis';
 
+.success {
+  background-color: variaveis.$success;
+}
+
 .perfil-gerente {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: variaveis.$cor-do-p;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  color: variaveis.$cor-do-texto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+
+  @media (max-width: 768px) {
+    display: block;
+  }
+
+  &__info {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    background: variaveis.$cor-do-p;
-    padding: 1.5rem 2rem;
-    border-radius: 12px;
-    color: variaveis.$cor-do-texto;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+    gap: 1.25rem;
 
     @media (max-width: 768px) {
       display: block;
+      text-align: center;
+    }
   }
-  
-    &__info {
-      display: flex;
-      align-items: center;
-      gap: 1.25rem;
 
-      @media (max-width: 768px) {
-        display: block;
-        text-align: center;
-    }
-    }
-  
-    &__avatar-container {
-      position: relative;
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: variaveis.$cor-primaria;
-      padding: 2px;
+  &__avatar-container {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: variaveis.$cor-primaria;
+    padding: 2px;
 
-      @media (max-width: 768px) {
-        align-items: center;
-        display: flex;
-        margin: 0 auto;
-    }
-    }
-  
-    &__foto {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-  
-    &__texto {
-      h4 {
-        font-size: 1.125rem;
-        margin: 0;
-        font-weight: 600;
-        letter-spacing: 0.25px;
-        background: variaveis.$cor-do-texto;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-  
-      p {
-        font-size: 0.875rem;
-        color: variaveis.$cor-do-texto;
-        margin: 0.4rem 0 0 0;
-        line-height: 1.5;
-        max-width: 280px;
-      }
-    }
-  
-    &__botao {
-      background:variaveis.$cor-secundaria;
-      color: variaveis.$cor-do-texto;
-      border: none;
-      border-radius: 8px;
-      padding: 0.75rem 1.5rem;
-      font-size: 0.875rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      letter-spacing: 0.5px;
-  
-      &:hover {
-        transform: translateY(-1px);
-      }
-  
-      &:active {
-        transform: translateY(0);
-      }
-
-      @media (max-width: 768px) {
-        background-color: variaveis.$cor-background-geral;
-        margin-top: 8px;
-    }
-    }
-  
     @media (max-width: 768px) {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1.5rem;
-      
-      &__botao {
-        width: 100%;
-      }
+      align-items: center;
+      display: flex;
+      margin: 0 auto;
     }
   }
+
+  &__foto {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  &__texto {
+    h4 {
+      font-size: 1.125rem;
+      margin: 0;
+      font-weight: 600;
+      letter-spacing: 0.25px;
+      background: variaveis.$cor-do-texto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p {
+      font-size: 0.875rem;
+      color: variaveis.$cor-do-texto;
+      margin: 0.4rem 0 0 0;
+      line-height: 1.5;
+      max-width: 280px;
+    }
+  }
+
+  &__botao {
+    background: variaveis.$cor-secundaria;
+    color: variaveis.$cor-do-texto;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      background-color: variaveis.$cor-background-geral;
+      margin-top: 8px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+
+    &__botao {
+      width: 100%;
+    }
+  }
+}

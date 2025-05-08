@@ -89,6 +89,12 @@
     pointer-events: none;
     transition: all 0.3s ease-in-out;
 
+    Link {
+        color: red;
+        display: flex;
+        align-items: center;
+        border: 1px solid red;
+    }
     &.show {
         opacity: 1;
         transform: translateY(0);

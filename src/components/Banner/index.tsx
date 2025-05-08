@@ -20,7 +20,7 @@ function Banner(props: any) {
     const [sellers, setSellers] = useState<any>([])
 
     const settings = {
-        dots: false,
+        dots: true,
         buttons: false,
         infinite: false,
         speed: 500,
@@ -55,13 +55,13 @@ function Banner(props: any) {
                     <img src={'/assets/banner02.png'} style={{ width: '100%' }} />
                 </div>
             </Slider>
-            <h4 style={{ marginTop: '1em' }}>Vendedores em destaque</h4>
+            <h4>Vendedores em destaque</h4>
             <div className='products'>
                 {sellers.map((seller_: any) => (
                     <SellerCard seller={seller_} key={seller_.id} />
                 ))}
             </div>
-            <h2>Produtos em destaque</h2>
+            <h4>Produtos em destaque</h4>
 
             <br />
             <div className="products">
@@ -80,11 +80,11 @@ function Banner(props: any) {
                 }
             </div>
 
-            <h2>Categorias Populares</h2>
+            <h4>Categorias Populares</h4>
             <div className={styles.cards}>
                 {
                     categories.map((category: any) =>
-                        <GameCard key={category.id} id={category.id} title={category.name} image={`${category.image}`} />
+                        <GameCard key={category.id} id={category.id} title={category.name} image={category.image} count={category.products} />
                     )
                 }
 

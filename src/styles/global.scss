@@ -31,6 +31,10 @@ button {
     background-color: variaveis.$success;
   }
 
+  .danger {
+    background-color: variaveis.$danger;
+  }
+
   background-color: variaveis.$cor-secundaria;
   color: variaveis.$cor-do-texto;
   border: none;
@@ -49,4 +53,11 @@ button {
 
 .link {
   color: #2790cd !important;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.slick-arrow {
+  display: none !important;
 }
