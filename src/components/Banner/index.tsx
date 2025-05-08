@@ -62,7 +62,7 @@ function Banner(props: any) {
                 </div>
             </Slider>
             <h4>Vendedores em destaque</h4>
-            <div className='products'>
+            <div className='sellers'>
                 {sellers.map((seller_: any) => (
                     <SellerCard seller={seller_} key={seller_.id} />
                 ))}
