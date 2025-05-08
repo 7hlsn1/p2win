@@ -1,4 +1,4 @@
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 import styles from './LoginModal.module.scss';
 // import SocialAuthButton from '../SocialAuthButton';
 import Swal from 'sweetalert2';
@@ -22,7 +22,6 @@ const LoginModal: React.FC<LoginModalProps> = ({
     // const [token, setToken] = useState('');
     const [repeatPassword, setRepeatPassword] = useState('');
     const [activeTab, setActiveTab] = useState<'login' | 'register' | 'recover' | 'reset' | 'renew'>(defaultTab);
-    const [rememberMe, setRememberMe] = useState(false);
 
     if (!isOpen) return null;
 
@@ -123,7 +122,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
                 }
             })
         }
-        console.log({ email, password, rememberMe });
+        console.log({ email, password });
         // Aqui vai a lógica de autenticação ou criação de conta
     };
 
