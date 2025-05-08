@@ -1,48 +1,63 @@
 import { useEffect, useState } from 'react';
 import './AdminUsuarios.scss';
 import { Api } from '../../../../skds/api';
- 
-import moment from 'moment';
+import DataTable from 'react-data-table-component';
 const api = new Api('closed')
 
 
 
 export default function AdminUsuarios() {
     const [usuarios, setUsuarios] = useState<any>([]);
+    const handleVerify = (id: any) => {
+        alert(id)
+    }
+    const cols = [
+        {
+            name: 'Usuário',
+            selector: (row: any) => row.username,
+            sortable: true,
+        },
+        {
+            name: 'Email',
+            selector: (row: any) => row.email,
+            sortable: true,
+        },
+        {
+            name: 'Saldo',
+            selector: (row: any) => `R$ ${row.wallet}`,
+            sortable: true,
+        },
+        {
+            name: 'Verificado',
+            selector: (row: any) => (row.name ? <span style={{color:'green'}}>Sim</span> : <span style={{color:'red'}}>Não</span>),
+            sortable: true,
+        },
+        {
+            name: ' ',
+            selector: (row: any) => <button onClick={() => {
+                handleVerify(row.id)
+            }}>Visualizar</button>,
+            sortable: false,
+        },
+    ]
     useEffect(() => {
-        api.getUsers().then((users: any) => {
+        api.getUsers(false).then((users: any) => {
             setUsuarios(users)
         })
     }, [])
     return (
-        <div className="admin-container">
-        
+        <div className="admin-container  ">
+
 
             {usuarios.length > 0 && (
-                <table className="tabela-usuarios">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Usuário</th>
-                            <th>Email</th>
-                            <th>Carteira</th>
-                            <th>Entrou em</th>
-                         
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {usuarios.map((usuario: any) => (
-                            <tr key={usuario.id}>
-                                <td>{usuario.name ?? (<span style={{opacity:.5, textDecoration:'line-through', color:'red'}}>sem nome</span>)}</td>
-                                <td>{usuario.username}</td>
-                                <td>{usuario.email}</td>
-                                <td style={{color:'green'}}>R$ {usuario.wallet}</td>
-                                <td style={{opacity:.5}}>{moment(usuario.created_at).format('DD/MM/YYYY H:mm\\h')}</td>
-                                
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                <>
+                    <DataTable columns={cols} data={usuarios}  >
+
+
+
+
+                    </DataTable>
+                </>
             )}
         </div>
     );

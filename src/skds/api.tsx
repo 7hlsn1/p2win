@@ -316,8 +316,13 @@ class Api {
         resolve(req.data)
         reject()
     })
-    getUsers = () => new Promise(async (resolve, reject) => {
-        const req = await this.api.get(`/admin/users/all`)
+    getUsers = (verified: any = 'any') => new Promise(async (resolve, reject) => {
+        const req = await this.api.get(`/admin/users/all?verified=${verified}`)
+        resolve(req.data)
+        reject()
+    })
+    getVerifyRequests = () => new Promise(async (resolve, reject) => {
+        const req = await this.api.get(`/admin/users/verify_requests`)
         resolve(req.data)
         reject()
     })

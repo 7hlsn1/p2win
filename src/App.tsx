@@ -32,6 +32,8 @@ import Usuario from './pages/Usuario';
 import AdminAnuncios from './pages/AccountPage/Administracao/AdminAnuncios';
 import Categorias from './pages/Categorias';
 import Footer from './components/Footer';
+import { PrimeReactProvider } from 'primereact/api';
+import AdminVerificacoes from './pages/AccountPage/Administracao/AdminVerificacoes';
 const api = new Api('closed')
 
 function App() {
@@ -49,7 +51,7 @@ function App() {
     })
   }, [])
   return (
-    <>
+    <PrimeReactProvider>
       <Container>
         <Navbar profile={logged_} />
         <ScrollToTop />
@@ -81,7 +83,9 @@ function App() {
           </Route>
           <Route path="/admin" element={<AccountPage />}>
             <Route path='usuarios' element={<AdminUsuarios />} />
+            <Route path='verificacao' element={<AdminVerificacoes />} />
             <Route path='anuncios' element={<AdminAnuncios />} />
+
             <Route path='transacoes' element={<AdminTransacoes />} />
 
           </Route>
@@ -89,7 +93,7 @@ function App() {
 
       </Container>
       <Footer />
-    </>
+    </PrimeReactProvider>
   );
 }
 
