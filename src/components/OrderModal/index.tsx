@@ -2,13 +2,19 @@ import { Link } from "react-router-dom"
 import Modal from "../Modal"
 import styles from './OrderModal.module.scss'
 import Swal from "sweetalert2"
-import { Api } from "../../skds/api"
+import { Api, TLoader } from "../../skds/api"
+import { useEffect, useState } from "react"
 export const OrderModal = ({ onClose, order }: any) => {
+    const [total, setTotal] = useState<number>(0)
+    const [cart, setCart] = useState([])
     const orderApi = new Api('closed')
 
     const handlePay = () => {
+        TLoader.tLoader(1)
         orderApi.createOrder(cart, 'wallet').then((data: any) => {
-
+            TLoader.tLoader(0)
+            console.log('data:')
+            console.log(data)
             if (data.data.order && data.data.order.status == 1) {
                 Swal.fire({
                     icon: 'success',
@@ -20,7 +26,7 @@ export const OrderModal = ({ onClose, order }: any) => {
                 Swal.fire({
                     icon: 'error',
                     text: data.data.error,
-                
+
                 })
             }
             return
@@ -41,9 +47,17 @@ export const OrderModal = ({ onClose, order }: any) => {
             console.log(data)
         })
     }
-    console.log('cart:')
-    const cart = order.cart
-    console.log(order.cart)
+    useEffect(() => {
+        console.log('cart:')
+        setCart(order.cart)
+        let finalPrice = 0
+        order.cart.map((item: any) => {
+            finalPrice += parseFloat(item.price)
+        })
+        setTotal(finalPrice)
+       
+    }, [])
+
 
     return (
         <Modal onClose={onClose}>
@@ -51,7 +65,7 @@ export const OrderModal = ({ onClose, order }: any) => {
                 <span className={(order.status == 0) ? styles.unpaid : styles.paid}>{['Não pago', 'Pago'][order.status]}</span>
 
             }
-            {cart.map((item: any) => (
+            {cart?.map((item: any) => (
                 <Link to={`/produtos/${item.id}`} key={item.id}>
                     <div className={styles.item}>
                         <img className={styles.banner} src={import.meta.env.VITE_API_URL + item.banner} alt="" />
@@ -62,9 +76,12 @@ export const OrderModal = ({ onClose, order }: any) => {
                     </div>
                 </Link>
             ))}
-            <div className={styles.buttons}>
-                <button onClick={handlePay}>Pagar usando saldo</button>
-            </div>
+            <h3>Total: R$ {total}</h3>
+            {order.status == 0 ? (
+                <div className={styles.buttons} >
+                    <button onClick={handlePay}>Pagar usando saldo</button>
+                </div>) : null
+            }
         </Modal >
     )
 }

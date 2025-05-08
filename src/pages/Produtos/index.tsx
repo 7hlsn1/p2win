@@ -29,21 +29,33 @@ function Produto() {
         );
     }
     const [product, setProduct] = useState<any>({})
-    const [profile, setProfile] = useState<any>(false)
-    useEffect(() => {
+     useEffect(() => {
         api.getProduct(parseInt(id.toString())).then((data: any) => {
             setProduct(data)
-            api.getLoggedUser().then(user => {
-                setProfile(user)
-            })
+            // api.getLoggedUser().then(user => {
+            //     setProfile(user)
+            // })
 
         })
     }, [])
-    const handleBuy = () => {
-        if (!profile) {
-            document.location.href = '/login'
+
+    const handleAddToCart = async () => {
+        const currentCart = api.getCart()
+        const ids = currentCart.map((i: any) => i.id)
+
+        if (ids.includes(product.id)) {
+            return Swal.fire({
+                icon: 'info',
+                text: 'Produto já adicionado ao carrinho',
+                showCancelButton: true,
+                cancelButtonText: 'Ir para o carrinho',
+                cancelButtonColor: 'green',
+            }).then((res: any) => {
+                if (res.dismiss == 'cancel') {
+                    document.location.href = '/carrinho'
+                }
+            })
         } else {
-            /// TODO: Lógica de realizar o pedido
             api.addToCart(product.id).then(() => {
                 Swal.fire({
                     icon: 'success',
@@ -57,10 +69,10 @@ function Produto() {
                     }
                 })
             })
-            console.log(profile)
-
         }
     }
+
+
     return (
         product.title ?
             (
@@ -106,7 +118,7 @@ function Produto() {
                         <span style={{ fontSize: 'small' }}>Publicado em</span> <span style={{ opacity: 0.7 }}>{moment(product.created_at).locale('pt-br').format('ddd, D MMMM, Y - H:m\\h')}</span><br />
                         <span style={{ fontSize: 'small' }}>Por</span> <Link to={`/usuarios/${product.user_id}`}> <span style={{ opacity: 0.7 }}>{product.user.username}</span></Link>
 
-                        <button onClick={handleBuy}>Adicionar ao carrinho</button>
+                        <button onClick={handleAddToCart} className='success'>Adicionar ao carrinho</button>
                     </div>
                     <div className={styles.sellerContainer}>
                         <h3>Vendedor</h3>

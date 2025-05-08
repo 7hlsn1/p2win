@@ -34,8 +34,10 @@ const Cart: React.FC = () => {
       if (!user) {
         document.location.href = '/login';
       } else {
-        orderApi.createOrder(cart, 'create').then((data: any) => {
-          console.log(data.data)
+        orderApi.createOrder(cart, 'create').then(({ data }: any) => {
+          console.log('data:')
+          console.log(data)
+
           if (data.error) {
             Swal.fire({
               icon: 'error',
@@ -43,8 +45,8 @@ const Cart: React.FC = () => {
             })
           } else {
             setIsModalOpen(true)
-            setOrder(data.data)
-            console.log(data.data)
+            setOrder(data.order)
+
           }
         })
       }

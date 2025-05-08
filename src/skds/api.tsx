@@ -38,7 +38,12 @@ interface Profile {
 class Api {
     public api
     static type = 'closed'
-    public token = localStorage.getItem('token');
+    public token = localStorage.getItem('token')
+    public static func = {
+        createDeposit: () => {
+
+        }
+    }
     public user = {}
     public data = {
         baseURL: import.meta.env.VITE_API_URL,
@@ -73,6 +78,7 @@ class Api {
         resolve(cart)
         reject()
     })
+
     removeFromCart = (item: number) => {
         const cart = this.getCart()
         console.log('cart:')
@@ -98,7 +104,7 @@ class Api {
 
     createOrder = (cart: any, method: string) => new Promise(async (resolve, reject) => {
         await this.api.post('/order', {
-           cart, method
+            cart, method
         }).then((data: any) => {
             resolve(data.data)
         })

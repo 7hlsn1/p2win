@@ -9,13 +9,12 @@ import { Link } from 'react-router-dom';
 
 
 interface Props {
-    logged: boolean;
-    admin_: boolean;
+    profile: boolean;
 }
 
-const Navbar: React.FC<Props> = ({ logged, admin_ }: any) => {
+const Navbar: React.FC<Props> = ({ profile }: any) => {
     const [ext, setExt] = useState('png');
-
+ 
     return (
         <header className={styles.navbar}>
             <Link to="/" className={styles.logo} onMouseEnter={() => {
@@ -31,7 +30,7 @@ const Navbar: React.FC<Props> = ({ logged, admin_ }: any) => {
             <SearchBar />
 
             <div className={styles.rightArea}>
-                <NavLinks logged={logged} admin={admin_} />
+                <NavLinks profile={profile} />
                 <div className={`${styles.iconGroup} ${styles.desktopOnly}`}>
                     <IconButton icon={FaBell} color='black' />
                     <Link to="/carrinho">

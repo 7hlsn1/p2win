@@ -36,31 +36,22 @@ const api = new Api('closed')
 
 function App() {
   const [logged_, setLogged] = useState(false)
-  const [admin, setAdmin] = useState(false)
-  setInterval(() => {
-    
-  }, 3000);
+
   useEffect(() => {
     api.getLoggedUser().then((data: any) => {
-
+      console.log('getLoggedUser')
       console.log(data)
-      if (data && data.role == 'admin') {
-        setAdmin(true)
+      if (data) {
 
-
+        setLogged(data)
       }
-      if (data && data.username) {
-        setLogged(true)
-      } else {
 
-        console.log(data)
-      }
     })
   }, [])
   return (
     <>
       <Container>
-        <Navbar logged={logged_} admin_={admin} />
+        <Navbar profile={logged_} />
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home />} />
