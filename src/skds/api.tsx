@@ -62,7 +62,28 @@ class Api {
         }
         this.api = axios.create(this.data)
     }
+    createVerify = (name: any, cpf: any, file: File, birthDate: string) => new Promise(async (resolve, reject) => {
 
+        console.log(file)
+        try {
+            await this.api.post('/verify_account', {
+                name: name,
+                cpf: cpf,
+                documentFront: file,
+                documentBack: file,
+                birthDate: birthDate
+            }, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            }).then((res: any) => {
+                resolve(res.data)
+            })
+        } catch (ex) {
+            reject()
+
+        }
+    });
     getCart = (): Array<any> => {
         const cart = localStorage.getItem('cart')
         return JSON.parse(cart ?? '[]')

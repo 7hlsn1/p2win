@@ -114,6 +114,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
                         title: data.message,
                         icon: 'success'
                     })
+                    setActiveTab('login')
                 } else {
                     Swal.fire({
                         title: data.error,
@@ -275,14 +276,14 @@ const LoginModal: React.FC<LoginModalProps> = ({
 
                     {activeTab === 'login' && (
                         <div className={styles.options}>
-                            <label className={styles.rememberMe}>
+                            {/* <label className={styles.rememberMe}>
                                 <input
                                     type="checkbox"
                                     checked={rememberMe}
                                     onChange={() => setRememberMe(!rememberMe)}
                                 />
                                 Lembrar de mim
-                            </label>
+                            </label> */}
                             <a onClick={handleForgotPassword} className={styles.forgotPassword}>
                                 Esqueceu a senha?
                             </a>
