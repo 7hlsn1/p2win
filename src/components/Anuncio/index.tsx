@@ -1,6 +1,6 @@
 import styles from './Anuncio.module.scss'
 import { useEffect, useState } from 'react';
-import { Api } from '../../skds/api';
+import { Api, TLoader } from '../../skds/api';
 import Swal from 'sweetalert2';
 import { IconButton } from '../Navbar/Sub-components/IconButton';
 import { FaTrash } from 'react-icons/fa';
@@ -16,7 +16,12 @@ const Anuncio: React.FC = () => {
   const [categoryId, setCategoryId] = useState('')
   const [valor, setValor] = useState('')
   const [images, setImages] = useState<any>([])
-  const [type, setType] = useState<any>({})
+  const [type, setType] = useState<any>({
+    id: 1,
+    tax: 10,
+    title: 'Pro',
+    position: 'Inicial'
+  })
   const handleCreateProduct = () => {
 
     const newImages: any = []
@@ -24,8 +29,11 @@ const Anuncio: React.FC = () => {
       newImages.push(image.file)
     })
 
+    TLoader.tLoader(1)
+
     api2.createProduct(parseInt(categoryId), 1, title, descricao, parseFloat(valor), bannerFile, newImages).then((data: any) => {
       console.log(data)
+      TLoader.tLoader(0)
       if (data.error) {
         Swal.fire({
           icon: 'error',
@@ -40,6 +48,13 @@ const Anuncio: React.FC = () => {
           document.location.href = '/'
         })
       }
+    }).catch((err: any) => {
+      console.log(err)
+      TLoader.tLoader(0)
+      Swal.fire({
+        icon: 'warning',
+        text: 'Erro inesperado, verifique o formato e tamanho dos arquivos. (Apenas imagens)'
+      })
     })
   }
   const handleAddImage = (e: any) => {
@@ -179,7 +194,7 @@ const Anuncio: React.FC = () => {
                 }
               </select>
               {
-                type ?
+                type.id ?
                   <>
                     <br />
                     <br />
@@ -199,7 +214,10 @@ const Anuncio: React.FC = () => {
                 }}
                 value={valor}
               />
-              Valor final: R$ {(parseFloat(valor) + (parseFloat(valor) * (type.tax / 100))).toFixed(2)}
+              {
+                valor ? <>Valor final: R$ {(parseFloat(valor) + (parseFloat(valor) * (type.tax / 100))).toFixed(2)}</> : null
+              }
+
             </div>
           </div>
         </>) : <></>}
@@ -210,7 +228,8 @@ const Anuncio: React.FC = () => {
             <div className={styles.inlineInputs}>
               <div className={styles.formGroup}>
                 <label htmlFor="banner">Selecione um banner</label>
-                <input type="file" id="banner" onChange={handleSetBanner} />
+                <input type="file" id="banner" accept="image/*"
+                  onChange={handleSetBanner} />
               </div>
             </div>
             {banner ? (
@@ -224,7 +243,8 @@ const Anuncio: React.FC = () => {
             <div className={styles.inlineInputs}>
               <div className={styles.formGroup}>
                 <label htmlFor="images">Selecione algumas imagens para o seu anúncio</label>
-                <input type="file" id="images" onChange={handleAddImage} />
+                <input type="file" id="images" accept="image/*"
+                  onChange={handleAddImage} />
               </div>
             </div>
 

@@ -61,24 +61,27 @@ function Banner(props: any) {
                     <SellerCard seller={seller_} key={seller_.id} />
                 ))}
             </div>
-            <h4>Produtos em destaque</h4>
+            {products.length > 0 ? <>
 
-            <br />
-            <div className="products">
+                <h4>Produtos em destaque</h4>
+                <br />
+                <div className="products">
 
-                {
-                    products?.map((product_: any) => {
-                        return (
+                    {
+                        products.map((product_: any) => {
+                            return (
 
-                            <ProductCard product={product_} key={product_.id}
-                                buy={product_.user_id != userProfile?.id}
-                            />
+                                <ProductCard product={product_} key={product_.id}
+                                    buy={product_.user_id != userProfile?.id}
+                                />
 
 
-                        )
-                    })
-                }
-            </div>
+                            )
+                        })
+                    }
+                </div>
+            </> : <h4 style={{color:'red', opacity: .5, background: 'rgba(106, 106, 106, 0.13)', padding: '1em'}}>Infelizmente não temos nenhum anúncio disponível no momento </h4>}
+
 
             <h4>Categorias Populares</h4>
             <div className={styles.cards}>

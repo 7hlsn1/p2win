@@ -5,6 +5,7 @@ import moment from 'moment';
 function SellerCard(props: any) {
 
     const { avatar, username, online, created_at, id, products } = props.seller
+    
     console.log('props.seller')
     console.log(props.seller)
     console.log(products)

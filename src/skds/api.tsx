@@ -260,13 +260,17 @@ class Api {
 
     createProduct = (category: number, type: number, title: string, description: string, price: number, banner: File, images: any) => new Promise(async (resolve, reject) => {
 
-        const req = await this.api.post(`/products/create`, { category, type, title, description, price, banner, images }, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        })
-        resolve(req.data);
-        reject();
+        try {
+            const req = await this.api.post(`/products/create`, { category, type, title, description, price, banner, images }, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+            resolve(req.data);
+
+        } catch (ex) {
+            reject();
+        }
     });
 
     likeProduct = (id: number) => new Promise(async (resolve, reject) => {

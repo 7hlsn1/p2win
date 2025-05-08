@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Categorias.module.scss";
-import { Api } from "../../skds/api";
+import { Api, TLoader } from "../../skds/api";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import GameCard from "../../components/GameCard";
@@ -22,8 +22,10 @@ const Categorias: React.FC = () => {
 
   useEffect(() => {
     console.log('here')
+    TLoader.tLoader(1)
     api.getCategories(params.get('search') ?? '', 1000).then((data: any) => {
       setCategories(data)
+      TLoader.tLoader(0)
     }).catch(err => {
       console.log('err:')
       console.log(err)

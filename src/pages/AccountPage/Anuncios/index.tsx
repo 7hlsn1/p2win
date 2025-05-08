@@ -54,9 +54,10 @@ const Anuncios: React.FC = () => {
           value={statusFiltro}
           onChange={handleChangeFilter}
         >
+          <option value={'0'}>Em análise</option>
           <option value={1}>Ativo</option>
-          <option value={0}>Em análise</option>
-          <option value={2}>Reprovado</option>
+          <option value={2}>Vendido</option>
+          <option value={3}>Reprovado</option>
 
         </select>
       </div>
@@ -74,7 +75,7 @@ const Anuncios: React.FC = () => {
                 <span>R$ {anuncio.price}</span>
               </div>
               <div className="pagamento">
-                <img src={anuncio.banner} />
+                <img src={import.meta.env.VITE_API_URL + anuncio.banner} />
                 {
                   anuncio.status == 2 ? <>                <span>Saldo P2Win: +R$ {anuncio.price}</span>
                   </> : <></>

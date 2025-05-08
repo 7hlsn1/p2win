@@ -10,7 +10,7 @@ interface UserDropdownProps {
 }
 
 export function UserDropdown({ children }: UserDropdownProps) {
- 
+
     const [menuOpen, setMenuOpen] = useState(false);
     const [profile, setProfile] = useState<any>({})
 
@@ -80,9 +80,7 @@ export function UserDropdown({ children }: UserDropdownProps) {
                                     <NavLink to="/minha-conta/compras" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
                                         <li>Minhas compras</li>
                                     </NavLink>
-                                    <NavLink to="/minha-conta/vendas" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                        <li>Minhas vendas</li>
-                                    </NavLink>
+
                                     <NavLink to="/minha-conta/minhas-perguntas" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
                                         <li>Minhas perguntas</li>
                                     </NavLink>
@@ -110,34 +108,7 @@ export function UserDropdown({ children }: UserDropdownProps) {
                                     </NavLink>
                                 </>
                                 :
-                                // <div>
-                                //     <li
-                                //         className={`${styles.link} ${styles.dropdownToggle}`}
-                                //         onClick={() => setAdminOpen(!adminOpen)}
-                                //     >
-                                //         Administração ▾
-                                //     </li>
-                                //     {adminOpen && (
-                                //         <ul className={styles.dropdownMenu}>
-                                //             <NavLink
-                                //                 to="/admin/usuarios"
-                                //                 className={({ isActive }) =>
-                                //                     `${styles.link} ${isActive ? styles.active : ''}`
-                                //                 }
-                                //             >
-                                //                 <li>Listar Usuários</li>
-                                //             </NavLink>
-                                //             <NavLink
-                                //                 to="/admin/anuncios"
-                                //                 className={({ isActive }) =>
-                                //                     `${styles.link} ${isActive ? styles.active : ''}`
-                                //                 }
-                                //             >
-                                //                 <li>Listar Anúncios</li>
-                                //             </NavLink>
-                                //         </ul>
-                                //     )}
-                                // </div>
+
                                 null
                             }
                         </ul>
@@ -165,10 +136,6 @@ export function UserDropdown({ children }: UserDropdownProps) {
                 <a style={{ color: 'red' }} onClick={handleLogout}>Sair</a>
                 {children}
 
-                {/* 
-                <button className={styles.themeToggle}>
-                    <FaMoon /> Tema claro
-                </button> */}
             </div >
         </div >
     ) : (
