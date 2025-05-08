@@ -3,7 +3,7 @@ import { FaBars, FaUserCircle } from 'react-icons/fa';
 import { Link, NavLink } from 'react-router-dom';
 import styles from './UserDropdown.module.scss';
 import { Api } from '../../../../skds/api';
-import { FaCartArrowDown, FaCartPlus } from 'react-icons/fa6';
+import { FaCartArrowDown } from 'react-icons/fa6';
 const api = new Api('closed')
 interface UserDropdownProps {
     children?: ReactNode;

@@ -40,7 +40,7 @@ const Categorias: React.FC = () => {
       <h4>Categorias</h4>
       <div className={styles.cards}>
         {categories.length > 0 ? categories.map((category: any) => (
-          <GameCard key={category.id} id={category.id} title={category.name} image={`${category.image}`} />
+          <GameCard key={category.id} id={category.id} title={category.name} image={`${category.image}`} count={category.products} />
 
         )) :
           (

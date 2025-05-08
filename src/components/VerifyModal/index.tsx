@@ -1,10 +1,9 @@
 
 import Modal from "../Modal"
 import styles from './VerifyModal.module.scss'
-import Swal from "sweetalert2"
-import { Api, } from "../../skds/api"
+ 
 import { useEffect, useState } from "react"
-import { useRef } from "react"
+ 
 import { IMaskInput } from 'react-imask';
 
 export const VerifyModal = ({ onClose }: any) => {
@@ -14,9 +13,9 @@ export const VerifyModal = ({ onClose }: any) => {
     const [name, setName] = useState<string>('')
     const [cpf, setCpf] = useState<string>('')
     const [file, setFile] = useState<any>()
-    const api = new Api('closed')
+    
     const handleSubmit = () => {
-
+        file.toString()
     }
     const handleChangeFile = (e: any) => {
         setFile(e.target.files[0])
