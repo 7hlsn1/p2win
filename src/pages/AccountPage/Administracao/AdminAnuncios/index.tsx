@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react';
 import './AdminAnuncios.scss';
 
 import { Api, TLoader } from '../../../../skds/api';
-import CustomTable from '../../../../components/CustomTable';
+ 
 import { FaEye } from 'react-icons/fa';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import Modal from '../../../../components/Modal';
 import Swal from 'sweetalert2';
+import DataTable from 'react-data-table-component';
 const api = new Api('closed')
 
 
@@ -17,17 +18,69 @@ export default function AdminAnuncios() {
     const [status, setStatus] = useState(0)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [anuncio, setAnuncio] = useState<any>({})
-    const handleChangeStatus = (e: any) => {
+    const columns = [
+        {
+            name: 'Título',
+            selector: (row: any) => row.title,
+            sortable: true,
+        },
+        {
+            name: 'Valor',
+            selector: (row: any) => row.price,
+            sortable: true,
+        },
+        {
+            name: 'Publicado em',
+            selector: (row: any) => moment(row.created_at).format('DD/MM/YYYY'),
+            sortable: true,
+        },
+        {
+            name: 'Status',
+            selector: (row: any) => [
+                <span>Aguardando aprovação</span>,
+                <span style={{ color: 'green' }}>Aprovado</span>,
+                <span>Vendido</span>,
+                <span style={{ color: 'red' }}>Rejeitado</span>
+            ]
+            [row.status],
+            sortable: true,
+        },
+        {
+            name: 'Banner',
+            selector: (row: any) => (
+                <Link to={import.meta.env.VITE_API_URL + row.banner} target='_blank'>
+                    <img style={{ height: 100 }} src={import.meta.env.VITE_API_URL + row.banner} />
+                </Link>
+            ),
+            sortable: true,
+        },
+        {
+            name: ' ',
+            selector: (row: any) => (
 
+
+                <FaEye size={'20px'} cursor={'pointer'} color='blue' onClick={() => {
+                    handleOpenModal(row.id)
+                }} />
+
+            ),
+            sortable: false,
+        },
+    ]
+    const handleChangeStatus = async (e: any) => {
+        TLoader.tLoader(1)
         setStatus(e.target.value)
         getAnuncios(e.target.value)
+
     }
     const getAnuncios = (status_: any) => {
+        TLoader.tLoader(1)
         api.getAllProducts('', '', 0, status_).then((r: any) => {
             setAnuncios(r)
+            TLoader.tLoader(0)
+
         })
-
-
+  
     }
     const handleOpenModal = (id: any) => {
         TLoader.tLoader(1)
@@ -39,8 +92,11 @@ export default function AdminAnuncios() {
         })
     }
     const handleReject = () => {
+        TLoader.tLoader(1)
         api.rejectProduct(anuncio.id).then((data: any) => {
+
             getAnuncios(status)
+            TLoader.tLoader(0)
             Swal.fire({
                 icon: 'success',
                 text: data.message
@@ -130,38 +186,41 @@ export default function AdminAnuncios() {
             </div >
             {
                 anuncios.length > 0 ? (
-                    <CustomTable
-                        columns={['Título', 'Valor', 'Publicado em', 'Status', 'Publicado por', '']}
-                        rows=
-                        {
-                            anuncios.map(
-                                (anuncio: any) => [
-                                    [
-                                        anuncio.title,
-                                        `R$ ${anuncio.price}`,
-                                        moment(anuncio.created_at).format('D/MM/yyyy - H:m\\h'),
-                                        [
-                                            <span>Aguardando aprovação</span>,
-                                            <span style={{ color: 'green' }}>Aprovado</span>,
-                                            <span>Vendido</span>,
-                                            <span style={{ color: 'red' }}>Rejeitado</span>
-                                        ]
-                                        [anuncio.status],
-                                        <Link className='link' to={`/usuarios/${anuncio.user_id}`}>{anuncio.user}</Link>
-                                        ,
+                    <DataTable columns={columns} data={anuncios}>
 
-                                        <FaEye size={'20px'} cursor={'pointer'} color='blue' onClick={() => {
-                                            handleOpenModal(anuncio.id)
-                                        }} />
+                    </DataTable>
+                    // <CustomTable
+                    //     columns={['Título', 'Valor', 'Publicado em', 'Status', 'Publicado por', '']}
+                    //     rows=
+                    //     {
+                    //         anuncios.map(
+                    //             (anuncio: any) => [
+                    //                 [
+                    //                     anuncio.title,
+                    //                     `R$ ${anuncio.price}`,
+                    //                     moment(anuncio.created_at).format('D/MM/yyyy - H:m\\h'),
+                    //                     [
+                    //                         <span>Aguardando aprovação</span>,
+                    //                         <span style={{ color: 'green' }}>Aprovado</span>,
+                    //                         <span>Vendido</span>,
+                    //                         <span style={{ color: 'red' }}>Rejeitado</span>
+                    //                     ]
+                    //                     [anuncio.status],
+                    //                     <Link className='link' to={`/usuarios/${anuncio.user_id}`}>{anuncio.user}</Link>
+                    //                     ,
 
-
-                                    ]
-                                ]
-                            )
-                        }
+                    //                     <FaEye size={'20px'} cursor={'pointer'} color='blue' onClick={() => {
+                    //                         handleOpenModal(anuncio.id)
+                    //                     }} />
 
 
-                    />
+                    //                 ]
+                    //             ]
+                    //         )
+                    //     }
+
+
+                    // />
                 ) : <></>
             }
         </div >

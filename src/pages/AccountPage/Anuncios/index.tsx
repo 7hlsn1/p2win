@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Anuncios.scss";
-import { Api, } from "../../../skds/api";
+import { Api, TLoader, } from "../../../skds/api";
 import moment from "moment";
 import { Link } from "react-router-dom";
 const api = new Api('closed')
@@ -25,19 +25,26 @@ const Anuncios: React.FC = () => {
   const [anuncios, setAnuncios] = useState([]);
 
   useEffect(() => {
+    TLoader.tLoader(1)
     api.getMyProducts('', statusFiltro, '').then((data: any) => {
       setAnuncios(data)
+      TLoader.tLoader(0)
     })
   }, [])
 
   const handleChangeFilter = (e: any) => {
+    TLoader.tLoader(1)
     const status = parseInt(e.target.value)
     setStatusFiltro(status)
     console.log(`statusFiltro = ${status}`)
     console.log(status)
+
+
     api.getMyProducts('', status, '').then((data: any) => {
       console.log(data[0])
       setAnuncios(data)
+      TLoader.tLoader(0)
+
     }).catch(err => {
       console.log('err:')
       console.log(err)
