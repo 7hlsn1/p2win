@@ -96,13 +96,14 @@ export default function AdminAnuncios() {
         api.rejectProduct(anuncio.id).then((data: any) => {
 
             getAnuncios(status)
+            setIsModalOpen(false)
             TLoader.tLoader(0)
             Swal.fire({
                 icon: 'success',
                 text: data.message
             }).then((r: any) => {
                 console.log(r)
-                setIsModalOpen(false)
+              
             })
         })
     }

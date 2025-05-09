@@ -79,7 +79,9 @@ const Sidebar = () => {
                                 <NavLink to="/admin/verificacao" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
                                     <li>Verificação de contas</li>
                                 </NavLink>
-                              
+                                <NavLink to="/admin/transacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                                    <li>Transações</li>
+                                </NavLink>
                                 <NavLink to="/admin/anuncios" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
                                     <li>Anúncios</li>
                                 </NavLink>

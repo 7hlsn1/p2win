@@ -91,16 +91,16 @@ export default function AdminVerificacoes() {
         <div className="admin-container  ">
 
 
-            {usuarios.length > 0 && (
-                <>
-                    <DataTable columns={cols} data={usuarios} pagination>
+            {usuarios.length > 0 ? (
+                <DataTable columns={cols} data={usuarios} pagination />
 
 
 
 
-                    </DataTable>
-                </>
-            )}
+
+            ) : <span>
+                Nenhuma solicitação pendente
+            </span>}
         </div>
     );
 }

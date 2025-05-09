@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './AdminUsuarios.scss';
-import { Api } from '../../../../skds/api';
+import { Api, TLoader } from '../../../../skds/api';
 import DataTable from 'react-data-table-component';
 const api = new Api('closed')
 
@@ -29,7 +29,7 @@ export default function AdminUsuarios() {
         },
         {
             name: 'Verificado',
-            selector: (row: any) => (row.name ? <span style={{color:'green'}}>Sim</span> : <span style={{color:'red'}}>Não</span>),
+            selector: (row: any) => (row.name ? <span style={{ color: 'green' }}>Sim</span> : <span style={{ color: 'red' }}>Não</span>),
             sortable: false,
         },
         {
@@ -41,8 +41,10 @@ export default function AdminUsuarios() {
         },
     ]
     useEffect(() => {
+        TLoader.tLoader(1)
         api.getUsers(false).then((users: any) => {
             setUsuarios(users)
+            TLoader.tLoader(0)
         })
     }, [])
     return (
@@ -51,7 +53,7 @@ export default function AdminUsuarios() {
 
             {usuarios.length > 0 && (
                 <>
-                    <DataTable columns={cols} data={usuarios}  >
+                    <DataTable columns={cols} data={usuarios} title='Usuários' theme='light'>
 
 
 

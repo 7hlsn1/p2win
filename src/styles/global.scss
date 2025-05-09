@@ -26,6 +26,9 @@ button {
   font-family: inherit;
 }
 
+.admin-container {
+  padding: 1em;
+}
 button {
   .success {
     background-color: variaveis.$success;

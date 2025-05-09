@@ -1,102 +1,194 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './AdminTransacoes.scss';
 
-type Transacao = {
-    id: number;
-    descricao: string;
-    valor: number;
-    data: string;
-    tipo: 'entrada' | 'saida';
-};
+import { Api, TLoader } from '../../../../skds/api';
 
-const transacoesMock: Transacao[] = [
-    { id: 1, descricao: 'Venda de produto', valor: 150.5, data: '2023-05-15', tipo: 'entrada' },
-    { id: 2, descricao: 'Compra de materiais', valor: 89.9, data: '2023-05-16', tipo: 'saida' },
-    { id: 3, descricao: 'Assinatura mensal', valor: 29.9, data: '2023-05-17', tipo: 'entrada' },
-];
+import { FaEye } from 'react-icons/fa';
+import moment from 'moment';
+import { Link } from 'react-router-dom';
+import Modal from '../../../../components/Modal';
+import Swal from 'sweetalert2';
+import DataTable from 'react-data-table-component';
+const api = new Api('closed')
 
-export default function AdminTransacoes() {
-    const [transacoes, setTransacoes] = useState<Transacao[]>([]);
-    const [listando, setListando] = useState(false);
 
-    const listarTransacoes = () => {
-        setTransacoes(transacoesMock);
-        setListando(true);
-    };
 
-    const limparLista = () => {
-        setTransacoes([]);
-        setListando(false);
-    };
+export default function AdminAnuncios() {
+    const [anuncios, setAnuncios] = useState<any>([]);
+    const [status, setStatus] = useState('withdraw')
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [anuncio, setAnuncio] = useState<any>({})
+    const columns = [
+        {
+            name: 'Título',
+            selector: (row: any) => row.title,
+            sortable: true,
+        },
+        {
+            name: 'Valor',
+            selector: (row: any) => row.price,
+            sortable: true,
+        },
+        {
+            name: 'Publicado em',
+            selector: (row: any) => moment(row.created_at).format('DD/MM/YYYY'),
+            sortable: true,
+        },
+        {
+            name: 'Status',
+            selector: (row: any) => [
+                <span>Aguardando aprovação</span>,
+                <span style={{ color: 'green' }}>Aprovado</span>,
+                <span>Vendido</span>,
+                <span style={{ color: 'red' }}>Rejeitado</span>
+            ]
+            [row.status],
+            sortable: true,
+        },
+        {
+            name: 'Banner',
+            selector: (row: any) => (
+                <Link to={import.meta.env.VITE_API_URL + row.banner} target='_blank'>
+                    <img style={{ height: 100 }} src={import.meta.env.VITE_API_URL + row.banner} />
+                </Link>
+            ),
+            sortable: true,
+        },
+        {
+            name: ' ',
+            selector: (row: any) => (
 
-    const excluirTransacao = (id: number) => {
-        const novaLista = transacoes.filter(transacao => transacao.id !== id);
-        setTransacoes(novaLista);
-    };
 
-    const formatarMoeda = (valor: number) => {
-        return valor.toLocaleString('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-        });
-    };
+                <FaEye size={'20px'} cursor={'pointer'} color='blue' onClick={() => {
+                    handleOpenModal(row.id)
+                }} />
 
-    const formatarData = (data: string) => {
-        return new Date(data).toLocaleDateString('pt-BR');
-    };
+            ),
+            sortable: false,
+        },
+    ]
+    const handleChangeStatus = async (e: any) => {
+        TLoader.tLoader(1)
+        setStatus(e.target.value)
+        getAnuncios(e.target.value)
 
+    }
+    const getAnuncios = (status_: any) => {
+        TLoader.tLoader(1, 'Carregando anúncios...')
+        api.getAllProducts('', '', 0, status_).then((r: any) => {
+            setAnuncios(r)
+            TLoader.tLoader(0)
+
+        })
+
+    }
+    const handleOpenModal = (id: any) => {
+        TLoader.tLoader(1)
+        api.getProduct(id).then(data => {
+            setAnuncio(data)
+            console.log(data)
+            setIsModalOpen(true)
+            TLoader.tLoader(0)
+        })
+    }
+    const handleReject = () => {
+        TLoader.tLoader(1)
+        api.rejectProduct(anuncio.id).then((data: any) => {
+
+            getAnuncios(status)
+            TLoader.tLoader(0)
+            Swal.fire({
+                icon: 'success',
+                text: data.message
+            }).then((r: any) => {
+                console.log(r)
+                setIsModalOpen(false)
+            })
+        })
+    }
+    const handleSubmit = (e: any) => {
+        e.preventDefault()
+        api.approveProduct(anuncio.id).then((data: any) => {
+            getAnuncios(status)
+            Swal.fire({
+                icon: 'success',
+                text: data.message
+            }).then((r: any) => {
+                console.log(r)
+                setIsModalOpen(false)
+            })
+        })
+    }
+    useEffect(() => {
+        getAnuncios(status)
+    }, [])
     return (
-        <div className='mob'>
-            <div className="admin-container">
-                <h1>Admin - Transações</h1>
-                <div className="botoes">
-                    <button onClick={listarTransacoes} className="botao botao-listar">
-                        Listar Transações
-                    </button>
-                    <button onClick={limparLista} className="botao botao-limpar" disabled={!listando}>
-                        Limpar Lista
-                    </button>
-                </div>
+        <div className="admin-container">
 
-                {transacoes.length > 0 && (
-                    <table className="tabela-transacoes">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Descrição</th>
-                                <th>Valor</th>
-                                <th>Data</th>
-                                <th>Tipo</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {transacoes.map((transacao) => (
-                                <tr key={transacao.id}>
-                                    <td>{transacao.id}</td>
-                                    <td>{transacao.descricao}</td>
-                                    <td className={transacao.tipo}>{formatarMoeda(transacao.valor)}</td>
-                                    <td>{formatarData(transacao.data)}</td>
-                                    <td>
-                                        <span className={`badge-${transacao.tipo}`}>
-                                            {transacao.tipo === 'entrada' ? 'Entrada' : 'Saída'}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <button
-                                            className="botao-excluir"
-                                            onClick={() => excluirTransacao(transacao.id)}
-                                            title="Excluir transação"
-                                        >
-                                            🗑️
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                )}
-            </div>
-        </div>
-    );
+            {
+                isModalOpen ? (
+                    <Modal styles={{ width: '800px', maxWidth: 'unset' }} onClose={() => {
+                        setIsModalOpen(false)
+                    }}>
+                        <form action="" onSubmit={handleSubmit}>
+                            <div style={{ marginBottom: '1em' }}>
+                                Publicado por: <Link className='link' to={`/usuarios/${anuncio.user_id}`}>{anuncio.user.username}</Link>
+
+                            </div>
+                            <div className='formGroup'>
+                                <label htmlFor="">Anuncio</label>
+                                <input type="text" value={anuncio.title} />
+                            </div>
+                            <div className='formGroup'>
+                                <label htmlFor="">Valor</label>
+                                <input type="number" value={anuncio.price} />
+                            </div>
+                            <div className='formGroup'>
+                                <label htmlFor="">Descrição</label>
+                                <input type="text" value={anuncio.description} />
+                            </div>
+                            <div className='formGroup'>
+                                Banner
+                                <div className='banner' style={{ backgroundImage: `url('${import.meta.env.VITE_API_URL + anuncio.banner}')` }}></div>
+                                Imagens
+                                <div className='images'>
+                                    {anuncio.images.map((image: any) => (
+                                        <div className='image' style={{ backgroundImage: `url('${import.meta.env.VITE_API_URL + image.file}')` }}>
+
+                                        </div>
+
+                                    ))}
+
+                                </div>
+                            </div>
+                            <div className="buttons">
+                                <button type="submit" style={{ backgroundColor: '#2ecc71' }}>Aprovar</button>
+                                <button type="button" onClick={handleReject} style={{ backgroundColor: 'rgb(221, 76, 76)' }}>Rejeitar</button>
+
+                            </div>
+
+                        </form>
+                    </Modal>
+                ) :
+                    null
+            }
+
+            Tipo
+            < div className="filters" >
+                <select name="" id="" onChange={handleChangeStatus}>
+                    <option value="deposit">Depósito</option>
+                    <option value="withdraw">Saque</option>
+
+                </select>
+            </div >
+            {
+                anuncios.length > 0 ? (
+                    <DataTable columns={columns} data={anuncios} pagination title='Transações'>
+
+                    </DataTable>
+                  
+                ) : <></>
+            }
+        </div >
+    )
 }
