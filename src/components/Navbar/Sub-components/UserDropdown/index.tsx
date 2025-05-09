@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, ReactNode } from 'react';
 import { FaBars, FaUserCircle } from 'react-icons/fa';
 import { Link, NavLink } from 'react-router-dom';
 import styles from './UserDropdown.module.scss';
-import { Api } from '../../../../skds/api';
+import { Api, TLoader } from '../../../../skds/api';
 import { FaCartArrowDown } from 'react-icons/fa6';
 const api = new Api('closed')
 interface UserDropdownProps {
@@ -23,6 +23,7 @@ export function UserDropdown({ children }: UserDropdownProps) {
     }, [])
 
     const handleLogout = () => {
+        TLoader.tLoader(1)
         api.logout().then(() => {
             document.location.href = '/'
         })

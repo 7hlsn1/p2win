@@ -30,7 +30,7 @@ export default function AdminUsuarios() {
         {
             name: 'Verificado',
             selector: (row: any) => (row.name ? <span style={{color:'green'}}>Sim</span> : <span style={{color:'red'}}>Não</span>),
-            sortable: true,
+            sortable: false,
         },
         {
             name: ' ',

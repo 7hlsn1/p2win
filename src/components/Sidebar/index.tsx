@@ -1,19 +1,22 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Sidebar.module.scss';
-import { Api } from '../../skds/api';
+import { Api, TLoader } from '../../skds/api';
 
 const Sidebar = () => {
  
     const [profile, setProfile] = useState<any>({})
     const api = new Api('closed');
     useEffect(() => {
+        TLoader.tLoader(1)
         api.getLoggedUser().then(data => {
             setProfile(data)
             console.log(data)
+            TLoader.tLoader(0)
         })
     }, [])
     const handleLogout = () => {
+        TLoader.tLoader(1)
         api.logout().then(() => {
             document.location.href = '/';
         });

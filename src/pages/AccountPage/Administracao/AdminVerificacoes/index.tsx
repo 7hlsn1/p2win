@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import './AdminVerificacoes.scss';
 import { Api, TLoader } from '../../../../skds/api';
-import DataTable  from 'react-data-table-component';
- 
+import DataTable from 'react-data-table-component';
+
 
 import moment from 'moment';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 const api = new Api('closed')
 
 
@@ -13,10 +14,35 @@ const api = new Api('closed')
 export default function AdminVerificacoes() {
     const [usuarios, setUsuarios] = useState<any>([]);
     const handleVerify = (id: any) => {
-        alert(id)
+        TLoader.tLoader(1)
+        api.verifyUser(id).then((user: any) => {
+            TLoader.tLoader(0)
+            loadData()
+            if (user.error) {
+                return Swal.fire({
+                    icon: 'error',
+                    text: user.error
+                })
+            } else {
+                return Swal.fire({
+                    icon: 'success',
+                    text: 'Usuário verificado com sucesso'
+                })
+            }
+        }).catch((err) => {
+            alert(err)
+        })
     }
     const handleDeny = (id: any) => {
-        alert(id)
+        console.log(id)
+
+    }
+    const loadData = () => {
+        TLoader.tLoader(1)
+        api.getVerifyRequests().then((users: any) => {
+            setUsuarios(users)
+            TLoader.tLoader(0)
+        })
     }
     const cols = [
         {
@@ -59,11 +85,7 @@ export default function AdminVerificacoes() {
         },
     ]
     useEffect(() => {
-        TLoader.tLoader(1)
-        api.getVerifyRequests().then((users: any) => {
-            setUsuarios(users)
-            TLoader.tLoader(0)
-        })
+        loadData()
     }, [])
     return (
         <div className="admin-container  ">

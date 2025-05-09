@@ -62,6 +62,28 @@ class Api {
         }
         this.api = axios.create(this.data)
     }
+    verifyUser = (id: any) => new Promise(async (resolve, reject) => {
+
+        try {
+            await this.api.get(`/admin/users/verify/${id}`).then((res: any) => {
+                resolve(res.data)
+            })
+        } catch (ex) {
+            reject()
+
+        }
+    });
+    denyUser = (id: any) => new Promise(async (resolve, reject) => {
+
+        try {
+            await this.api.get(`/admin/users/deny/${id}`).then((res: any) => {
+                resolve(res.data)
+            })
+        } catch (ex) {
+            reject()
+
+        }
+    });
     createVerify = (name: any, cpf: any, file: File, birthDate: string) => new Promise(async (resolve, reject) => {
 
         console.log(file)
