@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
 import styles from './ProductCard.module.scss';
 import moment from 'moment';
-import { FaCartPlus, FaEye } from 'react-icons/fa6';
+import {
+    FaCartPlus,
+    //FaEye
+} from 'react-icons/fa6';
 import { Api, TLoader } from '../../skds/api';
 import Swal from 'sweetalert2';
 const api = new Api('open')
