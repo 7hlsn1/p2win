@@ -1,6 +1,6 @@
 import './MinhaConta.scss';
 import { FaCheckCircle, FaEnvelope, FaHeart, FaUserPlus, FaBan, FaFlag } from 'react-icons/fa';
-import { Api } from '../../../skds/api'
+import { Api, TLoader } from '../../../skds/api'
 import { useState, useEffect } from 'react';
 
 export default function MinhaConta() {
@@ -8,9 +8,11 @@ export default function MinhaConta() {
   const api = new Api('closed')
   const [profile, setProfile] = useState<any>([])
   useEffect(() => {
+    TLoader.tLoader(1, 'Carregando perfil...')
     api.getProfile().then((data: any) => {
        
       setProfile(data)
+      TLoader.tLoader(0)
     })
   }, [])
 

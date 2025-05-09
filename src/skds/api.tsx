@@ -190,8 +190,8 @@ class Api {
     getLoggedUser = () => new Promise(async (resolve, reject) => {
         TLoader.tLoader(1)
 
-        await this.api.get('/verify_token').then(async (user: any) => {
-            await TLoader.sleep(1000)
+        await this.api.get('/verify_token').then((user: any) => {
+
             TLoader.tLoader(0)
 
             resolve(user.data.user)
@@ -254,6 +254,13 @@ class Api {
         resolve(data);
         reject();
     });
+    getTypes = () => new Promise(async (resolve, reject) => {
+        const req = await this.api.get('/orders/types') 
+        resolve(req.data)
+        reject();
+    });
+
+
 
 
     getProducts = (search: string | any = '', user: number = 0, category: number = 0) => new Promise(async (resolve, reject) => {
@@ -371,7 +378,7 @@ class TLoader {
         if (0)
             reject()
     })
-    static tLoader = async (value: number = 1) => {
+    static tLoader = async (value: number = 1, text: string = 'Carregando...') => {
 
 
 
@@ -397,7 +404,7 @@ class TLoader {
         const loader = `
  
             <img src='/assets/logo.gif' />
-            <span style="color: white">Carregando...</span>
+            <span style="color: white">${text}</span>
  
         `
         let loaderFound = document.getElementById('tloader')

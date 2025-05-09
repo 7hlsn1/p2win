@@ -22,6 +22,9 @@ const Anuncio: React.FC = () => {
     title: 'Pro',
     position: 'Inicial'
   })
+  const [types, setTypes] = useState<any>([])
+
+
   const handleCreateProduct = () => {
 
     const newImages: any = []
@@ -92,8 +95,16 @@ const Anuncio: React.FC = () => {
   }
 
   useEffect(() => {
+    TLoader.tLoader(1)
+    api2.getTypes().then((types: any) => {
+      setTypes(types)
+      TLoader.tLoader(0)
+
+    })
+    TLoader.tLoader(1)
     api.getCategories('', 10000, true).then((data: any) => {
       setCategories(data)
+      TLoader.tLoader(0)
     })
   }, [])
   const handleSetBanner = (e: any) => {
@@ -169,26 +180,7 @@ const Anuncio: React.FC = () => {
               <label htmlFor="type">Tipo do anúncio</label>
               <select name="type" id="type" onChange={handleSetType}>
                 {
-                  [
-                    {
-                      id: 1,
-                      tax: 10,
-                      title: 'Pro',
-                      position: 'Inicial'
-                    },
-                    {
-                      id: 2,
-                      tax: 15,
-                      position: 'Média',
-                      title: 'Premium',
-                    },
-                    {
-                      id: 3,
-                      tax: 20,
-                      position: 'Máxima',
-                      title: 'Max'
-                    }
-                  ].map((t: any) => (
+                  types.map((t: any) => (
                     <option value={JSON.stringify(t)} key={t.id}>Anúncio {t.title}</option>
                   ))
                 }

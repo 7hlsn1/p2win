@@ -11,7 +11,7 @@ const Sidebar = () => {
         TLoader.tLoader(1)
         api.getLoggedUser().then(data => {
             setProfile(data)
-            console.log(data)
+    
             TLoader.tLoader(0)
         })
     }, [])
@@ -48,12 +48,7 @@ const Sidebar = () => {
                                 <NavLink to="/minha-conta/perguntas-recebidas" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
                                     <li>Perguntas recebidas</li>
                                 </NavLink>
-                                <NavLink to="/minha-conta/retiradas" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                    <li>Minhas retiradas</li>
-                                </NavLink>
-                                <NavLink to="/minha-conta/recargas" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                    <li>Recargas</li>
-                                </NavLink>
+                                 
 
                                 <li className={styles.sectionTitle}>CONFIGURAÇÕES</li>
 
@@ -63,16 +58,8 @@ const Sidebar = () => {
                                 <NavLink to="/minha-conta/meus-dados" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
                                     <li>Meus dados</li>
                                 </NavLink>
-                                <NavLink to="/minha-conta/verificacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                    <li>Verificações</li>
-                                </NavLink>
-                                <NavLink to="/minha-conta/seguranca" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                    <li>Segurança</li>
-                                </NavLink>
-                                <NavLink to="/minha-conta/notificacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                    <li>Notificações</li>
-                                </NavLink>
- 
+                               
+                                 
 
                                 <NavLink to="/" className={styles.link}>
                                     <li className={styles.logout} onClick={handleLogout}>Sair</li>

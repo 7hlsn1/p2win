@@ -31,9 +31,10 @@ export default function Usuario() {
     id = 0
   }
   useEffect(() => {
-    TLoader.tLoader(1)
+    TLoader.tLoader(1, 'Carregando perfil...')
     api.getLoggedUser().then(data => {
       setUser(data)
+      TLoader.tLoader(0)
     })
     api.getProfile(id).then((data: any) => {
       setUserProfile(data)

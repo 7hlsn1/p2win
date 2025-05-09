@@ -9,7 +9,7 @@ const PerfilGerente: React.FC<PerfilGerenteProps> = (props: any) => {
   const profile = props.profile
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  return (
+  return (profile.username ?
     <>
       {
         isModalOpen ?
@@ -40,7 +40,7 @@ const PerfilGerente: React.FC<PerfilGerenteProps> = (props: any) => {
           }}>Clique aqui para verificar</button>
         </div>
         : null}
-    </>
+    </> : null
   );
 };
 

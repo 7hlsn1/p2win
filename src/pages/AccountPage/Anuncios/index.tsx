@@ -38,10 +38,8 @@ const Anuncios: React.FC = () => {
     setStatusFiltro(status)
     console.log(`statusFiltro = ${status}`)
     console.log(status)
-
-
     api.getMyProducts('', status, '').then((data: any) => {
-      console.log(data[0])
+    
       setAnuncios(data)
       TLoader.tLoader(0)
 
@@ -88,6 +86,7 @@ const Anuncios: React.FC = () => {
                   </> : <></>
                 }
                 <span className="aprovado">{['Em análise', 'Aprovado', 'Vendido'][anuncio.status]}</span>
+                <span>{moment(anuncio.created_at).format('DD/MM/YYYY')}</span>
               </div>
             </div>
 

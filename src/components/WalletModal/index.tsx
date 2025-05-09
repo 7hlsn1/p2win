@@ -14,7 +14,7 @@ export const WalletModal = ({ onClose }: any) => {
     const handleSubmit = () => {
         if (tab == 'withdraw') {
         } else if (tab == 'deposit') {
-            TLoader.tLoader(1)
+            TLoader.tLoader(1, 'Gerando pagamento...')
             api.createTransaction('deposit', amount).then((data: any) => {
                 TLoader.tLoader(0)
                 console.log(data)
@@ -35,11 +35,12 @@ export const WalletModal = ({ onClose }: any) => {
         })
     }
     useEffect(() => {
-        api.getLoggedUser().then((user_: any) => {
-            setUser(user_)
+        TLoader.tLoader(1)
+        api.getLoggedUser().then((profile:any) => {
+            setUser(profile)
+            TLoader.tLoader(0)
+
         })
-
-
     }, [])
 
 
@@ -50,6 +51,7 @@ export const WalletModal = ({ onClose }: any) => {
                     setTab('deposit')
                 }}> Depositar</button>
                 <button onClick={() => {
+                    console.log(user)
                     if (user.cpf) {
                         setTab('withdraw')
                     } else {
@@ -75,7 +77,9 @@ export const WalletModal = ({ onClose }: any) => {
 
                     </div>
 
-                    <button className={styles.submitButton}>Clique aqui após realizar o pagamento</button>
+                    <button  style={{width: '100%'}} className={styles.submitButton} onClick={() => {
+                        document.location.reload()
+                    }}>Clique aqui após realizar o pagamento</button>
                 </>
             ) : (<div className={styles.formWrapper}>
                 <form className={styles.form} onSubmit={handleSubmit}>

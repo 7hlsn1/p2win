@@ -74,7 +74,7 @@ export default function AdminAnuncios() {
 
     }
     const getAnuncios = (status_: any) => {
-        TLoader.tLoader(1)
+        TLoader.tLoader(1, 'Carregando anúncios...')
         api.getAllProducts('', '', 0, status_).then((r: any) => {
             setAnuncios(r)
             TLoader.tLoader(0)
@@ -186,7 +186,7 @@ export default function AdminAnuncios() {
             </div >
             {
                 anuncios.length > 0 ? (
-                    <DataTable columns={columns} data={anuncios}>
+                    <DataTable columns={columns} data={anuncios} pagination  >
 
                     </DataTable>
                     // <CustomTable

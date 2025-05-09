@@ -12,7 +12,7 @@ const Resumo = () => {
 
 
     useEffect(() => {
-        TLoader.tLoader(1)
+        TLoader.tLoader(1, 'Carregando perfil...')
         api.getLoggedUser().then((data: any) => {
             setProfile(data)
 
@@ -21,19 +21,16 @@ const Resumo = () => {
 
     }, [])
 
-    return <>
-        <AccountSummary profile={profile_} />
-        <PerfilGerente
-            profile={profile_}
+    return profile_.username ?
+        <>
+            <AccountSummary profile={profile_} />
+            <PerfilGerente
+                profile={profile_}
 
-        />
-       
+            />
 
-        <div className="container-status">
-            {/* <VerificationStatus />
-            <SalesSummary /> */}
-        </div>
-    </>
+
+        </> : 'Carregando...'
 };
 
 export default Resumo;

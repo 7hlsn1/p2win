@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./Compras.scss";
-import { Api } from "../../../skds/api";
+import { Api, TLoader } from "../../../skds/api";
 import moment from "moment";
-import MD5 from "md5"; 
+import MD5 from "md5";
 import { OrderModal } from "../../../components/OrderModal";
 
 
@@ -12,20 +12,26 @@ const Compras: React.FC = () => {
   const [status, setStatus] = useState<any>(1)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const api = new Api('closed')
+
   const handleChangeStatus = (e: any) => {
     const newStatus = e.target.value
     setStatus(newStatus)
-
+    TLoader.tLoader(1, 'Carregando pedidos...')
     api.getOrders(newStatus).then((orders_: any) => {
-      console.log(orders_)
-      console.log(status)
+      
       setOrders(orders_.orders)
+      TLoader.tLoader(0)
+
     })
   }
   useEffect(() => {
+    TLoader.tLoader(1, 'Carregando pedidos...')
+
     api.getOrders(status).then((orders_: any) => {
-      console.log(orders_)
+     
       setOrders(orders_.orders)
+      TLoader.tLoader(0)
+
     })
   }, [])
 
