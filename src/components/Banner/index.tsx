@@ -5,7 +5,7 @@ import GameCard from '../GameCard';
 import ProductCard from '../ProductCard';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Api } from '../../skds/api';
+import { Api, TLoader } from '../../skds/api';
 import SellerCard from '../SellerCard';
 import Slider from 'react-slick';
 import '../../../node_modules/slick-carousel/slick/slick.css'
@@ -31,17 +31,22 @@ function Banner(props: any) {
     };
 
     useEffect(() => {
-
+        TLoader.tLoader(1, 'Carregando vendedores...')
         api.getSellers().then(data => {
             setSellers(data)
             console.log(data)
+            TLoader.tLoader(0)
         })
+        TLoader.tLoader(1, 'Carregando categorias...')
+
         api.getCategories('', 6).then((data) => {
             setCategories(data)
+            TLoader.tLoader(0)
         })
+        TLoader.tLoader(1, 'Carregando produtos...')
         api.getProducts().then(data => {
             setProducts(data)
-
+            TLoader.tLoader(0)
         })
     }, [])
 

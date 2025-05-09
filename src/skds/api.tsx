@@ -123,11 +123,11 @@ class Api {
     }
     addToCart = (id: number) => new Promise(async (resolve, reject) => {
         const cart = this.getCart()
-        TLoader.tLoader(1)
+
         const product = await this.getProduct(id)
         cart.push(product)
         localStorage.setItem('cart', JSON.stringify(cart))
-        TLoader.tLoader(0)
+
 
         resolve(cart)
         reject()
@@ -188,11 +188,10 @@ class Api {
         reject()
     })
     getLoggedUser = () => new Promise(async (resolve, reject) => {
-        TLoader.tLoader(1)
+
 
         await this.api.get('/verify_token').then((user: any) => {
 
-            TLoader.tLoader(0)
 
             resolve(user.data.user)
         })
@@ -217,9 +216,9 @@ class Api {
     })
 
     login = (email: string, password: string) => new Promise(async (resolve, reject) => {
-        TLoader.tLoader(1)
+
         const req = await this.api.post('/login', { email, password });
-        TLoader.tLoader(0)
+
         resolve(req.data)
         if (!req) {
             reject()
@@ -255,7 +254,7 @@ class Api {
         reject();
     });
     getTypes = () => new Promise(async (resolve, reject) => {
-        const req = await this.api.get('/orders/types') 
+        const req = await this.api.get('/orders/types')
         resolve(req.data)
         reject();
     });
