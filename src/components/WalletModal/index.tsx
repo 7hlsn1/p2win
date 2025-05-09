@@ -1,26 +1,38 @@
- 
+
 import Modal from "../Modal"
 import styles from './WalletModal.module.scss'
 import Swal from "sweetalert2"
-import { Api,   } from "../../skds/api"
+import { Api, TLoader, } from "../../skds/api"
 import { useEffect, useState } from "react"
 export const WalletModal = ({ onClose }: any) => {
 
     const [tab, setTab] = useState('deposit');
     const [user, setUser] = useState<any>({})
     const [amount, setAmount] = useState<number>(5.00)
+    const [payment, setPayment] = useState<any>({})
     const api = new Api('closed')
     const handleSubmit = () => {
         if (tab == 'withdraw') {
-
         } else if (tab == 'deposit') {
-            Api.func.createDeposit()
+            TLoader.tLoader(1)
+            api.createTransaction('deposit', amount).then((data: any) => {
+                TLoader.tLoader(0)
+                console.log(data)
+                setPayment(data)
+            })
         } else {
             Swal.fire({
                 icon: 'error',
                 text: 'Erro inesperado, entre em contato com o suporte'
             })
         }
+    }
+    const handleCopy = () => {
+        navigator.clipboard.writeText(payment.qrcode)
+        Swal.fire({
+            icon: 'success',
+            text: 'Copiado com sucesso'
+        })
     }
     useEffect(() => {
         api.getLoggedUser().then((user_: any) => {
@@ -48,7 +60,24 @@ export const WalletModal = ({ onClose }: any) => {
                     }
                 }}>Sacar</button>
             </div>
-            <div className={styles.formWrapper}>
+            {payment.qrcode && tab == 'deposit' ? (
+                <>
+                    <div className={styles.payment} onClick={handleCopy}>
+                        <span
+                            style={{
+                                opacity: .8,
+                                fontSize: '13px'
+                            }}
+                        >Clique para copiar
+                        </span>
+                        <span id='qrcode' className={styles.qrCode}>{payment.qrcode}</span>
+                        <img src={`data:image/png;base64, ${payment.qrcode_base64}`} alt="" />
+
+                    </div>
+
+                    <button className={styles.submitButton}>Clique aqui após realizar o pagamento</button>
+                </>
+            ) : (<div className={styles.formWrapper}>
                 <form className={styles.form} onSubmit={handleSubmit}>
                     <h3 style={{ marginBottom: '1em' }}>Realizar {tab == 'deposit' ? 'Depósito' : 'Saque'}</h3>
 
@@ -73,11 +102,12 @@ export const WalletModal = ({ onClose }: any) => {
                     </>
                     : tab == 'withdraw' ? <></> : null}
                 <div className="buttons">
-                    <button className={styles.submitButton}>
+                    <button className={styles.submitButton} onClick={handleSubmit}>
                         Confirmar
                     </button>
                 </div>
-            </div>
+            </div>)}
+
         </Modal >
     )
 }

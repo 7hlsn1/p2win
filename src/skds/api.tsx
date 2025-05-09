@@ -62,6 +62,17 @@ class Api {
         }
         this.api = axios.create(this.data)
     }
+    createTransaction = (type: any, amount: any) => new Promise(async (resolve, reject) => {
+
+        try {
+            await this.api.post(`/transaction/` + type, { amount: amount, method: type }).then((res: any) => {
+                resolve(res.data)
+            })
+        } catch (ex) {
+            reject(ex)
+
+        }
+    });
     verifyUser = (id: any) => new Promise(async (resolve, reject) => {
 
         try {

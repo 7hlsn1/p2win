@@ -9,6 +9,20 @@
     gap: 10px;
 }
 
+.payment {
+    img {
+        width: 100%;
+    }
+    .qrCode {
+        padding: 1em;
+        font-size: small;
+        opacity: .5;
+        border: 1px solid black;
+        border-radius: 3px;
+        display: block;
+        overflow-x: auto;
+    }
+}
 .banner {
     width: 100px;
 }
