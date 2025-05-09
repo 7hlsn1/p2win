@@ -59,12 +59,12 @@ function Banner(props: any) {
             <Slider {...settings} >
                 <div className={styles.slide}>
                     <Link to='/produtos?category_id=78'>
-                        <img src={'https://i.redd.it/gw4h3begfrc81.jpg'} />
+                        <img src={'https://i.imgur.com/3D6njhS.png'} />
                     </Link>
                 </div>
                 <div className={styles.slide}>
-                    <Link to='/produtos?category_id=129'>
-                        <img src={'/assets/banner02.png'} />
+                    <Link to='/produtos?category_id=78'>
+                        <img src={'https://i.imgur.com/3D6njhS.png'} />
                     </Link>
                 </div>
             </Slider>
