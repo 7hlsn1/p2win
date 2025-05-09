@@ -263,7 +263,7 @@ class Api {
 
 
     getProducts = (search: string | any = '', user: number = 0, category: number = 0) => new Promise(async (resolve, reject) => {
-        const req = await this.api.get(`/products?search=${search}&user=${user}&category_id=${category}`)
+        const req = await this.api.get(`/products?search=${search}${user ? `&user=${user}` : ''}&category_id=${category}`)
         const data = req.data
         resolve(data);
         reject();

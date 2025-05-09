@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Anuncios.scss";
-import { Api  } from "../../skds/api";
+import { Api, TLoader  } from "../../skds/api";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import ProductCard from "../../components/ProductCard";
@@ -27,9 +27,11 @@ const Produtos: React.FC = () => {
     api.getLoggedUser().then(data => {
       setUserProfile(data)
     })
+    TLoader.tLoader(1, 'Carregando anúncios...')
     api.getProducts(params.get('search') ?? '', 0, parseInt(categoryId ? categoryId.toString() : '')).then((data: any) => {
-      setCategory(data[0].category)
+      setCategory(data[0]?.category)
       setAnuncios(data)
+      TLoader.tLoader(0)
     }).catch(err => {
       console.log('err:')
       console.log(err)

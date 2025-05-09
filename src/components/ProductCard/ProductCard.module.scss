@@ -10,7 +10,7 @@
     cursor: pointer;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
     min-width: 400px;
-    
+
     position: relative;
 
     display: flex;
@@ -19,13 +19,15 @@
 
     .buttons {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-around;
         margin: 10px auto;
+
         button {
             background-color: #00a500;
             color: white;
-            margin: auto 10px;
+            margin: 10px;
+            width: 100%;
         }
 
 

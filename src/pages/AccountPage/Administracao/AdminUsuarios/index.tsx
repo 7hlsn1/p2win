@@ -2,14 +2,22 @@ import { useEffect, useState } from 'react';
 import './AdminUsuarios.scss';
 import { Api, TLoader } from '../../../../skds/api';
 import DataTable from 'react-data-table-component';
+import { UserModal } from '../../../../components/UserModal';
 const api = new Api('closed')
 
 
 
 export default function AdminUsuarios() {
     const [usuarios, setUsuarios] = useState<any>([]);
+    const [user, setUser] = useState<any>({});
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const handleVerify = (id: any) => {
-        alert(id)
+        TLoader.tLoader(1)
+        api.getProfile(id).then((profile: any) => {
+            setUser(profile)
+            TLoader.tLoader(0)
+            setIsModalOpen(true)
+        })
     }
     const cols = [
         {
@@ -49,17 +57,16 @@ export default function AdminUsuarios() {
     }, [])
     return (
         <div className="admin-container  ">
-
+            {user && isModalOpen ?
+                <UserModal user={user} onClose={() => {
+                    setIsModalOpen(false)
+                }} />
+                : null}
 
             {usuarios.length > 0 && (
-                <>
-                    <DataTable columns={cols} data={usuarios} title='Usuários' theme='light'>
 
+                <DataTable columns={cols} data={usuarios} title='Usuários' />
 
-
-
-                    </DataTable>
-                </>
             )}
         </div>
     );

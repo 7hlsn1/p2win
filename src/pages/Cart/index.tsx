@@ -29,7 +29,7 @@ const Cart: React.FC = () => {
   const handleOrder = () => {
 
     const orderApi = new Api('closed')
-    TLoader.tLoader(1)
+    TLoader.tLoader(1, 'Carregando pedido')
     orderApi.getLoggedUser().then(user => {
       if (!user) {
         document.location.href = '/login';
@@ -37,6 +37,7 @@ const Cart: React.FC = () => {
         orderApi.createOrder(cart, 'create').then(({ data }: any) => {
           console.log('data:')
           console.log(data)
+          TLoader.tLoader(0)
 
           if (data.error) {
             Swal.fire({

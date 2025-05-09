@@ -2,12 +2,12 @@ import { Link } from 'react-router-dom';
 import styles from './ProductCard.module.scss';
 import moment from 'moment';
 import { FaCartPlus, FaEye } from 'react-icons/fa6';
-import { Api } from '../../skds/api';
+import { Api, TLoader } from '../../skds/api';
 import Swal from 'sweetalert2';
 const api = new Api('open')
 function ProductCard(props: any) {
 
-    const { id, title, banner, description, price, created_at, user, user_id, user_online = 0 } = props.product
+    const { id, title, banner, description, price, created_at, user, user_id, user_online = 0, category, category_id } = props.product
     const buy = props.buy
     const handleAddToCart = async () => {
         const currentCart = api.getCart()
@@ -26,7 +26,9 @@ function ProductCard(props: any) {
                 }
             })
         }
+        TLoader.tLoader(1, 'Adicionando produto...')
         api.addToCart(id).then(() => {
+            TLoader.tLoader(0)
             Swal.fire({
                 icon: 'success',
                 text: 'Adicionado ao carrinho',
@@ -43,8 +45,13 @@ function ProductCard(props: any) {
     return (
 
         <div className={styles.card} >
+            <Link style={{ position: 'absolute', top: 10, left: 10 }} to={`/produtos?category_id=${category_id}`}>
+                {category}
+
+            </Link>
             <Link to={`/produtos/${id}`}>
                 <h4 className={styles.title}>{title}</h4>
+
             </Link>
 
             <img src={banner.startsWith('http') ? banner : import.meta.env.VITE_API_URL + banner} alt={'Carregando imagem...'} />
@@ -54,9 +61,7 @@ function ProductCard(props: any) {
             </span>
             <span className={styles.date}>{moment(created_at).format('DD/MM/Y')}</span>
             {buy ? <div className={styles.buttons}>
-                <Link to={`/produtos/${id}`}>
-                    <button   >  <FaEye /> Ver</button>
-                </Link>
+
 
                 <button onClick={handleAddToCart}> <FaCartPlus /> Adicionar ao carrinho </button>
 
