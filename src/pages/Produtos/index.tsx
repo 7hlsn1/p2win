@@ -1,5 +1,5 @@
 import styles from './Produto.module.scss';
-import { Api } from '../../skds/api';
+import { Api, TLoader } from '../../skds/api';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 const api = new Api('closed')
@@ -30,8 +30,10 @@ function Produto() {
     }
     const [product, setProduct] = useState<any>({})
      useEffect(() => {
+        TLoader.tLoader(1)
         api.getProduct(parseInt(id.toString())).then((data: any) => {
             setProduct(data)
+            TLoader.tLoader(0)
             // api.getLoggedUser().then(user => {
             //     setProfile(user)
             // })

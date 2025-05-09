@@ -48,6 +48,8 @@ function Banner(props: any) {
             setProducts(data)
             TLoader.tLoader(0)
         })
+
+
     }, [])
 
 
@@ -72,7 +74,7 @@ function Banner(props: any) {
                     <SellerCard seller={seller_} key={seller_.id} />
                 ))}
             </div>
-            {products.length > 0 ? <>
+            {products && products.length > 0 ? <>
 
                 <h4>Produtos em destaque</h4>
                 <br />

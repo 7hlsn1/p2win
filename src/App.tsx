@@ -24,7 +24,7 @@ import Cart from './pages/Cart';
 import { Container } from './components/Container';
 import Navbar from './components/Navbar';
 import LoginPage from './pages/login';
-import { Api } from './skds/api';
+import { Api, TLoader } from './skds/api';
 import { useEffect, useState } from 'react';
 import Produtos from './pages/Anuncios';
 import Produto from './pages/Produtos';
@@ -40,14 +40,14 @@ function App() {
   const [logged_, setLogged] = useState(false)
 
   useEffect(() => {
+    TLoader.tLoader(1, 'Carregando usuário...')
     api.getLoggedUser().then((data: any) => {
-      console.log('getLoggedUser')
       console.log(data)
-      if (data) {
 
+      if (data) {
         setLogged(data)
       }
-
+      TLoader.tLoader(0)
     })
   }, [])
   return (
