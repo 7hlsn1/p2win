@@ -146,7 +146,7 @@ const Anuncio: React.FC = () => {
           placeholder="Digite aqui (máx. 80 caracteres)"
         />
         <small>
-          Exemplo: Conta LoL diamante full champs, 250 Tebe Coins, Curso de Inglês Avançado...
+          Exemplo: Conta LoL diamante full champs, conta de Minecraft...
         </small>
       </div>
       {

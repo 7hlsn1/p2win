@@ -1,6 +1,7 @@
 
 // import Swal from "sweetalert2";
 
+import moment from "moment"
 import { Api, TLoader } from "../../skds/api"
 import Modal from "../Modal"
 import styles from './UserModal.module.scss'
@@ -81,11 +82,20 @@ export const UserModal = ({ onClose, user }: any) => {
                             required
                         />
                     </div>
+                    <div className={styles.formGroup}>
+                        <label htmlFor="email">Email</label>
+                        <input
+                            type="email"
+                            id="email"
+                            value={user.email}
+                            required
+                        />
+                    </div>
 
 
 
                     <div className={styles.formGroup}>
-                        <label htmlFor="birthDate">Data de nascimento: {user.birth_date}</label>
+                        <label htmlFor="birthDate">Data de nascimento: {moment(user.birth_date).format('DD/MM/YYYY')}</label>
 
                     </div>
 
@@ -94,6 +104,11 @@ export const UserModal = ({ onClose, user }: any) => {
                             <div className={styles.formGroup}>
                                 <label htmlFor="cpf_">CPF</label>
                                 <input readOnly value={user.cpf} onChange={() => { }}
+                                />
+                            </div>
+                            <div className={styles.formGroup}>
+                                <label htmlFor="name">Nome</label>
+                                <input readOnly value={user.name} onChange={() => { }}
                                 />
                             </div>
                             <div className={styles.formGroup}>

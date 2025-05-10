@@ -14,12 +14,11 @@ const api = new Api('closed')
 
 
 export default function AdminAnuncios() {
-    const [anuncios, setAnuncios] = useState<any>([]);
     const [transactions, setTransactions] = useState<any>([])
-    const [status, setStatus] = useState('withdraw')
+    const [status, setStatus] = useState('deposit')
     // const [isModalOpen, setIsModalOpen] = useState(false)
     //  const [anuncio, setAnuncio] = useState<any>({})
-    const columns = [
+    const cols: any = [
         {
             name: 'Tipo',
             selector: (row: any) => (row.type == 'deposit') ? 'Depósito' : (row.title == 'withdraw' ? 'Saque' : '?'),
@@ -37,18 +36,15 @@ export default function AdminAnuncios() {
         },
         {
             name: 'Status',
-            selector: (row: any) => ([
-                `<span style={{ color: 'red' }}>Não pago</span>`,
-                `<span style={{ color: 'red' }}>Pago</span>`
-            ][row.status]),
+            selector: (row: any) => (row.status == 0 ? <span style={{ color: 'red' }}>Não pago</span> : <span style={{ color: 'red' }}> Pago</span>),
             sortable: true,
         },
         {
             name: 'Usuário',
-            selector: (row: any) => (`
-                ${<Link className='link' to={'/usuarios/' + row.user_id} target='_blank'>
+            selector: (row: any) => (
+                <Link className='link' to={'/usuarios/' + row.user_id} target='_blank'>
                     {row.username}
-                </Link>}`
+                </Link>
             ),
             sortable: true,
         },
@@ -75,12 +71,9 @@ export default function AdminAnuncios() {
         TLoader.tLoader(1, 'Carregando anúncios...')
         api.getTransactions(status_).then((data: any) => {
             setTransactions(data)
-        })
-        api.getAllProducts('', '', 0, status_).then((r: any) => {
-            setAnuncios(r)
             TLoader.tLoader(0)
-
         })
+
 
     }
     // const handleOpenModal = (id: any) => {
@@ -156,8 +149,8 @@ export default function AdminAnuncios() {
                 </select>
             </div >
             {
-                anuncios.length > 0 ? (
-                    <DataTable columns={columns} data={transactions} pagination title='Transações'>
+                transactions.length > 0 ? (
+                    <DataTable columns={cols} data={transactions} pagination title='Transações'>
 
                     </DataTable>
 
