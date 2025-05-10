@@ -18,42 +18,43 @@ const api = new Api('closed')
 export const UserModal = ({ onClose, user }: any) => {
 
     const [banned, setBanned] = useState(false)
-    // const [cpf_, setcpf_] = useState<string>('')
-    // const [birthDate, setBirthDate] = useState<string>('')
-    // const [file, setFile] = useState<any>()
-    // const [image, setImage] = useState('')
+    const [cpf, setcpf] = useState<string>('')
+    const [birthDate, setBirthDate] = useState<string>('')
+    const [email, setEmail] = useState<any>('')
+    const [name, setName] = useState('')
+    const [username, setUsername] = useState('')
 
-    // const handleSubmit = () => {
-    //     console.log(birthDate)
+    const handleSubmit = () => {
+        console.log(birthDate)
 
-    //     TLoader.tLoader(1)
-    //     api.createVerify(name, cpf_, file, birthDate).then((data: any) => {
-    //         TLoader.tLoader(0)
-    //         if (data.error) {
-    //             Swal.fire({
-    //                 icon: 'warning',
-    //                 text: data.error
-    //             })
-    //         } else if (data.message) {
-    //             Swal.fire({
-    //                 icon: 'success',
-    //                 text: data.message
-    //             }).then((res: any) => {
-    //                 console.log(res)
-    //                 document.location.reload()
-    //             })
-    //             onClose()
-    //         }
+        TLoader.tLoader(1)
+        api.createVerify(name, cpf_, file, birthDate).then((data: any) => {
+            TLoader.tLoader(0)
+            if (data.error) {
+                Swal.fire({
+                    icon: 'warning',
+                    text: data.error
+                })
+            } else if (data.message) {
+                Swal.fire({
+                    icon: 'success',
+                    text: data.message
+                }).then((res: any) => {
+                    console.log(res)
+                    document.location.reload()
+                })
+                onClose()
+            }
 
-    //     }).catch(() => {
-    //         TLoader.tLoader(0)
-    //         Swal.fire({
-    //             icon: 'error',
-    //             text: 'Erro inesperado'
-    //         })
+        }).catch(() => {
+            TLoader.tLoader(0)
+            Swal.fire({
+                icon: 'error',
+                text: 'Erro inesperado'
+            })
 
-    //     })
-    // }
+        })
+    }
 
     const handleBan = () => {
         TLoader.tLoader(1)
@@ -80,6 +81,10 @@ export const UserModal = ({ onClose, user }: any) => {
                             id="name"
                             value={user.username}
                             required
+                            onChange={(e: any) => {
+                                user.username = e.target.value
+                                setUsername(e.target.value)
+                            }}
                         />
                     </div>
                     <div className={styles.formGroup}>
@@ -89,13 +94,17 @@ export const UserModal = ({ onClose, user }: any) => {
                             id="email"
                             value={user.email}
                             required
+                            onChange={(e: any) => {
+                                user.email = e.target.value
+                                setEmail(e.target.value)
+                            }}
                         />
                     </div>
 
 
 
                     <div className={styles.formGroup}>
-                        <label htmlFor="birthDate">Data de nascimento: {moment(user.birth_date).format('DD/MM/YYYY')}</label>
+                        <label htmlFor="birthDate">Data de nascimento<br /><b>{moment(user.birth_date).format('DD/MM/YYYY')}</b></label>
 
                     </div>
 
@@ -125,7 +134,7 @@ export const UserModal = ({ onClose, user }: any) => {
 
                 </form>
                 <div className="buttons">
-
+                    <button className={styles.submitButton}>Salvar</button>
                 </div>
             </div >
         </Modal >
