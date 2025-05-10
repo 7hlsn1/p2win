@@ -3,11 +3,11 @@ import './AdminTransacoes.scss';
 
 import { Api, TLoader } from '../../../../skds/api';
 
-import { FaEye } from 'react-icons/fa';
+
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import Modal from '../../../../components/Modal';
-import Swal from 'sweetalert2';
+// import Modal from '../../../../components/Modal';
+// import Swal from 'sweetalert2';
 import DataTable from 'react-data-table-component';
 const api = new Api('closed')
 
@@ -15,57 +15,55 @@ const api = new Api('closed')
 
 export default function AdminAnuncios() {
     const [anuncios, setAnuncios] = useState<any>([]);
+    const [transactions, setTransactions] = useState<any>([])
     const [status, setStatus] = useState('withdraw')
-    const [isModalOpen, setIsModalOpen] = useState(false)
-    const [anuncio, setAnuncio] = useState<any>({})
+    // const [isModalOpen, setIsModalOpen] = useState(false)
+    //  const [anuncio, setAnuncio] = useState<any>({})
     const columns = [
         {
-            name: 'Título',
-            selector: (row: any) => row.title,
+            name: 'Tipo',
+            selector: (row: any) => (row.type == 'deposit') ? 'Depósito' : (row.title == 'withdraw' ? 'Saque' : '?'),
             sortable: true,
         },
         {
             name: 'Valor',
-            selector: (row: any) => row.price,
+            selector: (row: any) => `R$ ${row.amount}`,
             sortable: true,
         },
         {
-            name: 'Publicado em',
+            name: 'Criado em',
             selector: (row: any) => moment(row.created_at).format('DD/MM/YYYY'),
             sortable: true,
         },
         {
             name: 'Status',
-            selector: (row: any) => [
-                <span>Aguardando aprovação</span>,
-                <span style={{ color: 'green' }}>Aprovado</span>,
-                <span>Vendido</span>,
-                <span style={{ color: 'red' }}>Rejeitado</span>
-            ]
-            [row.status],
+            selector: (row: any) => ([
+                `<span style={{ color: 'red' }}>Não pago</span>`,
+                `<span style={{ color: 'red' }}>Pago</span>`
+            ][row.status]),
             sortable: true,
         },
         {
-            name: 'Banner',
-            selector: (row: any) => (
-                <Link to={import.meta.env.VITE_API_URL + row.banner} target='_blank'>
-                    <img style={{ height: 100 }} src={import.meta.env.VITE_API_URL + row.banner} />
-                </Link>
+            name: 'Usuário',
+            selector: (row: any) => (`
+                ${<Link className='link' to={'/usuarios/' + row.user_id} target='_blank'>
+                    {row.username}
+                </Link>}`
             ),
             sortable: true,
         },
-        {
-            name: ' ',
-            selector: (row: any) => (
+        // {
+        //     name: ' ',
+        //     selector: (row: any) => (
 
 
-                <FaEye size={'20px'} cursor={'pointer'} color='blue' onClick={() => {
-                    handleOpenModal(row.id)
-                }} />
+        //         <FaEye size={'20px'} cursor={'pointer'} color='blue' onClick={() => {
+        //             handleOpenModal(row.id)
+        //         }} />
 
-            ),
-            sortable: false,
-        },
+        //     ),
+        //     sortable: false,
+        // },
     ]
     const handleChangeStatus = async (e: any) => {
         TLoader.tLoader(1)
@@ -75,6 +73,9 @@ export default function AdminAnuncios() {
     }
     const getAnuncios = (status_: any) => {
         TLoader.tLoader(1, 'Carregando anúncios...')
+        api.getTransactions(status_).then((data: any) => {
+            setTransactions(data)
+        })
         api.getAllProducts('', '', 0, status_).then((r: any) => {
             setAnuncios(r)
             TLoader.tLoader(0)
@@ -82,50 +83,23 @@ export default function AdminAnuncios() {
         })
 
     }
-    const handleOpenModal = (id: any) => {
-        TLoader.tLoader(1)
-        api.getProduct(id).then(data => {
-            setAnuncio(data)
-            console.log(data)
-            setIsModalOpen(true)
-            TLoader.tLoader(0)
-        })
-    }
-    const handleReject = () => {
-        TLoader.tLoader(1)
-        api.rejectProduct(anuncio.id).then((data: any) => {
+    // const handleOpenModal = (id: any) => {
+    //     TLoader.tLoader(1)
+    //     api.getProduct(id).then(data => {
+    //         setAnuncio(data)
+    //         console.log(data)
+    //         setIsModalOpen(true)
+    //         TLoader.tLoader(0)
+    //     })
+    // }
 
-            getAnuncios(status)
-            TLoader.tLoader(0)
-            Swal.fire({
-                icon: 'success',
-                text: data.message
-            }).then((r: any) => {
-                console.log(r)
-                setIsModalOpen(false)
-            })
-        })
-    }
-    const handleSubmit = (e: any) => {
-        e.preventDefault()
-        api.approveProduct(anuncio.id).then((data: any) => {
-            getAnuncios(status)
-            Swal.fire({
-                icon: 'success',
-                text: data.message
-            }).then((r: any) => {
-                console.log(r)
-                setIsModalOpen(false)
-            })
-        })
-    }
     useEffect(() => {
         getAnuncios(status)
     }, [])
     return (
         <div className="admin-container">
 
-            {
+            {/* {
                 isModalOpen ? (
                     <Modal styles={{ width: '800px', maxWidth: 'unset' }} onClose={() => {
                         setIsModalOpen(false)
@@ -171,7 +145,7 @@ export default function AdminAnuncios() {
                     </Modal>
                 ) :
                     null
-            }
+            } */}
 
             Tipo
             < div className="filters" >
@@ -183,10 +157,10 @@ export default function AdminAnuncios() {
             </div >
             {
                 anuncios.length > 0 ? (
-                    <DataTable columns={columns} data={anuncios} pagination title='Transações'>
+                    <DataTable columns={columns} data={transactions} pagination title='Transações'>
 
                     </DataTable>
-                  
+
                 ) : <></>
             }
         </div >

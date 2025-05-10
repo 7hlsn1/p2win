@@ -15,6 +15,7 @@ export default function AdminUsuarios() {
         TLoader.tLoader(1)
         api.getProfile(id).then((profile: any) => {
             setUser(profile)
+            console.log(profile)
             TLoader.tLoader(0)
             setIsModalOpen(true)
         })
@@ -39,6 +40,11 @@ export default function AdminUsuarios() {
             name: 'Verificado',
             selector: (row: any) => (row.name ? <span style={{ color: 'green' }}>Sim</span> : <span style={{ color: 'red' }}>Não</span>),
             sortable: false,
+        },
+        {
+            name: 'Banido',
+            selector: (row: any) => (row.status == 0 ? <span style={{ color: 'red' }}>Sim</span> : <span style={{ color: 'green' }}>Não</span>),
+            sortable: true,
         },
         {
             name: ' ',

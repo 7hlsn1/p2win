@@ -62,6 +62,18 @@ class Api {
         }
         this.api = axios.create(this.data)
     }
+    getTransactions = (type: any) => new Promise(async (resolve, reject) => {
+
+        try {
+            await this.api.get(`/transactions/` + type).then((res: any) => {
+                resolve(res.data)
+            })
+        } catch (ex) {
+            reject(ex)
+
+        }
+    })
+
     createTransaction = (type: any, amount: any) => new Promise(async (resolve, reject) => {
 
         try {
@@ -70,6 +82,16 @@ class Api {
             })
         } catch (ex) {
             reject(ex)
+
+        }
+    });
+    toggleBan = (id: any) => new Promise(async (resolve, reject) => {
+        try {
+            await this.api.get(`/admin/users/ban/${id}`).then((res: any) => {
+                resolve(res.data)
+            })
+        } catch (ex) {
+            reject()
 
         }
     });

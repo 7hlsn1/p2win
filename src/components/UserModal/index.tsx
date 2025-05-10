@@ -1,19 +1,22 @@
 
 // import Swal from "sweetalert2";
-// import { Api, TLoader } from "../../skds/api";
+
+import { Api, TLoader } from "../../skds/api"
 import Modal from "../Modal"
 import styles from './UserModal.module.scss'
 
 import {
     useEffect,
-//    useState
+    useState,
+    //    useState
 } from "react"
 
 // import { IMaskInput } from 'react-imask';
 
-//const api = new Api('closed')
+const api = new Api('closed')
 export const UserModal = ({ onClose, user }: any) => {
 
+    const [banned, setBanned] = useState(false)
     // const [cpf_, setcpf_] = useState<string>('')
     // const [birthDate, setBirthDate] = useState<string>('')
     // const [file, setFile] = useState<any>()
@@ -51,11 +54,15 @@ export const UserModal = ({ onClose, user }: any) => {
     //     })
     // }
 
-
+    const handleBan = () => {
+        TLoader.tLoader(1)
+        api.toggleBan(user.id).then((data: any) => {
+            setBanned(data.banned == 1)
+            TLoader.tLoader(0)
+        })
+    }
     useEffect(() => {
-
-
-
+        setBanned(user.status == 0)
     }, [])
 
 
@@ -65,46 +72,47 @@ export const UserModal = ({ onClose, user }: any) => {
             <div className={styles.formWrapper}>
                 <form className={styles.form}>
                     <h3 style={{ marginBottom: '1em' }}>Perfil do usuário</h3>
-
                     <div className={styles.formGroup}>
                         <label htmlFor="name">Nome de usuário</label>
                         <input
                             type="text"
                             id="name"
                             value={user.username}
-
-
                             required
                         />
                     </div>
 
 
-                    <div className={styles.formGroup}>
-                        <label htmlFor="cpf_">CPF</label>
-                        <input readOnly
-                        />
-                    </div>
 
                     <div className={styles.formGroup}>
                         <label htmlFor="birthDate">Data de nascimento: {user.birth_date}</label>
 
                     </div>
 
-                    <div className={styles.formGroup}>
-                        <label htmlFor="file">Documento de identificação</label>
-                        <img src={import.meta.env.VITE_API_URL + user.document} alt="" />
-                    </div>
-                    {/* <div className={styles.formGroup}>
-                        <img src={image} alt="" style={{ width: '100%' }} />
-                    </div> */}
-                </form>
+                    {user.cpf ?
+                        <>
+                            <div className={styles.formGroup}>
+                                <label htmlFor="cpf_">CPF</label>
+                                <input readOnly value={user.cpf} onChange={() => { }}
+                                />
+                            </div>
+                            <div className={styles.formGroup}>
+                                <label htmlFor="file">Documento de identificação</label>
+                                <img src={import.meta.env.VITE_API_URL + user.document} alt="" />
+                            </div>
+                        </>
 
-                {/* <div className="buttons">
-                    <button className={styles.submitButton} onClick={handleSubmit}>
-                        Enviar solicitação
-                    </button>
-                </div> */}
-            </div>
+                        : null}
+                    <div>
+                        <input type="checkbox" style={{ marginRight: 10 }} name="" id="banned" onChange={handleBan} checked={banned} />
+                        <label htmlFor="banned">Usuário banido</label>
+                    </div>
+
+                </form>
+                <div className="buttons">
+
+                </div>
+            </div >
         </Modal >
     )
 }
