@@ -59,12 +59,18 @@ function Banner(props: any) {
             <Slider {...settings} >
                 <div className={styles.slide}>
                     <Link to='/produtos?category_id=78'>
-                        <img src={'https://i.imgur.com/3D6njhS.png'} />
+                        <h3 style={{
+                            position: 'absolute',
+                            top: 10,
+                            left: 10,
+                            color: 'black'
+                        }}>League Of Legends</h3>
+                        <img src={'https://i.imgur.com/vAQ3Gzd.png'} />
                     </Link>
                 </div>
                 <div className={styles.slide}>
                     <Link to='/produtos?category_id=78'>
-                        <img src={'https://i.imgur.com/3D6njhS.png'} />
+                        <img src={'https://i.imgur.com/vAQ3Gzd.png'} />
                     </Link>
                 </div>
             </Slider>
