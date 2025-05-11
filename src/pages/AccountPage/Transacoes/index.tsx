@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Transacoes.scss";
 import { Api, TLoader, } from "../../../skds/api";
 import moment from "moment";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 const api = new Api('closed')
 moment.locale('pt-br')
 moment.localeData('pt-br')
