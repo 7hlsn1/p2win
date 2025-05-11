@@ -24,37 +24,14 @@ export const UserModal = ({ onClose, user }: any) => {
     const [name, setName] = useState('')
     const [username, setUsername] = useState('')
 
-    const handleSubmit = () => {
-        console.log(birthDate)
+    const unused = { cpf, birthDate, email, name, username, setBirthDate, setName, setEmail, setcpf }
+    console.log(unused)
+    // const handleSubmit = () => {
+    //     console.log(birthDate)
 
-        TLoader.tLoader(1)
-        api.createVerify(name, cpf_, file, birthDate).then((data: any) => {
-            TLoader.tLoader(0)
-            if (data.error) {
-                Swal.fire({
-                    icon: 'warning',
-                    text: data.error
-                })
-            } else if (data.message) {
-                Swal.fire({
-                    icon: 'success',
-                    text: data.message
-                }).then((res: any) => {
-                    console.log(res)
-                    document.location.reload()
-                })
-                onClose()
-            }
+    //     TLoader.tLoader(1)
 
-        }).catch(() => {
-            TLoader.tLoader(0)
-            Swal.fire({
-                icon: 'error',
-                text: 'Erro inesperado'
-            })
-
-        })
-    }
+    // }
 
     const handleBan = () => {
         TLoader.tLoader(1)
