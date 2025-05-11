@@ -9,7 +9,8 @@ export const OrderModal = ({ onClose, order }: any) => {
     const [cart, setCart] = useState([])
     const [order_, setOrder] = useState({})
     const orderApi = new Api('closed')
-
+    const unused = { order_, setOrder }
+    console.log(unused)
     const handlePay = () => {
         TLoader.tLoader(1)
         orderApi.createOrder(cart, 'wallet').then((data: any) => {

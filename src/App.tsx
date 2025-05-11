@@ -64,7 +64,7 @@ function App() {
           <Route path="/usuarios/:id" element={<Usuario />} />
           <Route path="/categorias" element={<Categorias />} />
           <Route path="/carrinho" element={<Cart />} />
-          <Route path="/minha-conta" element={<AccountPage />}>
+          <Route path="/minha-conta"  element={<AccountPage />}>
             <Route index element={<Resumo />} />
             <Route path="transacoes" element={<Transacoes />} />
             <Route path="anuncios" element={<Anuncios />} />
