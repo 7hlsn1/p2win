@@ -1,5 +1,263 @@
-@media (max-width: 768px) {
-    .container-trans {
+@use '../../../styles/variaveis';
+
+.aba-anuncios {
+    color: variaveis.$cor-do-texto;
+    font-family: "Segoe UI", sans-serif;
+
+    @media (max-width: 768px) {
         height: 1000px;
+    }
+
+    .filtro {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+
+        label {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        select {
+            background: variaveis.$cor-do-p;
+            color: variaveis.$cor-do-texto;
+            border-radius: 6px;
+            border: none;
+            padding: 0.4rem 0.75rem;
+            font-size: 0.9rem;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 16px 16px;
+            cursor: pointer;
+            padding-right: 2rem;
+        }
+
+    }
+
+    .lista-anuncios {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        table {
+
+            thead {
+
+                tr {
+                    margin: 1em;
+
+                }
+            }
+
+            tbody {
+                td {
+                    text-align: center;
+                }
+            }
+        }
+
+
+    }
+
+    .card-anuncio {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: variaveis.$cor-do-p;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+        padding: 1rem;
+        border-radius: 10px;
+        transition: box-shadow 0.3s ease;
+
+
+        .conteudo {
+            .titulo {
+                font-weight: 600;
+                font-size: 0.95rem;
+                color: variaveis.$cor-do-texto;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+
+            .detalhes {
+                display: flex;
+                gap: 1rem;
+                margin-top: 0.4rem;
+                font-size: 0.8rem;
+                color: variaveis.$cor-do-texto;
+
+                .status {
+                    &--ativo {
+                        color: variaveis.$cor-success;
+                    }
+
+                    &--em-análise {
+                        color: #ffd600;
+                    }
+
+                    &--reprovado {
+                        color: #ff5252;
+                    }
+
+                    &--desativado {
+                        color: #757575;
+                    }
+
+                    &--suspenso {
+                        color: #ff9100;
+                    }
+                }
+            }
+        }
+
+        .acoes {
+            display: flex;
+            gap: 0.5rem;
+
+            button {
+                border: none;
+                padding: 0.5rem 1rem;
+                border-radius: 6px;
+                font-size: 0.8rem;
+                font-weight: 500;
+                cursor: pointer;
+                transition: background 0.3s ease;
+                margin-left: 8px;
+            }
+
+            .desativar {
+                background: #333;
+                color: variaveis.$cor-do-p;
+
+                &:hover {
+                    background: #444;
+                }
+            }
+
+            .editar {
+                background: variaveis.$cor-secundaria;
+                color: variaveis.$cor-do-texto;
+
+                &:hover {
+                    transition: background 0.9 ease;
+                }
+            }
+        }
+    }
+}
+
+.card-compra {
+    background: variaveis.$cor-do-p;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1em;
+
+    .cabecalho {
+        font-weight: bold;
+
+        .id {
+            color: variaveis.$cor-primaria;
+            margin-left: 0.5rem;
+        }
+    }
+
+    .produto {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.9rem;
+
+        .nome-produto {
+            color: variaveis.$cor-primaria;
+            flex: 1;
+            margin: 0 0.5rem;
+        }
+    }
+
+    .pagamento {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.85rem;
+
+        img {
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+        }
+
+        .aprovado {
+            color: variaveis.$cor-success;
+            font-weight: 500;
+        }
+    }
+
+    .rodape {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.85rem;
+
+        @media (max-width: 768px) {
+            display: block;
+            margin-top: 8px;
+        }
+
+        .status {
+            font-weight: bold;
+
+            &.verde {
+                color: variaveis.$cor-success;
+
+                @media (max-width: 768px) {
+                    display: block;
+                    margin-top: 8px;
+                    margin-bottom: 8px;
+                }
+            }
+
+            &.amarelo {
+                color: #ffd600;
+
+                @media (max-width: 768px) {
+                    display: block;
+                    margin-top: 8px;
+                    margin-bottom: 8px;
+                }
+            }
+        }
+
+        .ver-pedido {
+            background: variaveis.$cor-background-geral;
+            color: variaveis.$cor-do-texto;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+
+            @media (max-width: 768px) {
+                margin-left: 8px;
+            }
+
+            &:hover {
+                transform: translateY(-1px);
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        max-width: 100%;
     }
 }

@@ -110,9 +110,9 @@ export const UserModal = ({ onClose, user }: any) => {
                     </div>
 
                 </form>
-                <div className="buttons">
+                {/* <div className="buttons">
                     <button className={styles.submitButton}>Salvar</button>
-                </div>
+                </div> */}
             </div >
         </Modal >
     )

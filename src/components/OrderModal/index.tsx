@@ -7,6 +7,7 @@ import { useEffect, useState } from "react"
 export const OrderModal = ({ onClose, order }: any) => {
     const [total, setTotal] = useState<number>(0)
     const [cart, setCart] = useState([])
+    const [order_, setOrder] = useState({})
     const orderApi = new Api('closed')
 
     const handlePay = () => {
@@ -48,14 +49,21 @@ export const OrderModal = ({ onClose, order }: any) => {
         })
     }
     useEffect(() => {
-        console.log('cart:')
+        console.log('order (1):')
+        try {
+            order.cart = JSON.parse(order.cart)
+        }
+        catch (ex) {
+            order.cart = order.cart
+        }
         setCart(order.cart)
+        console.log(order.cart)
         let finalPrice = 0
         order.cart.map((item: any) => {
             finalPrice += parseFloat(item.price)
         })
         setTotal(finalPrice)
-       
+
     }, [])
 
 
@@ -65,7 +73,7 @@ export const OrderModal = ({ onClose, order }: any) => {
                 <span className={(order.status == 0) ? styles.unpaid : styles.paid}>{['Não pago', 'Pago'][order.status]}</span>
 
             }
-            {cart?.map((item: any) => (
+            {cart.map((item: any) => (
                 <Link to={`/produtos/${item.id}`} key={item.id}>
                     <div className={styles.item}>
                         <img className={styles.banner} src={import.meta.env.VITE_API_URL + item.banner} alt="" />

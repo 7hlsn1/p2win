@@ -9,6 +9,7 @@ import { OrderModal } from "../../../components/OrderModal";
 const Compras: React.FC = () => {
   const [orders, setOrders] = useState<any>([])
   const [order, setOrder] = useState<any>()
+  const [cart, setCart] = useState([])
   const [status, setStatus] = useState<any>(1)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const api = new Api('closed')
@@ -18,7 +19,7 @@ const Compras: React.FC = () => {
     setStatus(newStatus)
     TLoader.tLoader(1, 'Carregando pedidos...')
     api.getOrders(newStatus).then((orders_: any) => {
-      
+
       setOrders(orders_.orders)
       TLoader.tLoader(0)
 
@@ -28,7 +29,7 @@ const Compras: React.FC = () => {
     TLoader.tLoader(1, 'Carregando pedidos...')
 
     api.getOrders(status).then((orders_: any) => {
-     
+
       setOrders(orders_.orders)
       TLoader.tLoader(0)
 
@@ -62,7 +63,7 @@ const Compras: React.FC = () => {
         {orders.map((order: any) => (
           <div className="card-compra" key={order.id}>
             <div className="cabecalho">Pedido <span className="id">#{MD5(order.id).toString().substr(0, 5)}</span></div>
-            {JSON.parse(order.cart).map((item: any) => (
+            {cart.map((item: any) => (
               <div className="produto">
                 <span>1x</span>
                 <span className="nome-produto">{item.title}</span>
@@ -79,6 +80,13 @@ const Compras: React.FC = () => {
               <button className="ver-pedido" onClick={() => {
                 console.log('order:')
                 console.log(order)
+
+                try {
+                  setCart(JSON.parse(order.cart))
+                } catch (ex) {
+                  setCart(order.cart)
+
+                }
                 setOrder(order)
                 setIsModalOpen(true)
               }}>Ver pedido</button>

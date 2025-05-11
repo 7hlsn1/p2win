@@ -62,7 +62,7 @@ class Api {
         }
         this.api = axios.create(this.data)
     }
-    getTransactions = (type: any) => new Promise(async (resolve, reject) => {
+    getUserTransactions = (type: any) => new Promise(async (resolve, reject) => {
 
         try {
             await this.api.get(`/transactions/` + type).then((res: any) => {
@@ -319,6 +319,12 @@ class Api {
         reject();
     });
 
+    getTransactions = (id: number) => new Promise(async (resolve, reject) => {
+        const req = await this.api.get(`/admin/products/reject/${id}`)
+        const data = req.data
+        resolve(data);
+        reject();
+    });
 
     getMyProducts = (search: string | any = '', status_: number | string = 10, category: number | string = '') => new Promise(async (resolve, reject) => {
         if (status_ == 10) {
