@@ -71,9 +71,9 @@ const Anuncios: React.FC = () => {
                 anuncios.map((anuncio: any) => {
                     return (
                         <div className="card-compra" key={anuncio.id}>
-                            <Link to={`/produtos/${anuncio.id}`}>
-                                <div className="cabecalho">{anuncio.title} <span className="id">#{anuncio.id}</span></div>
-                            </Link>
+
+                            <div className="cabecalho">R$ {anuncio.amount} </div>
+
                             <div className="produto">
 
                                 <span className="nome-produto">{anuncio.description}</span>
@@ -81,11 +81,8 @@ const Anuncios: React.FC = () => {
                             </div>
                             <div className="pagamento">
 
-                                {
-                                    anuncio.status == 1 ? <>                <span>Saldo P2Win: +R$ {anuncio.amount}</span>
-                                    </> : <></>
-                                }
-                                <span className="aprovado">{['Não pago', 'Pago'][anuncio.status]}</span>
+                                {[<span style={{color:'red'}}>Não pago</span>, <span className="aprovado">Pago</span>][anuncio.status]}
+
                                 <span>{moment(anuncio.created_at).format('DD/MM/YYYY')}</span>
                             </div>
                         </div>
