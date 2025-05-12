@@ -11,7 +11,7 @@ interface PerfilGerenteProps {
 const PerfilGerente: React.FC<PerfilGerenteProps> = (props: any) => {
   const profile = props.profile
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
   return (profile.username ?
     <>
       {
@@ -39,14 +39,14 @@ const PerfilGerente: React.FC<PerfilGerenteProps> = (props: any) => {
       </div >
       <div className='perfil-gerente'>
         <div className={styles.formGroup}>
-          <label htmlFor="titulo">Seu nome</label>
+          <label htmlFor="titulo">Seu Email</label>
           <input
-            value={name}
+            value={email}
             onChange={(e) => {
-              setName(e.target.value)
+              setEmail(e.target.value)
             }}
             type="text"
-            id="titulo"
+            id="email"
             maxLength={80}
             placeholder="Digite aqui (máx. 20 caracteres)"
           />
