@@ -197,67 +197,81 @@
             border-radius: 6px;
         }
 
-        .aprovado {
-            color: variaveis.$cor-success;
-            font-weight: 500;
-        }
-    }
-
-    .rodape {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 0.85rem;
-
-        @media (max-width: 768px) {
-            display: block;
-            margin-top: 8px;
-        }
-
-        .status {
+        .aprovado,
+        .reprovado {
             font-weight: bold;
-
-            &.verde {
-                color: variaveis.$cor-success;
-
-                @media (max-width: 768px) {
-                    display: block;
-                    margin-top: 8px;
-                    margin-bottom: 8px;
-                }
-            }
-
-            &.amarelo {
-                color: #ffd600;
-
-                @media (max-width: 768px) {
-                    display: block;
-                    margin-top: 8px;
-                    margin-bottom: 8px;
-                }
-            }
+            background-color: #5b5b5b;
+            border-radius: 3px;
+            padding: 3px 10px;
         }
 
-        .ver-pedido {
-            background: variaveis.$cor-background-geral;
-            color: variaveis.$cor-do-texto;
-            border: none;
-            padding: 0.4rem 1rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.8rem;
+        .aprovado {
+            background-color: variaveis.$cor-success;
+            color: white  !important;
+
+        }
+
+        .reprovado {
+            background-color: red;
+            color: white;
+        }
+
+        .rodape {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
 
             @media (max-width: 768px) {
-                margin-left: 8px;
+                display: block;
+                margin-top: 8px;
             }
 
-            &:hover {
-                transform: translateY(-1px);
+            .status {
+                font-weight: bold;
+
+                &.verde {
+                    color: variaveis.$cor-success;
+
+                    @media (max-width: 768px) {
+                        display: block;
+                        margin-top: 8px;
+                        margin-bottom: 8px;
+                    }
+                }
+
+                &.amarelo {
+                    color: #ffd600;
+
+                    @media (max-width: 768px) {
+                        display: block;
+                        margin-top: 8px;
+                        margin-bottom: 8px;
+                    }
+                }
+            }
+
+            .ver-pedido {
+                background: variaveis.$cor-background-geral;
+                color: variaveis.$cor-do-texto;
+                border: none;
+                padding: 0.4rem 1rem;
+                border-radius: 6px;
+                cursor: pointer;
+                font-size: 0.8rem;
+
+                @media (max-width: 768px) {
+                    margin-left: 8px;
+                }
+
+                &:hover {
+                    transform: translateY(-1px);
+                }
             }
         }
-    }
 
-    @media (max-width: 768px) {
-        max-width: 100%;
+        @media (max-width: 768px) {
+            max-width: 100%;
+        }
     }
 }

@@ -13,12 +13,39 @@ export const WalletModal = ({ onClose }: any) => {
     const api = new Api('closed')
     const handleSubmit = () => {
         if (tab == 'withdraw') {
-        } else if (tab == 'deposit') {
-            TLoader.tLoader(1, 'Gerando pagamento...')
-            api.createTransaction('deposit', amount).then((data: any) => {
+            TLoader.tLoader(1, 'Solicitando saque...')
+            api.createTransaction('withdraw', parseFloat(amount.toString())).then((data: any) => {
                 TLoader.tLoader(0)
                 console.log(data)
-                setPayment(data)
+                if (data.error) {
+                    Swal.fire({
+                        icon: 'warning',
+                        text: data.error
+                    })
+                } else if (data.message) {
+                    Swal.fire({
+                        icon: 'success',
+                        text: data.message
+                    }).then((res: any) => {
+                        console.log(res)
+                        document.location.reload()
+                    })
+                }
+            })
+        } else if (tab == 'deposit') {
+            TLoader.tLoader(1, 'Gerando pagamento...')
+            api.createTransaction('deposit', parseFloat(amount.toString())).then((data: any) => {
+                TLoader.tLoader(0)
+                console.log(data)
+                if (data.message) {
+                    Swal.fire({
+                        icon: 'success',
+                        text: data.message
+                    }).then((res: any) => {
+                        console.log(res)
+                        setPayment(res)
+                    })
+                }
             })
         } else {
             Swal.fire({
@@ -36,7 +63,7 @@ export const WalletModal = ({ onClose }: any) => {
     }
     useEffect(() => {
         TLoader.tLoader(1)
-        api.getLoggedUser().then((profile:any) => {
+        api.getLoggedUser().then((profile: any) => {
             setUser(profile)
             TLoader.tLoader(0)
 
@@ -77,7 +104,7 @@ export const WalletModal = ({ onClose }: any) => {
 
                     </div>
 
-                    <button  style={{width: '100%'}} className={styles.submitButton} onClick={() => {
+                    <button style={{ width: '100%' }} className={styles.submitButton} onClick={() => {
                         document.location.reload()
                     }}>Clique aqui após realizar o pagamento</button>
                 </>

@@ -81,9 +81,9 @@ const Anuncios: React.FC = () => {
                             </div>
                             <div className="pagamento">
 
-                                {[<span style={{color:'red'}}>Não pago</span>, <span className="aprovado">Pago</span>][anuncio.status]}
+                                {[<span className="reprovado">Não pago</span>, <span className="aprovado"><b>Pago</b></span>][anuncio.status]}
 
-                                <span>{moment(anuncio.created_at).format('DD/MM/YYYY')}</span>
+                                <span>{moment(anuncio.created_at).format('DD/MM/YYYY - H:m:ss')}</span>
                             </div>
                         </div>
 

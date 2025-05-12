@@ -1,0 +1,30 @@
+.item {
+    padding: 1em;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.banner {
+    width: 100px;
+}
+
+.paid,
+.unpaid {
+    font-weight: bold;
+    margin-bottom: 1em;
+    display: inline-block;
+}
+
+.paid {
+    color: #06D6A0;
+}
+
+.unpaid {
+    color: red;
+}
+.buttons {
+    margin-top: 1em;
+}
