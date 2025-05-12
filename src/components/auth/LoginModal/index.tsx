@@ -314,8 +314,9 @@ const LoginModal: React.FC<LoginModalProps> = ({
                         </div>
                     )}
                     <ReCAPTCHA
+                        style={{ margin: '1em auto',  }}
                         ref={recaptchaRef}
-                        sitekey="6Lc0mTYrAAAAAGAAAZRJDnbUrMJqU2ep5SC8KwJO"
+                        sitekey="6Lef7DYrAAAAAIH5ju4SUaAsREO78zPhSZvRZghx"
                         onChange={handleCaptchaChange}
                     />
                     <button type="submit" className={styles.submitButton}>
