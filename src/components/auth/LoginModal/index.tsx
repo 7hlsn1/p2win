@@ -123,16 +123,18 @@ const LoginModal: React.FC<LoginModalProps> = ({
                 }
             })
         } else if (activeTab == 'register') {
+            TLoader.tLoader(1)
             api.register(email, password, username).then((data: any) => {
+                TLoader.tLoader(0)
                 if (data.message) {
                     Swal.fire({
-                        title: data.message,
+                        text: data.message,
                         icon: 'success'
                     })
                     setActiveTab('login')
                 } else {
                     Swal.fire({
-                        title: data.error,
+                        text: data.error,
                         icon: 'warning'
                     })
                 }
