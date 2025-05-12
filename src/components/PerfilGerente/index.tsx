@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import "./PerfilGerente.scss"
+import styles from './../WalletModal/WalletModal.module.scss'
 import { VerifyModal } from '../VerifyModal';
 import moment from 'moment';
+
 interface PerfilGerenteProps {
   profile: any;
 }
@@ -9,7 +11,7 @@ interface PerfilGerenteProps {
 const PerfilGerente: React.FC<PerfilGerenteProps> = (props: any) => {
   const profile = props.profile
   const [isModalOpen, setIsModalOpen] = useState(false)
-
+  const [name, setName] = useState('')
   return (profile.username ?
     <>
       {
@@ -31,10 +33,25 @@ const PerfilGerente: React.FC<PerfilGerenteProps> = (props: any) => {
           <li><b>Email:</b> {profile.email}</li>
           <li><b>Entrou em:</b> {moment(profile.created_at).format('DD/MM/YYYY')}</li>
         </ul>
-        
+
 
 
       </div >
+      <div className='perfil-gerente'>
+        <div className={styles.formGroup}>
+          <label htmlFor="titulo">Seu nome</label>
+          <input
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value)
+            }}
+            type="text"
+            id="titulo"
+            maxLength={80}
+            placeholder="Digite aqui (máx. 20 caracteres)"
+          />
+        </div>
+      </div>
       {!profile.cpf ?
         <div className="perfil-gerente" style={{ margin: '1em auto' }}>
           <h3 style={{ color: 'red' }}>Conta pendente de verificação</h3>
