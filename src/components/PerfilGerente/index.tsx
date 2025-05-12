@@ -37,7 +37,7 @@ const PerfilGerente: React.FC<PerfilGerenteProps> = (props: any) => {
 
 
       </div >
-      <div className='perfil-gerente'>
+      <div className='perfil-gerente' style={{marginTop:'1em'}}>
         <div className={styles.formGroup}>
           <label htmlFor="titulo">Seu Email</label>
           <input
