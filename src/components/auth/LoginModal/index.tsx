@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import styles from './LoginModal.module.scss';
 // import SocialAuthButton from '../SocialAuthButton';
- 
+
 import ReCAPTCHA from 'react-google-recaptcha';
 import Swal from 'sweetalert2';
 import { Api, TLoader } from '../../../skds/api';
- 
+
 const api = new Api('open')
 interface LoginModalProps {
     isOpen: boolean;
@@ -61,13 +61,13 @@ const LoginModal: React.FC<LoginModalProps> = ({
         e.preventDefault();
         const recaptchaValue = recaptchaRef.current
 
-        if (!recaptchaValue) {
+        if (!isCaptchaVerified || !recaptchaValue) {
             return Swal.fire({
                 icon: 'error',
                 text: 'Preencha o ReCaptcha'
             })
         }
-    
+
 
         if (activeTab == 'renew') {
             api.renewPassword(password, code).then((data: any) => {
