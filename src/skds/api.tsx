@@ -62,6 +62,17 @@ class Api {
         }
         this.api = axios.create(this.data)
     }
+    getOrder = (id: number) => new Promise(async (resolve, reject) => {
+
+        try {
+            await this.api.get(`/order/${id}`).then((res: any) => {
+                resolve(res.data)
+            })
+        } catch (ex) {
+            reject(ex)
+
+        }
+    })
     getUserTransactions = (type: any) => new Promise(async (resolve, reject) => {
 
         try {

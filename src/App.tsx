@@ -34,6 +34,7 @@ import Categorias from './pages/Categorias';
 import Footer from './components/Footer';
 import { PrimeReactProvider } from 'primereact/api';
 import AdminVerificacoes from './pages/AccountPage/Administracao/AdminVerificacoes';
+import Order from './pages/Order';
 const api = new Api('closed')
 
 function App() {
@@ -64,8 +65,10 @@ function App() {
           <Route path="/usuarios/:id" element={<Usuario />} />
           <Route path="/categorias" element={<Categorias />} />
           <Route path="/carrinho" element={<Cart />} />
-          <Route path="/minha-conta"  element={<AccountPage />}>
+
+          <Route path="/minha-conta" element={<AccountPage />}>
             <Route index element={<Resumo />} />
+            <Route path="pedido/:id" element={<Order />} />
             <Route path="transacoes" element={<Transacoes />} />
             <Route path="anuncios" element={<Anuncios />} />
             <Route path="compras" element={<Compras />} />
