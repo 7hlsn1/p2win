@@ -1,3 +1,83 @@
 .order {
-    border: 1px solid red;
+    min-height: 80vh;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 1em;
+    position: relative;
+
+    .items {
+        margin-top: 3em;
+        display: flex;
+        flex-direction: column;
+
+        .item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            display: flex;
+            margin-top: 1em;
+            width: 300px;
+            flex-direction: column;
+
+            .title {
+                margin-bottom: 1em;
+            }
+
+            .price {
+                margin-top: 1em;
+            }
+
+            img {
+                width: 100%;
+                border-radius: 3px;
+            }
+        }
+    }
+
+    .footer {
+        padding: 1em;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        position: absolute;
+        border-top: 1px solid #ccc;
+
+    }
+
+    .header {
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-bottom: 1px solid #ccc;
+        width: 100%;
+        height: 3em;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 10px;
+
+
+    }
+}
+
+.paid {
+    background-color: greenyellow;
+    color: black;
+
+}
+
+.unpaid {
+    background-color: red;
+    color: white;
+
+}
+
+.paid,
+.unpaid {
+    padding: 3px 10px;
+    font-weight: bold;
+    border-radius: 3px;
 }

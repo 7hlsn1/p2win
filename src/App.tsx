@@ -68,7 +68,7 @@ function App() {
 
           <Route path="/minha-conta" element={<AccountPage />}>
             <Route index element={<Resumo />} />
-            <Route path="pedido/:id" element={<Order />} />
+            <Route path="pedidos/:id" element={<Order />} />
             <Route path="transacoes" element={<Transacoes />} />
             <Route path="anuncios" element={<Anuncios />} />
             <Route path="compras" element={<Compras />} />
