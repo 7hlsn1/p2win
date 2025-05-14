@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import styles from './Order.module.scss'
 import { Api, TLoader } from '../../skds/api'
 import { useParams } from 'react-router-dom'
-import Swal from 'sweetalert2'
+// import Swal from 'sweetalert2'
 import { Link } from 'react-router-dom'
 const api = new Api('closed')
 
@@ -30,7 +30,7 @@ const Order = function () {
 
     return (
 
-        order ?
+        order.cart ?
             (
                 < div className={styles.order} key={order.id}>
 
@@ -40,7 +40,7 @@ const Order = function () {
                                 <span className={styles.unpaid}>Não pago</span>,
                                 <span className={styles.paid}>Pago</span>,
                             ]
-                            [order.status == 0 ? 1 : 0]
+                            [order.status]
                         }
                     </div>
 

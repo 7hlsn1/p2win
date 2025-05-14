@@ -14,6 +14,9 @@ const Compras: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const api = new Api('closed')
 
+  const unused = { setCart, setOrder }
+  console.log(unused)
+
   const handleChangeStatus = (e: any) => {
     const newStatus = e.target.value
     setStatus(newStatus)
