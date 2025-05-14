@@ -63,7 +63,7 @@ class Api {
         this.api = axios.create(this.data)
     }
     getOrder = (id: number) => new Promise(async (resolve, reject) => {
-        alert(1)
+        
         try {
             const data = await this.api.get(`/order/${id}`);
             
