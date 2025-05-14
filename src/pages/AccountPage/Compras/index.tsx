@@ -4,8 +4,7 @@ import { Api, TLoader } from "../../../skds/api";
 import moment from "moment";
 import MD5 from "md5";
 import { OrderModal } from "../../../components/OrderModal";
-
-
+import { Link } from "react-router-dom";
 const Compras: React.FC = () => {
   const [orders, setOrders] = useState<any>([])
   const [order, setOrder] = useState<any>()
@@ -29,8 +28,9 @@ const Compras: React.FC = () => {
     TLoader.tLoader(1, 'Carregando pedidos...')
 
     api.getOrders(status).then((orders_: any) => {
-
-      setOrders(orders_.orders)
+      console.log('orders:')
+      console.log(orders_)
+      setOrder(orders_)
       TLoader.tLoader(0)
 
     })
@@ -77,19 +77,10 @@ const Compras: React.FC = () => {
               <span className={`status ${order.status === 1 ? "verde" : "amarelo"}`}>
                 {['Aguardando pagamento', 'Pago'][order.status]}
               </span>
-              <button className="ver-pedido" onClick={() => {
-                console.log('order:')
-                console.log(order)
+              <Link to={`/minha-conta/pedido/${order.id}`}>
+                <button className="ver-pedido" >Ver pedido</button>
+              </Link>
 
-                try {
-                  setCart(JSON.parse(order.cart))
-                } catch (ex) {
-                  setCart(order.cart)
-
-                }
-                setOrder(order)
-                setIsModalOpen(true)
-              }}>Ver pedido</button>
             </div>
           </div>
         ))}

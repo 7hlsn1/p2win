@@ -21,10 +21,19 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
 .badge {
   padding: 3px 10px;
   font-weight: bold;
   border-radius: 3px;
+
+  .green {
+    background-color: darkgreen;
+  }
+
+  .red {
+    color: red;
+  }
 }
 
 button {
@@ -34,6 +43,7 @@ button {
 .admin-container {
   padding: 1em;
 }
+
 button {
   .success {
     background-color: variaveis.$success;
