@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import   { useEffect, useState } from 'react'
 import styles from './Order.module.scss'
 import { Api, TLoader } from '../../skds/api'
 import { useParams } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
 const api = new Api('closed')
-const Order: React.FC = () => {
+const Order = () => {
     const [order, setOrder] = useState<any>({})
     const { id } = useParams<any>()
+    alert(1)
     useEffect(() => {
         console.log('here 2')
         if (id) {

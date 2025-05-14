@@ -65,10 +65,8 @@ class Api {
     getOrder = (id: number) => new Promise(async (resolve, reject) => {
 
         try {
-            await this.api.get(`/order/${id}`).then((res: any) => {
-                const data = res.data
-                resolve(data)
-            })
+            const data = await this.api.get(`/order/${id}`);
+            resolve(data)
         } catch (ex: any) {
             alert(ex.message)
             reject(ex)
