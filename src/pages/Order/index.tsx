@@ -1,14 +1,15 @@
-import   { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './Order.module.scss'
 import { Api, TLoader } from '../../skds/api'
 import { useParams } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
 const api = new Api('closed')
+
 const Order = () => {
     const [order, setOrder] = useState<any>({})
     const { id } = useParams<any>()
-    alert(1)
+    alert(id)
     useEffect(() => {
         console.log('here 2')
         if (id) {
@@ -17,8 +18,7 @@ const Order = () => {
                 setOrder(data)
                 console.log('order')
                 console.log(data)
-                    ,
-                    TLoader.tLoader(0)
+                TLoader.tLoader(0)
             }).catch(err => {
                 alert(0)
                 console.log(err)
@@ -33,7 +33,7 @@ const Order = () => {
 
     return (
 
-        order ?
+        order.items ?
             order.items.map((seller: any) => (
                 < div className={styles.order} >
                     <div className={styles.seller}>

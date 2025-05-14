@@ -66,7 +66,7 @@ class Api {
 
         try {
             const data = await this.api.get(`/order/${id}`);
-            resolve(data)
+            resolve(data.data)
         } catch (ex: any) {
             alert(ex.message)
             reject(ex)

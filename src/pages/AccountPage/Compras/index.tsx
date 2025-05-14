@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const Compras: React.FC = () => {
   const [orders, setOrders] = useState<any>([])
   const [order, setOrder] = useState<any>()
-  const [cart, setCart] = useState([])
+   
   const [status, setStatus] = useState<any>(1)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const api = new Api('closed')
@@ -63,7 +63,7 @@ const Compras: React.FC = () => {
         {orders.map((order: any) => (
           <div className="card-compra" key={order.id}>
             <div className="cabecalho">Pedido <span className="id">#{MD5(order.id).toString().substr(0, 5)}</span></div>
-            {cart.map((item: any) => (
+            {order.cart.map((item: any) => (
               <div className="produto">
                 <span>1x</span>
                 <span className="nome-produto">{item.title}</span>
