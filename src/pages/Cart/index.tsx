@@ -45,7 +45,8 @@ const Cart: React.FC = () => {
               text: data.error
             })
           } else {
-            setIsModalOpen(true)
+            localStorage.setItem('cart', '[]')
+            document.location.href = '/minha-conta/pedidos/' + data.order.id
             setOrder(data.order)
 
           }

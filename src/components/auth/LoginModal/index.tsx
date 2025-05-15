@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from './LoginModal.module.scss';
 // import SocialAuthButton from '../SocialAuthButton';
 
-import ReCAPTCHA from 'react-google-recaptcha';
+// import ReCAPTCHA from 'react-google-recaptcha';
 import Swal from 'sweetalert2';
 import { Api, TLoader } from '../../../skds/api';
 
@@ -23,15 +23,15 @@ const LoginModal: React.FC<LoginModalProps> = ({
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
     const [code, setCode] = useState('');
-    const recaptchaRef = React.createRef<ReCAPTCHA>();
+    //const recaptchaRef = React.createRef<ReCAPTCHA>();
     const [repeatPassword, setRepeatPassword] = useState('');
     const [activeTab, setActiveTab] = useState<'login' | 'register' | 'recover' | 'reset' | 'renew'>(defaultTab);
-    const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
+  //  const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
     if (!isOpen) return null;
 
-    const handleCaptchaChange = (token: string | null) => {
-        setIsCaptchaVerified(!!token);
-    };
+    // const handleCaptchaChange = (token: string | null) => {
+    //     setIsCaptchaVerified(!!token);
+    // };
     const handleForgotPassword = () => {
 
         if (!email) {
@@ -59,14 +59,14 @@ const LoginModal: React.FC<LoginModalProps> = ({
     }
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        const recaptchaValue = recaptchaRef.current
+        //const recaptchaValue = recaptchaRef.current
 
-        if (!isCaptchaVerified || !recaptchaValue) {
-            return Swal.fire({
-                icon: 'error',
-                text: 'Preencha o ReCaptcha'
-            })
-        }
+        // if (!isCaptchaVerified || !recaptchaValue) {
+        //     return Swal.fire({
+        //         icon: 'error',
+        //         text: 'Preencha o ReCaptcha'
+        //     })
+        // }
 
 
         if (activeTab == 'renew') {
@@ -315,12 +315,12 @@ const LoginModal: React.FC<LoginModalProps> = ({
                             <a href="#privacy">Política de Privacidade</a>.
                         </div>
                     )}
-                    <ReCAPTCHA
+                    {/* <ReCAPTCHA
                         style={{ margin: '1em auto',  }}
                         ref={recaptchaRef}
                         sitekey="6Lef7DYrAAAAAIH5ju4SUaAsREO78zPhSZvRZghx"
                         onChange={handleCaptchaChange}
-                    />
+                    /> */}
                     <button type="submit" className={styles.submitButton}>
                         {activeTab === 'login' ? 'Entrar' : activeTab == 'recover' ? 'Verificar código' : activeTab == 'renew' ? 'Salvar senha' : 'Criar conta'}
                     </button>

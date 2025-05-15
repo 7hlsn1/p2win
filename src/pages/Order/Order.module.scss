@@ -1,12 +1,84 @@
+.content {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .chat {
+        box-shadow: 3px 3px 10px #ccc;
+        flex: 1;
+        height: 30em;
+        margin: 1em;
+        padding: 1em;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+
+        .messages {
+            overflow: auto;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            height: 10em;
+            margin: 1em auto;
+            flex: 1;
+            padding: 1em;
+            display: flex;
+            flex-direction: column;
+
+        }
+
+
+
+        .messageBox {
+            width: 100%;
+            padding: .5em;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+
+            font-size: 1rem;
+            outline: none;
+            transition: all .2s;
+            width: 100%;
+            margin: 1em auto;
+
+
+        }
+    }
+
+    .actions {
+        flex: 1;
+        flex-direction: column;
+        margin: 1em auto;
+
+        button {
+            width: 100%;
+            flex: 1;
+            margin: 3px auto;
+        }
+
+        .cancel {
+            background-color: red;
+            color: white;
+        }
+
+        .openChat {
+            background-color: green;
+            color: white;
+        }
+    }
+}
+
 .order {
-    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
     border: 1px solid #ccc;
     border-radius: 3px;
     padding: 1em;
     position: relative;
 
     .items {
-        margin-top: 3em;
+
         display: flex;
         flex-direction: column;
 
@@ -22,15 +94,16 @@
                 margin-bottom: 1em;
             }
 
-            
+
 
             img {
                 width: 100%;
                 border-radius: 3px;
             }
+
             .foot {
                 display: flex;
-                
+
                 align-items: center;
                 justify-content: space-between;
             }
@@ -40,24 +113,20 @@
     .footer {
         padding: 1em;
         width: 100%;
-        position: absolute;
         bottom: 0;
         left: 0;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        position: absolute;
         border-top: 1px solid #ccc;
 
     }
 
     .header {
-        position: absolute;
-        top: 0;
-        left: 0;
+
         border-bottom: 1px solid #ccc;
         width: 100%;
-        height: 3em;
+
         display: flex;
         align-items: center;
         justify-content: flex-start;

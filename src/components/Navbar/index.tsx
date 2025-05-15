@@ -28,7 +28,7 @@ const Navbar: React.FC<Props> = ({ profile }: any) => {
             </Link>
 
             <SearchBar />
-            {profile ? <b style={{ marginRight: '1em' }}>{profile.username} <span className="badge success" style={{color:'white'}}>R$ {profile.wallet}</span></b> : null}
+            {profile ? <b style={{ marginRight: '1em' }}>{profile.username} <span className="badge success" style={{color:'white'}}>Saldo: R$ {profile.wallet}</span></b> : null}
             <div className={styles.rightArea}>
                 <nav className={styles.navLinks}>
 

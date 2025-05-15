@@ -5,13 +5,31 @@ import { useParams } from 'react-router-dom'
 // import Swal from 'sweetalert2'
 import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
+import moment from 'moment'
 const api = new Api('closed')
 
 const Order = function () {
+    const messageModel = {
+        content: String,
+        type: String,
+        from: String,
+        created_at: String
+    }
+
     const [order, setOrder] = useState<any>({})
     const [user, setUser] = useState<any>({})
+    const [profile, setProfile] = useState<any>({})
+    const [sellerChat, setSellerChat] = useState<any>(false)
+    const [message, setMessage] = useState<any>(messageModel)
+    const [messages, setMessages] = useState<any>([messageModel])
     const { id } = useParams<any>()
 
+    const handleCancel = () => {
+        Swal.fire({
+            icon: 'success',
+            text: 'Pedido cancelado com sucesso'
+        })
+    }
     const handlePay = () => {
         if (parseFloat(order.price) > parseFloat(user.wallet)) {
             return Swal.fire({
@@ -20,12 +38,65 @@ const Order = function () {
             })
         } else {
             TLoader.tLoader(1, 'Processando pagamento')
-            api.payOrder(order.id).then((data: any) => {
-                console.log(data)
+            api.payOrder(order.id).then(() => {
+                TLoader.tLoader(0)
+                Swal.fire({
+                    icon: 'success',
+                    text: 'Pedido aprovado'
+                })
+                return document.location.reload()
+
             }).catch((err: any) => {
                 console.log(err)
             })
         }
+    }
+    const handleOpenChat = (id: any) => {
+        TLoader.tLoader(1)
+        api.getProfile(id).then((user: any) => {
+            setSellerChat(user)
+            TLoader.tLoader(0)
+
+        })
+
+    }
+
+    const handleSetMessage = (e: any) => {
+      
+        setMessage({
+            content: e.target.value,
+            type: 'text',
+            from: profile.username
+        })
+
+
+    }
+    const handleSendMessage = (e: any) => {
+        e.preventDefault()
+        if (message.content.length < 2) return;
+
+        const newMessage =
+        {
+            content: message.content,
+            from: profile.username,
+            type: 'text',
+            created_at: moment().format('DD/MM/YY - H:mm:ss').toString()
+
+        };
+        const newMessages = messages
+        newMessages.push(newMessage)
+
+
+        setMessages(newMessages)
+
+        setMessage(
+            {
+                content: '',
+                from: profile.id,
+                type: 'text',
+                created_at: ''
+            }
+        )
     }
     useEffect(() => {
 
@@ -33,10 +104,11 @@ const Order = function () {
 
         TLoader.tLoader(1, 'Carregando pedido...')
         api.getOrder(parseInt(id ?? '')).then((data: any) => {
-            api.getLoggedUser().then((user: any) => {
+            setOrder(data)
+            setUser(user)
 
-                setOrder(data)
-                setUser(user)
+            api.getLoggedUser().then((user: any) => {
+                setProfile(user)
 
                 console.log('order')
                 console.log(data)
@@ -58,40 +130,87 @@ const Order = function () {
                 < div className={styles.order} key={order.id}>
 
                     <div className={styles.header}>
-                        {
+                        <h3>Itens do pedido</h3>
+
+                        {/* {
                             [
                                 <span className={styles.unpaid}>Não pago</span>,
                                 <span className={styles.paid}>Pago</span>,
+                                <span className={styles.unpaid}>Aguardando entrega</span>,
                             ]
                             [order.status]
-                        }
+                        } */}
                     </div>
+                    <div className={styles.content}>
+                        <div className={styles.items}>
+                            {
+                                order.cart.map((item: any) => (
 
 
-                    <div className={styles.items}>
-                        <h3>Itens do pedido</h3>
-                        {
-                            order.cart.map((item: any) => (
 
-                                <div className={styles.item} key={item.id}>
-                                    <div>
-                                        <Link to={`/produtos/${item.id}`}>
-                                            <h4 className={styles.title}>{item.title}</h4>
-                                        </Link>
-                                    </div>
-                                    <img src={import.meta.env.VITE_API_URL + item.banner} alt="" />
-                                    <span className={styles.foot}>
+                                    <div className={styles.item} key={item.id}>
+                                        {
+                                            [
+                                                <span className={styles.unpaid}>Não pago</span>,
+                                                <span className={styles.paid}>Pago</span>,
+                                                <span className={styles.unpaid}>Aguardando entrega</span>,
+                                            ]
+                                            [order.status]
+                                        }
+                                        <div>
+                                            <Link to={`/produtos/${item.id}`}>
+                                                <h4 className={styles.title}>{item.title}</h4>
+                                            </Link>
+                                        </div>
+                                        <div className={styles.actions}>
+                                            <button className={styles.cancel}>Cancelar item</button>
 
-                                        <span className={styles.price}>
-                                            R$ <b>{item.price}</b>
+                                            <button className={styles.openChat}
+                                                onClick={() => {
+                                                    handleOpenChat(item.user_id)
+                                                }}>
+                                                Abrir chat com vendedor
+                                            </button>
+
+                                        </div>
+                                        {/* <img src={import.meta.env.VITE_API_URL + item.banner} alt="" /> */}
+                                        <span className={styles.foot}>
+
+                                            <span className={styles.price}>
+                                                R$ <b>{item.price}</b>
+                                            </span>
+
+                                            <Link to={'/usuarios/' + item.user.id} className='link'>
+                                                {item.user.username}
+                                            </Link>
                                         </span>
-
-                                        <Link to={'/usuarios/' + item.user.id} className='link'>
-                                            {item.user.username}
-                                        </Link>
-                                    </span>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                        {sellerChat ?
+                            <div className={styles.chat}>
+                                <h4>{sellerChat.username}</h4>
+                                <div className={styles.messages}>
+                                    {
+                                        messages.map((message: any) => {
+                                            if (message.from == profile.username)
+                                                return (
+                                                    <div key={message.created_at}>
+                                                        <span></span>
+                                                        <span style={{ opacity: .5, fontSize: '10pt' }}>{message.created_at} {message.from} - </span>
+                                                        <span style={{ color: 'green' }}>{message.content}</span>
+                                                    </div>
+                                                )
+                                        })
+                                    }
                                 </div>
-                            ))
+                                <form onSubmit={handleSendMessage}>
+                                    <input type="text" placeholder='Escreva aqui...' value={message.content} onChange={handleSetMessage} className={styles.messageBox} />
+                                </form>
+                            </div>
+                            :
+                            null
                         }
                     </div>
                     <div className={styles.footer}>
@@ -99,7 +218,8 @@ const Order = function () {
                             Valor Final: R$ {order.price}<br />
 
                         </div>
-                        <button className='success' onClick={handlePay}>Pagar agora</button>
+                        {order.status == 0 ? (<button className='success' onClick={handlePay}>Pagar agora</button>) : null}
+                        {order.status == 2 ? (<button className='danger' onClick={handleCancel}>Cancelar pedido</button>) : null}
 
                     </div>
 

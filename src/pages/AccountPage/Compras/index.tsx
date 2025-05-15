@@ -55,6 +55,7 @@ const Compras: React.FC = () => {
           < div className="filters" >
             <select onChange={handleChangeStatus}>
               <option value="1">Pago</option>
+              <option value="2">Aguardando confirmação</option>
 
               <option value="0">Aguardando pagamento</option>
             </select>
