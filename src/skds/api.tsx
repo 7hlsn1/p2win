@@ -62,11 +62,23 @@ class Api {
         }
         this.api = axios.create(this.data)
     }
+    payOrder = (id: number) => new Promise(async (resolve, reject) => {
+
+        try {
+            const data = await this.api.post(`/orders/pay/${id}`);
+            resolve(data.data)
+        } catch (ex: any) {
+            alert(ex.message)
+            reject(ex)
+
+        }
+    })
+
     getOrder = (id: number) => new Promise(async (resolve, reject) => {
-        
+
         try {
             const data = await this.api.get(`/order/${id}`);
-            
+
             resolve(data.data)
         } catch (ex: any) {
             alert(ex.message)
