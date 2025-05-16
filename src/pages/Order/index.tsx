@@ -52,18 +52,21 @@ const Order = function () {
         }
     }
     const getMessages = () => {
-        api.getMessages(user.id, profile.id).then((res: any) => {
-            setMessages(res.messages)
-        })
+
+        if (user && profile) {
+            api.getMessages(user.id, profile.id).then((res: any) => {
+                setMessages(res.messages)
+            })
+        }
+
+
     }
     const handleOpenChat = (id: any) => {
         TLoader.tLoader(1)
         api.getProfile(id).then((user: any) => {
             setSellerChat(user)
             TLoader.tLoader(0)
-            api.getMessages(user.id, profile.id).then((res: any) => {
-                setMessages(res.messages)
-            })
+            getMessages()
 
         })
 
@@ -136,7 +139,7 @@ const Order = function () {
                 console.log('order')
                 console.log(data)
                 TLoader.tLoader(0)
-                
+
                 setInterval(() => {
                     getMessages()
                 }, 1000)
