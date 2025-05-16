@@ -103,6 +103,7 @@ const Order = function () {
             TLoader.tLoader(0)
         }).catch((err: any) => {
             console.log(err)
+            TLoader.tLoader(0)
             Swal.fire({
                 icon: 'warning',
                 text: 'Houve um erro ao enviar sua mensagem, verifique sua conexão'
