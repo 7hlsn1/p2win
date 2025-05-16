@@ -104,7 +104,7 @@ export default function Usuario() {
             !userProfile.self && user ? (
               <div className="actions">
                 <button><FaHeart /> Favorito</button>
-                <button onClick={handleFollow}><FaUserPlus /> {following ? 'Deixar de seguir' : 'Seguir'}</button>
+                {/* <button onClick={handleFollow}><FaUserPlus /> {following ? 'Deixar de seguir' : 'Seguir'}</button> */}
                 <button onClick={handleBlock} className="danger"><FaBan /> {blocked ? 'Desbloquear' : 'Bloquear'}</button>
                 <button className="danger"><FaFlag /> Reportar</button>
               </div>) : <></>
