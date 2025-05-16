@@ -73,6 +73,7 @@ const Order = function () {
     }
     const handleSendMessage = (e: any) => {
         e.preventDefault()
+        console.log(user)
         if (message.content.length < 2) return;
 
         TLoader.tLoader(1)
