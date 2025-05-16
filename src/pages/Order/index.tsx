@@ -135,17 +135,12 @@ const Order = function () {
         api.getOrder(parseInt(id ?? '')).then((data: any) => {
             setOrder(data)
             // setUser(data.user)
-
             api.getLoggedUser().then((user: any) => {
                 setProfile(user)
-
-                console.log('order')
-                console.log(data)
+ 
                 TLoader.tLoader(0)
 
-                setInterval(() => {
-                    getMessages()
-                }, 1000)
+                
             })
 
         }).catch(err => {

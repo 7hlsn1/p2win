@@ -259,8 +259,6 @@ class Api {
 
 
         await this.api.get('/verify_token').then((user: any) => {
-
-
             resolve(user.data.user)
         })
 
