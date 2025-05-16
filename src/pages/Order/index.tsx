@@ -129,7 +129,7 @@ const Order = function () {
             })
 
         }).catch(err => {
-            alert(0)
+            
             console.log(err)
         })
 
