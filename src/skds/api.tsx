@@ -302,7 +302,7 @@ class Api {
 
     getProfile = (userId: number = 0) => new Promise(async (resolve, reject) => {
         const req = await this.api.get(`/profile?user=${userId}`);
-        resolve(req.data)
+        resolve(req.data.user)
         reject()
     })
 

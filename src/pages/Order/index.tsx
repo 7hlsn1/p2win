@@ -55,6 +55,7 @@ const Order = function () {
         console.log('getMessages')
         console.log(user)
         console.log(profile)
+        
         if (user.id && profile.id) {
             api.getMessages(user.id, profile.id).then((res: any) => {
                 setMessages(res.messages)
@@ -87,7 +88,7 @@ const Order = function () {
     }
     const handleSendMessage = (e: any) => {
         e.preventDefault()
-        console.log(user)
+         
         if (message.content.length < 2) return;
 
         TLoader.tLoader(1)
