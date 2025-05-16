@@ -51,11 +51,19 @@ const Order = function () {
             })
         }
     }
+    const getMessages = () => {
+        api.getMessages(user.id, profile.id).then((res: any) => {
+            setMessages(res.messages)
+        })
+    }
     const handleOpenChat = (id: any) => {
         TLoader.tLoader(1)
         api.getProfile(id).then((user: any) => {
             setSellerChat(user)
             TLoader.tLoader(0)
+            api.getMessages(user.id, profile.id).then((res: any) => {
+                setMessages(res.messages)
+            })
 
         })
 
@@ -113,7 +121,9 @@ const Order = function () {
 
     }
     useEffect(() => {
-
+        setInterval(() => {
+            getMessages()
+        }, 1000)
         console.log('here 2 ' + id)
 
         TLoader.tLoader(1, 'Carregando pedido...')
@@ -130,7 +140,7 @@ const Order = function () {
             })
 
         }).catch(err => {
-            
+
             console.log(err)
         })
 

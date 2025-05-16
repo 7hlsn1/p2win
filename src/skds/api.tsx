@@ -62,11 +62,9 @@ class Api {
         }
         this.api = axios.create(this.data)
     }
-    getMessages = (seller_id: number, user_id: number, content: string, type: string = 'text') => new Promise(async (resolve, reject) => {
+    getMessages = (seller_id: number, user_id: number) => new Promise(async (resolve, reject) => {
         try {
-            const data = await this.api.post(`/chat/${seller_id}/${user_id}`, {
-                content, type
-            });
+            const data = await this.api.get(`/chat/${seller_id}/${user_id}`);
             resolve(data.data)
         } catch (ex: any) {
            
