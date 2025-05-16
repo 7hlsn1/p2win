@@ -119,7 +119,7 @@ const Order = function () {
         TLoader.tLoader(1, 'Carregando pedido...')
         api.getOrder(parseInt(id ?? '')).then((data: any) => {
             setOrder(data)
-            setUser(user)
+            setUser(data.user)
 
             api.getLoggedUser().then((user: any) => {
                 setProfile(user)
