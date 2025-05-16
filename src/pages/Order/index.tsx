@@ -68,7 +68,7 @@ const Order = function () {
         TLoader.tLoader(1)
         api.getProfile(id).then((user: any) => {
             setSellerChat(user)
-            console.log('seller:')
+            console.log('user:')
             setUser(user)
             TLoader.tLoader(0)
             getMessages()
@@ -136,7 +136,7 @@ const Order = function () {
         TLoader.tLoader(1, 'Carregando pedido...')
         api.getOrder(parseInt(id ?? '')).then((data: any) => {
             setOrder(data)
-            
+
             api.getLoggedUser().then((user: any) => {
                 setProfile(user)
 
