@@ -1,6 +1,9 @@
 @use '../../styles/variaveis';
 
 .card {
+    .title {
+        margin-top: 1em;
+    }
     background: variaveis.$cor-do-p;
     padding: 1rem;
     border-radius: 10px;

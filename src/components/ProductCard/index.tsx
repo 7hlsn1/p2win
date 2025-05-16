@@ -50,11 +50,9 @@ function ProductCard(props: any) {
         <div className={styles.card} >
             <Link style={{ position: 'absolute', top: 10, left: 10 }} to={`/produtos?category_id=${category_id}`}>
                 {category}
-
             </Link>
             <Link to={`/produtos/${id}`}>
                 <h4 className={styles.title}>{title}</h4>
-
             </Link>
 
             <img src={banner.startsWith('http') ? banner : import.meta.env.VITE_API_URL + banner} alt={'Carregando imagem...'} />
