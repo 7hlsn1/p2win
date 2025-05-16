@@ -121,9 +121,8 @@ const Order = function () {
 
     }
     useEffect(() => {
-        setInterval(() => {
-            getMessages()
-        }, 1000)
+
+
         console.log('here 2 ' + id)
 
         TLoader.tLoader(1, 'Carregando pedido...')
@@ -137,6 +136,10 @@ const Order = function () {
                 console.log('order')
                 console.log(data)
                 TLoader.tLoader(0)
+                
+                setInterval(() => {
+                    getMessages()
+                }, 1000)
             })
 
         }).catch(err => {
