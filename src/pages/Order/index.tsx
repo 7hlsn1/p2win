@@ -77,6 +77,7 @@ const Order = function () {
 
         TLoader.tLoader(1)
         api.sendMessage(user.id, profile.id, message.content).then((data: any) => {
+            console.log(data)
             const newMessage =
             {
                 content: message.content,
@@ -101,6 +102,7 @@ const Order = function () {
             )
             TLoader.tLoader(0)
         }).catch((err: any) => {
+            console.log(err)
             Swal.fire({
                 icon: 'warning',
                 text: 'Houve um erro ao enviar sua mensagem, verifique sua conexão'
