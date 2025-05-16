@@ -62,7 +62,7 @@ const Order = function () {
     }
 
     const handleSetMessage = (e: any) => {
-      
+
         setMessage({
             content: e.target.value,
             type: 'text',
@@ -75,28 +75,38 @@ const Order = function () {
         e.preventDefault()
         if (message.content.length < 2) return;
 
-        const newMessage =
-        {
-            content: message.content,
-            from: profile.username,
-            type: 'text',
-            created_at: moment().format('DD/MM/YY - H:mm:ss').toString()
-
-        };
-        const newMessages = messages
-        newMessages.push(newMessage)
-
-
-        setMessages(newMessages)
-
-        setMessage(
+        TLoader.tLoader(1)
+        api.sendMessage(user.id, profile.id, message.content).then((data: any) => {
+            const newMessage =
             {
-                content: '',
-                from: profile.id,
+                content: message.content,
+                from: profile.username,
                 type: 'text',
-                created_at: ''
-            }
-        )
+                created_at: moment().format('DD/MM/YY - H:mm:ss').toString()
+
+            };
+            const newMessages = messages
+            newMessages.push(newMessage)
+
+
+            setMessages(newMessages)
+
+            setMessage(
+                {
+                    content: '',
+                    from: profile.id,
+                    type: 'text',
+                    created_at: ''
+                }
+            )
+            TLoader.tLoader(0)
+        }).catch((err: any) => {
+            Swal.fire({
+                icon: 'warning',
+                text: 'Houve um erro ao enviar sua mensagem, verifique sua conexão'
+            })
+        })
+
     }
     useEffect(() => {
 

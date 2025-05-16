@@ -62,6 +62,18 @@ class Api {
         }
         this.api = axios.create(this.data)
     }
+    sendMessage = (seller_id: number, user_id: number, content: string, type: string = 'text') => new Promise(async (resolve, reject) => {
+        try {
+            const data = await this.api.post(`/chat/${seller_id}/${user_id}`, {
+                content, type
+            });
+            resolve(data.data)
+        } catch (ex: any) {
+            alert(ex.message)
+            reject(ex)
+
+        }
+    })
     payOrder = (id: number) => new Promise(async (resolve, reject) => {
 
         try {
