@@ -1,7 +1,7 @@
 import './MinhaConta.scss';
 // import styles from './MinhaConta.scss'
 import styles from '../Produtos/Produto.module.scss'
-import { FaCheckCircle, FaHeart, FaUserPlus, FaBan, FaFlag, FaStar, FaTimes } from 'react-icons/fa';
+import { FaCheckCircle, FaHeart, FaBan, FaFlag, FaStar, FaTimes } from 'react-icons/fa';
 import { Api, TLoader } from '../../skds/api';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
@@ -14,7 +14,7 @@ export default function Usuario() {
 
   const api = new Api('closed')
   const [userProfile, setUserProfile] = useState<Profile | any>({})
-  const [following, setFollowing] = useState(false)
+  //const [following, setFollowing] = useState(false)
   const [blocked, setBlocked] = useState(false)
   const [products, setProducts] = useState([])
   const [search, setSearch] = useState('')
@@ -40,7 +40,7 @@ export default function Usuario() {
       setUserProfile(data)
       console.log('data')
       console.log(data)
-      setFollowing(data.following)
+      //setFollowing(data.following)
       setProducts(data.products)
       setBlocked(data.blocked)
 
@@ -68,13 +68,13 @@ export default function Usuario() {
       setProducts(data)
     })
   }
-  const handleFollow = () => {
-    TLoader.tLoader(1)
-    api.followUser(userProfile.id).then((data: any) => {
-      setFollowing(data.following)
-      TLoader.tLoader(0)
-    })
-  }
+  // const handleFollow = () => {
+  //   TLoader.tLoader(1)
+  //   api.followUser(userProfile.id).then((data: any) => {
+  //     setFollowing(data.following)
+  //     TLoader.tLoader(0)
+  //   })
+  // }
 
   const handleBlock = () => {
     TLoader.tLoader(1)
