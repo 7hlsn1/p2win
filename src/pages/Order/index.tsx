@@ -52,7 +52,6 @@ const Order = function () {
         }
     }
     const getMessages = () => {
-
         if (user.id && profile.id) {
             api.getMessages(user.id, profile.id).then((res: any) => {
                 setMessages(res.messages)
@@ -65,6 +64,7 @@ const Order = function () {
         TLoader.tLoader(1)
         api.getProfile(id).then((user: any) => {
             setSellerChat(user)
+            setUser(user)
             TLoader.tLoader(0)
             getMessages()
 
@@ -131,7 +131,7 @@ const Order = function () {
         TLoader.tLoader(1, 'Carregando pedido...')
         api.getOrder(parseInt(id ?? '')).then((data: any) => {
             setOrder(data)
-            setUser(data.user)
+            // setUser(data.user)
 
             api.getLoggedUser().then((user: any) => {
                 setProfile(user)
