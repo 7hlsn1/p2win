@@ -53,7 +53,7 @@ const Order = function () {
     }
     const getMessages = () => {
 
-        if (user && profile) {
+        if (user.id && profile.id) {
             api.getMessages(user.id, profile.id).then((res: any) => {
                 setMessages(res.messages)
             })
