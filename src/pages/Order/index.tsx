@@ -55,7 +55,7 @@ const Order = function () {
         console.log('getMessages')
         console.log(user)
         console.log(profile)
-        
+
         if (user.id && profile.id) {
             api.getMessages(user.id, profile.id).then((res: any) => {
                 setMessages(res.messages)
@@ -68,6 +68,7 @@ const Order = function () {
         TLoader.tLoader(1)
         api.getProfile(id).then((user: any) => {
             setSellerChat(user)
+            console.log('seller:')
             setUser(user)
             TLoader.tLoader(0)
             getMessages()
@@ -88,7 +89,7 @@ const Order = function () {
     }
     const handleSendMessage = (e: any) => {
         e.preventDefault()
-         
+
         if (message.content.length < 2) return;
 
         TLoader.tLoader(1)
@@ -135,13 +136,13 @@ const Order = function () {
         TLoader.tLoader(1, 'Carregando pedido...')
         api.getOrder(parseInt(id ?? '')).then((data: any) => {
             setOrder(data)
-            // setUser(data.user)
+            
             api.getLoggedUser().then((user: any) => {
                 setProfile(user)
- 
+
                 TLoader.tLoader(0)
 
-                
+
             })
 
         }).catch(err => {
