@@ -36,6 +36,7 @@ import { PrimeReactProvider } from 'primereact/api';
 import AdminVerificacoes from './pages/AccountPage/Administracao/AdminVerificacoes';
 import Order from './pages/Order';
 import MailSuccess from './pages/MailSuccess';
+import MailError from './pages/MailError';
 const api = new Api('closed')
 
 function App() {
@@ -67,6 +68,7 @@ function App() {
           <Route path="/categorias" element={<Categorias />} />
           <Route path="/carrinho" element={<Cart />} />
           <Route path="/mail_success" element={<MailSuccess />} />
+          <Route path="/mail_error" element={<MailError />} />
 
           <Route path="/minha-conta" element={<AccountPage />}>
             <Route index element={<Resumo />} />
