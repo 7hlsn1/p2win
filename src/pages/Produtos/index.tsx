@@ -29,7 +29,7 @@ function Produto() {
         );
     }
     const [product, setProduct] = useState<any>({})
-     useEffect(() => {
+    useEffect(() => {
         TLoader.tLoader(1)
         api.getProduct(parseInt(id.toString())).then((data: any) => {
             setProduct(data)
@@ -44,7 +44,15 @@ function Produto() {
     const handleAddToCart = async () => {
         const currentCart = api.getCart()
         const ids = currentCart.map((i: any) => i.id)
-
+        const sellerId = currentCart[0] 
+        console.log('seller:')
+         
+        if (sellerId != currentCart[0].seller_id) {
+            return Swal.fire({
+                icon: 'warning',
+                text: 'Você só pode adicionar produtos de um vendedor por pedido'
+            })
+        }
         if (ids.includes(product.id)) {
             return Swal.fire({
                 icon: 'info',

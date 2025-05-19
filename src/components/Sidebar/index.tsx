@@ -39,7 +39,10 @@ const Sidebar = () => {
                                     <li>Meus anúncios</li>
                                 </NavLink>
                                 <NavLink to="/minha-conta/compras" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                    <li>Minhas compras</li>
+                                    <li>Pedidos realizados</li>
+                                </NavLink>
+                                <NavLink to="/minha-conta/vendas" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                                    <li>Pedidos recebidos</li>
                                 </NavLink>
                                 
                                 <NavLink to="/minha-conta/minhas-perguntas" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>

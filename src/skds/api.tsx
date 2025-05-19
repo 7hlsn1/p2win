@@ -51,7 +51,7 @@ class Api {
     }
     constructor(type_: string = 'closed') {
 
-        if (type_ == 'closed') {
+        if (type_ == 'closed' || 1) {
             if (this.token != null) {
                 this.data.headers = {
                     'Authorization': 'Bearer ' + this.token
@@ -62,24 +62,46 @@ class Api {
         }
         this.api = axios.create(this.data)
     }
-    getMessages = (seller_id: number, user_id: number) => new Promise(async (resolve, reject) => {
+    hideProduct = (id: number) => new Promise(async (resolve, reject) => {
         try {
-            const data = await this.api.get(`/chat/${seller_id}/${user_id}`);
+            const data = await this.api.get(`/products/hide/${id}`);
             resolve(data.data)
         } catch (ex: any) {
-           
+
             reject(ex)
 
         }
     })
-    sendMessage = (seller_id: number, user_id: number, content: string, type: string = 'text') => new Promise(async (resolve, reject) => {
+
+    showProduct = (id: number) => new Promise(async (resolve, reject) => {
         try {
-            const data = await this.api.post(`/chat/${seller_id}/${user_id}`, {
-                content, type
+            const data = await this.api.get(`/products/show/${id}`);
+            resolve(data.data)
+        } catch (ex: any) {
+
+            reject(ex)
+
+        }
+    })
+
+    getMessages = (order_id: number) => new Promise(async (resolve, reject) => {
+        try {
+            const data = await this.api.get(`/chat/${order_id}`);
+            resolve(data.data)
+        } catch (ex: any) {
+
+            reject(ex)
+
+        }
+    })
+    sendMessage = (seller_id: number, sender: string, content: string, type: string = 'text', order_id: number) => new Promise(async (resolve, reject) => {
+        try {
+            const data = await this.api.post(`/chat/${order_id}`, {
+                content, type, sender, seller_id
             });
             resolve(data.data)
         } catch (ex: any) {
-            
+
             reject(ex)
 
         }
@@ -90,7 +112,7 @@ class Api {
             const data = await this.api.post(`/orders/pay/${id}`);
             resolve(data.data)
         } catch (ex: any) {
-      
+
             reject(ex)
 
         }
@@ -103,7 +125,7 @@ class Api {
 
             resolve(data.data)
         } catch (ex: any) {
-            
+
             reject(ex)
 
         }
@@ -191,13 +213,15 @@ class Api {
     }
     addToCart = (id: number) => new Promise(async (resolve, reject) => {
         const cart = this.getCart()
+        await this.api.get(`/cart/add/${id}`).then((data: any) => {
+            console.log('cart data')
+            console.log(data.data)
+            cart.push(data.data)
+            localStorage.setItem('cart', JSON.stringify(cart))
+            resolve(cart)
+        })
 
-        const product = await this.getProduct(id)
-        cart.push(product)
-        localStorage.setItem('cart', JSON.stringify(cart))
 
-
-        resolve(cart)
         reject()
     })
 
@@ -218,6 +242,9 @@ class Api {
     }
     getOrders = (status?: number) => new Promise(async (resolve, reject) => {
         await this.api.get(`/orders${status ? '?status=' + status.toString() : ''}`).then((data: any) => {
+            console.log(data.data)
+
+            //data.data.cart = JSON.parse(data.data.cart)
             resolve(data.data)
         })
         reject()
@@ -302,7 +329,7 @@ class Api {
 
     getProfile = (userId: number = 0) => new Promise(async (resolve, reject) => {
         const req = await this.api.get(`/profile?user=${userId}`);
-        resolve(req.data.user)
+        resolve(req.data)
         reject()
     })
 

@@ -7,7 +7,10 @@ import Swal from 'sweetalert2';
 import { OrderModal } from '../../components/OrderModal';
 
 const api = new Api('open')
+
+const orderApi = new Api('closed')
 const Cart: React.FC = () => {
+
 
   const [total, setTotal] = useState<number>(0);
   const [cart, setCart] = useState<any>([]);
@@ -26,15 +29,35 @@ const Cart: React.FC = () => {
     setTotal(newTotal)
 
   };
+  const parseCart = async () => {
+    return
+    let customer: any
+    const cart = JSON.parse(localStorage.getItem('cart') ?? '[]')
+    await api.getLoggedUser().then((user: any) => {
+      customer = user
+    }
+
+    )
+    cart.map(async (item: any) => {
+      console.log('customer')
+      console.log(customer)
+
+      item.customer = customer
+
+    })
+    localStorage.setItem('cart', JSON.stringify(cart))
+    console.log(cart)
+  }
+
   const handleOrder = () => {
 
-    const orderApi = new Api('closed')
     TLoader.tLoader(1, 'Carregando pedido')
     orderApi.getLoggedUser().then(user => {
+      parseCart()
       if (!user) {
         document.location.href = '/login';
       } else {
-        orderApi.createOrder(cart, 'create').then(({ data }: any) => {
+        orderApi.createOrder(cart, 'wallet').then(({ data }: any) => {
           console.log('data:')
           console.log(data)
           TLoader.tLoader(0)
@@ -59,6 +82,7 @@ const Cart: React.FC = () => {
 
 
   useEffect(() => {
+    parseCart()
     const currentCart = api.getCart()
     setCart(currentCart)
     calculateTotal(currentCart);
@@ -80,28 +104,31 @@ const Cart: React.FC = () => {
       <Link to='/' className='link'>Voltar</Link>
       <br />
       <div className={styles.cartItems}>
-        {cart.length === 0 ? (
-          <p>Seu carrinho está vazio</p>
-        ) : (
-          cart.map((product: any) => (
-            <div key={product.id} className={styles.cartItem}>
-              <Link to={`/produtos/${product.id}`}>
-                <img src={import.meta.env.VITE_API_URL + product.banner} alt={product.title} className={styles.banner} />
+        {
+          cart.length === 0 ?
+            (
+              <p>Seu carrinho está vazio</p>
+            ) :
+            cart.map((product: any) => (
+              <div key={product.id} className={styles.cartItem}>
+                <Link to={`/produtos/${product.id}`}>
+                  <img src={import.meta.env.VITE_API_URL + product.banner} alt={product.title} className={styles.banner} />
 
-                <div>
-                  <h3>{product.title}</h3>
-                  <p>{product.description}</p>
-                  <p>R$ {product.price}</p>
-                  <Link to={`/usuarios/${product.user.id}`} className='link'>
-                    {product.user.username}
-                  </Link>
+                  <div>
+                    <h3>{product.title}</h3>
+                    <p>{product.description}</p>
+                    <p>R$ {product.price}</p>
+                    <Link to={`/usuarios/${product.seller.id}`} className='link'>
+                      {product.seller.username}
+                    </Link>
 
-                </div>
-              </Link>
-              <button className={styles.removeBtn} onClick={() => removeFromCart(product.id)}  ><FaTrash />  </button>
-            </div>
-          ))
-        )}
+                  </div>
+                </Link>
+                <button className={styles.removeBtn} onClick={() => removeFromCart(product.id)}  ><FaTrash />  </button>
+              </div>
+            ))
+
+        }
       </div>
       <div className={styles.total}>
         <h5>Total: R${parseFloat(total.toString()).toFixed(2)}</h5>

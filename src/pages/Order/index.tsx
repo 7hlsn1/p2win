@@ -12,7 +12,7 @@ const Order = function () {
     const messageModel = {
         content: String,
         type: String,
-        from: String,
+        sender: String,
         created_at: String
     }
 
@@ -21,8 +21,9 @@ const Order = function () {
     const [profile, setProfile] = useState<any>({})
     const [sellerChat, setSellerChat] = useState<any>(false)
     const [message, setMessage] = useState<any>(messageModel)
-    const [messages, setMessages] = useState<any>([messageModel])
+    const [messages, setMessages] = useState<any>([])
     const { id } = useParams<any>()
+
 
     const handleCancel = () => {
         Swal.fire({
@@ -51,28 +52,52 @@ const Order = function () {
             })
         }
     }
-    const getMessages = () => {
+    const getMessages = (order: any) => {
         console.log('getMessages')
-        console.log(user)
-        console.log(profile)
+        const seller = order.seller
+        const profile_ = order.customer
 
-        if (user.id && profile.id) {
-            api.getMessages(user.id, profile.id).then((res: any) => {
-                setMessages(res.messages)
+        if (seller.id && profile_.id) {
+            api.getMessages(order.id).then((res: any) => {
+                const newMessages: any = []
+                res.messages.map((m: any) => {
+                    newMessages.push({
+                        content: m.content,
+                        from: m.sender,
+                        type: 'text',
+                        created_at: moment(m.created_at).format('DD/MM/YY - H:mm:ss').toString()
+
+                    })
+                })
+                setMessages(newMessages)
+                console.log('OK')
+
+            })
+        } else {
+            Swal.fire({
+                icon: 'warning',
+                text: 'Erro ao exibir mensagens'
             })
         }
 
 
     }
     const handleOpenChat = (id: any) => {
-        TLoader.tLoader(1)
-        api.getProfile(id).then((user: any) => {
-            setSellerChat(user)
-            console.log('user:')
-            setUser(user)
-            TLoader.tLoader(0)
-            getMessages()
+        console.log('handleOpenChat')
 
+        TLoader.tLoader(1)
+        api.getProfile(id).then((user_: any) => {
+            setSellerChat(user_)
+
+            setUser(user_)
+
+            setInterval(() => {
+                getMessages(order)
+            }, 1000)
+            TLoader.tLoader(0)
+
+        }).catch(() => {
+            alert(0)
         })
 
     }
@@ -82,7 +107,8 @@ const Order = function () {
         setMessage({
             content: e.target.value,
             type: 'text',
-            from: profile.username
+            from: profile.username,
+            sender: profile.username
         })
 
 
@@ -93,12 +119,13 @@ const Order = function () {
         if (message.content.length < 2) return;
 
         TLoader.tLoader(1)
-        api.sendMessage(user.id, profile.id, message.content).then((data: any) => {
+        api.sendMessage(user.id, profile.username, message.content, 'text', order.id).then((data: any) => {
             console.log(data)
             const newMessage =
             {
                 content: message.content,
                 from: profile.username,
+                sender: profile.username,
                 type: 'text',
                 created_at: moment().format('DD/MM/YY - H:mm:ss').toString()
 
@@ -118,6 +145,13 @@ const Order = function () {
                 }
             )
             TLoader.tLoader(0)
+            let messageList = document.getElementById('messages')
+            if (messageList) {
+                const scrollHeight = messageList.scrollHeight;
+                const height = messageList.clientHeight;
+                const maxScrollTop = scrollHeight - height;
+                messageList.scrollTop = maxScrollTop + 500
+            }
         }).catch((err: any) => {
             console.log(err)
             TLoader.tLoader(0)
@@ -129,29 +163,24 @@ const Order = function () {
 
     }
     useEffect(() => {
-
-
         console.log('here 2 ' + id)
 
         TLoader.tLoader(1, 'Carregando pedido...')
         api.getOrder(parseInt(id ?? '')).then((data: any) => {
             setOrder(data)
 
-            api.getLoggedUser().then((user: any) => {
-                setProfile(user)
+            api.getLoggedUser().then((user_: any) => {
+                setProfile(user_)
 
                 TLoader.tLoader(0)
 
 
             })
-
         }).catch(err => {
-
             console.log(err)
         })
 
-    }
-        , [])
+    }, [])
 
     return (
 
@@ -175,9 +204,6 @@ const Order = function () {
                         <div className={styles.items}>
                             {
                                 order.cart.map((item: any) => (
-
-
-
                                     <div className={styles.item} key={item.id}>
                                         {
                                             [
@@ -193,13 +219,22 @@ const Order = function () {
                                             </Link>
                                         </div>
                                         <div className={styles.actions}>
-                                            <button className={styles.cancel}>Cancelar item</button>
+                                            {order.seller.id != profile.id ? null :
+                                                <button className={styles.cancel}>Recusar pedido</button>
+                                            }
 
                                             <button className={styles.openChat}
                                                 onClick={() => {
-                                                    handleOpenChat(item.user_id)
+                                                    handleOpenChat(order.cart[0].user_id)
                                                 }}>
-                                                Abrir chat com vendedor
+                                                Aceitar pedido
+                                            </button>
+
+                                            <button className={styles.openChat}
+                                                onClick={() => {
+                                                    handleOpenChat(order.cart[0].user_id)
+                                                }}>
+                                                Abrir chat com {item.seller.id != profile.id ? 'vendedor' : 'comprador'}
                                             </button>
 
                                         </div>
@@ -210,8 +245,8 @@ const Order = function () {
                                                 R$ <b>{item.price}</b>
                                             </span>
 
-                                            <Link to={'/usuarios/' + item.user.id} className='link'>
-                                                {item.user.username}
+                                            <Link to={`/usuarios/${(item.seller.id == item.id) ? item.customer.id : item.seller.id}`} className='link'>
+                                                {item.seller.id == profile.id ? item.customer.username : item.seller.username}
                                             </Link>
                                         </span>
                                     </div>
@@ -220,20 +255,29 @@ const Order = function () {
                         </div>
                         {sellerChat ?
                             <div className={styles.chat}>
-                                <h4>{sellerChat.username}</h4>
-                                <div className={styles.messages}>
+                                <h4>{order.seller.id == profile.id ? order.customer.username : order.seller.username}
+                                </h4>
+                                <div className={styles.messages} id="messages">
+
                                     {
                                         messages.map((message: any) => {
-                                            if (message.from == profile.username)
-                                                return (
-                                                    <div key={message.created_at}>
-                                                        <span></span>
-                                                        <span style={{ opacity: .5, fontSize: '10pt' }}>{message.created_at} {message.from} - </span>
-                                                        <span style={{ color: 'green' }}>{message.content}</span>
-                                                    </div>
-                                                )
+
+                                            return (
+                                                <div key={message.id} className={styles.message}>
+                                                    <span className={styles.time}>
+                                                        {message.created_at}
+                                                    </span>
+                                                    <span style={{ color: message.from == profile.username ? 'red' : 'green' }}>
+                                                        {message.from}
+                                                    </span>
+                                                    <br />
+                                                    <span className={styles.messageContent}>{message.content}</span>
+                                                </div>
+                                            )
+
                                         })
                                     }
+
                                 </div>
                                 <form onSubmit={handleSendMessage}>
                                     <input type="text" placeholder='Escreva aqui...' value={message.content} onChange={handleSetMessage} className={styles.messageBox} />

@@ -1,110 +1,93 @@
-import { useState } from 'react';
-import './Vendas.scss';
+import React, { useEffect, useState } from "react";
+import "./Compras.scss";
+import { Api, TLoader } from "../../../skds/api";
+import moment from "moment";
+import MD5 from "md5";
+import { OrderModal } from "../../../components/OrderModal";
+import { Link } from "react-router-dom";
 
-const vendasFake = [
-    {
-        codigo: '#6MM5OB2',
-        statusPagamento: 'Pagamento Aprovado',
-        statusEntrega: 'Entrega pendente',
-        produto: 'SS Moby - R$7,99 / SSBM Phantom Megalodon / Fischl / O mais barato do mercado!',
-        preco: 7.99,
-        quantidade: 1,
-        data: '26/03/25 12:27',
-        comprador: 'Mael_king1'
-    },
-    {
-        codigo: '#2OOK7QN',
-        statusPagamento: 'Pagamento Aprovado',
-        statusEntrega: 'Entregue',
-        produto: 'SS Moby - R$7,99 / SSBM Phantom Megalodon / Fischl / O mais barato do mercado!',
-        preco: 7.99,
-        quantidade: 1,
-        data: '26/03/25 12:27',
-        comprador: 'ordeseeeeep'
-    },
-    {
-        codigo: '#0RRKDXZ',
-        statusPagamento: 'Pagamento Aprovado',
-        statusEntrega: 'Entregue',
-        produto: 'SS Moby - R$7,99 / SSBM Phantom Megalodon / Fischl / O mais barato do mercado!',
-        preco: 7.99,
-        quantidade: 1,
-        data: '24/03/25 13:35',
-        comprador: 'leocomputer'
-    },
-    {
-        codigo: '#NKK6B8D',
-        statusPagamento: 'Pagamento Aprovado',
-        statusEntrega: 'Entregue',
-        produto: 'SS Moby - R$7,99 / SSBM Phantom Megalodon / Fischl / O mais barato do mercado!',
-        preco: 7.99,
-        quantidade: 10,
-        data: '24/03/25 13:14',
-        comprador: 'Lillium'
-    }
-];
+const Vendas: React.FC = () => {
+  const [orders, setOrders] = useState<any>([])
+  const [order, setOrder] = useState<any>()
+  //const [cart, setCart] = useState([])
+  const [status, setStatus] = useState<any>(1)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const api = new Api('closed')
 
-export default function Vendas() {
-    const [filtroPagamento, setFiltroPagamento] = useState('Aprovados');
-    const [filtroPedido, setFiltroPedido] = useState('Todos');
-    const [filtroAvaliacao, setFiltroAvaliacao] = useState('Todas');
-    const [ordenacao, setOrdenacao] = useState('Código da venda');
+  const unused = { setOrder }
+  console.log(unused)
 
-    return (
-        <div className="vendas-container">
-            <div className="selectcontainer">
-                <div className="filtros">
-                    <div className="filtro">
-                        <label>Pagamento</label>
-                        <select value={filtroPagamento} onChange={e => setFiltroPagamento(e.target.value)}>
-                            <option>Aprovados</option>
-                            <option>Pendentes</option>
-                        </select>
-                    </div>
-                    <div className="filtro">
-                        <label>Pedido</label>
-                        <select value={filtroPedido} onChange={e => setFiltroPedido(e.target.value)}>
-                            <option>Todos</option>
-                            <option>Entregues</option>
-                        </select>
-                    </div>
-                    <div className="filtro">
-                        <label>Avaliação</label>
-                        <select value={filtroAvaliacao} onChange={e => setFiltroAvaliacao(e.target.value)}>
-                            <option>Todas</option>
-                        </select>
-                    </div>
-                    <div className="filtro">
-                        <label>Ordenar por</label>
-                        <select value={ordenacao} onChange={e => setOrdenacao(e.target.value)}>
-                            <option>Código da venda</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
+  const handleChangeStatus = (e: any) => {
+    const newStatus = e.target.value
+    setStatus(newStatus)
+    TLoader.tLoader(1, 'Carregando pedidos...')
+    api.getOrders(e.target.value).then((orders_: any) => {
 
+      setOrders(orders_.orders)
+      //    setCart(orders_.orders.cart)
+      TLoader.tLoader(0)
 
+    })
+  }
+  useEffect(() => {
+    TLoader.tLoader(1, 'Carregando pedidos...')
 
-            <div className="vendas-lista">
-                {vendasFake.map((venda, index) => (
-                    <div key={index} className="venda-item">
-                        <div className="topo">
-                            <span className="codigo">Venda {venda.codigo}</span>
-                            <span className="status-pagamento">- {venda.statusPagamento}</span>
-                        </div>
-                        <div className="produto">
-                            {venda.quantidade}x <a href="#">{venda.produto}</a> | R${venda.preco.toFixed(2)}
-                        </div>
-                        <div className="detalhes">
-                            <span>Data: {venda.data}</span>
-                            <span>Comprador: <strong>{venda.comprador}</strong></span>
-                            <span>Subtotal: <strong>R${(venda.quantidade * venda.preco).toFixed(2)}</strong></span>
-                            <span>Status: <strong>{venda.statusEntrega}</strong></span>
-                        </div>
-                        <button className="ver-pedido">Ver pedido</button>
-                    </div>
-                ))}
-            </div>
+    api.getOrders(status).then((orders_: any) => {
+
+      setOrders(orders_.orders)
+      TLoader.tLoader(0)
+
+    })
+  }, [])
+
+  return (
+    <div className="aba-compras">
+      {
+        isModalOpen ? (
+          <OrderModal order={order} onClose={() => {
+            setIsModalOpen(false)
+          }}>
+          </OrderModal>
+        ) : null
+      }
+      <div className="filtros">
+        <div className="select-container">
+          Filtro
+          < div className="filters" >
+            <select onChange={handleChangeStatus}>
+              <option value="3">Pago</option>
+              <option value="1">Aguardando confirmação</option>
+              <option value="0">Aguardando pagamento</option>
+            </select>
+          </div >
         </div>
-    );
-}
+      </div>
+
+      <div className="lista-compras">
+        {orders?.map((order: any) => (
+          <div className="card-compra" key={order.id}>
+            <div className="cabecalho">Pedido <span className="id">#{MD5(order.id).toString().substr(0, 5)}</span></div>
+            {order.cart.map((item: any) => (
+              <div key={item.id} className="produto">
+                <span>1x</span>
+                <span className="nome-produto">{item.title}</span>
+                <span>R$ {item.price}</span>
+              </div>
+            ))}
+
+
+            <div className="rodape">
+              <span>{moment(order.created_at).format('DD/MM/Y - H:m:s\\h')}  | Total: <strong>R$ {order.price}</strong></span>
+              <span className={`status ${order.status === 1 ? "verde" : "amarelo"}`}>
+                {['Aguardando pagamento', 'Pago'][order.status]}
+              </span>
+              <Link className="ver-pedido" to={`/minha-conta/pedidos/${order.id}`} >Ver pedido</Link>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Vendas;

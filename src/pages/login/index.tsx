@@ -9,7 +9,7 @@ const LoginPage: React.FC = () => {
         <div className={styles.loginPage}>
             <div className={styles.content}>
                 <h1>Bem-vindo ao nosso marketplace</h1>
-                <p>Faça login para acessar sua conta e começar a vender ou comprar produtos.</p>
+                <p>Faça <span style={{color:'blue', textDecoration:'underline',padding:4}} onClick={() => setIsModalOpen(true)}>login</span> para acessar sua conta e começar a vender ou comprar produtos.</p>
 
                 <LoginModal
                     isOpen={isModalOpen}

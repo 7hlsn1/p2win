@@ -16,6 +16,10 @@ body {
 }
 
 
+.danger {
+  background-color: variaveis.$danger;
+  color: white;
+}
 
 a {
   color: inherit;
@@ -49,10 +53,7 @@ button {
     background-color: variaveis.$success;
   }
 
-  .danger {
-    background-color: variaveis.$danger;
-  }
-
+ 
   background-color: variaveis.$cor-secundaria;
   color: variaveis.$cor-do-texto;
   border: none;

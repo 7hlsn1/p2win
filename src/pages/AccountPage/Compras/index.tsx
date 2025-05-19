@@ -14,16 +14,17 @@ const Compras: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const api = new Api('closed')
 
-  const unused = { setCart, setOrder }
+  const unused = { setCart, setOrder, cart }
   console.log(unused)
 
   const handleChangeStatus = (e: any) => {
     const newStatus = e.target.value
     setStatus(newStatus)
     TLoader.tLoader(1, 'Carregando pedidos...')
-    api.getOrders(newStatus).then((orders_: any) => {
+    api.getOrders(e.target.value).then((orders_: any) => {
 
       setOrders(orders_.orders)
+      setCart(orders_.orders.cart)
       TLoader.tLoader(0)
 
     })
@@ -54,9 +55,8 @@ const Compras: React.FC = () => {
           Filtro
           < div className="filters" >
             <select onChange={handleChangeStatus}>
-              <option value="1">Pago</option>
-              <option value="2">Aguardando confirmação</option>
-
+              <option value="3">Pago</option>
+              <option value="1">Aguardando confirmação</option>
               <option value="0">Aguardando pagamento</option>
             </select>
           </div >
@@ -64,10 +64,10 @@ const Compras: React.FC = () => {
       </div>
 
       <div className="lista-compras">
-        {orders.map((order: any) => (
+        {orders?.map((order: any) => (
           <div className="card-compra" key={order.id}>
             <div className="cabecalho">Pedido <span className="id">#{MD5(order.id).toString().substr(0, 5)}</span></div>
-            {cart.map((item: any) => (
+            {order.cart.map((item: any) => (
               <div key={item.id} className="produto">
                 <span>1x</span>
                 <span className="nome-produto">{item.title}</span>

@@ -72,11 +72,15 @@ function App() {
 
           <Route path="/minha-conta" element={<AccountPage />}>
             <Route index element={<Resumo />} />
+            <Route path="pedidos" element={<Order />} />
+
             <Route path="pedidos/:id" element={<Order />} />
+            <Route path="vendas" element={<Vendas />} />
+
             <Route path="transacoes" element={<Transacoes />} />
             <Route path="anuncios" element={<Anuncios />} />
             <Route path="compras" element={<Compras />} />
-            <Route path="vendas" element={<Vendas />} />
+
             <Route path="minhas-perguntas" element={<MinhasPerguntas />} />
             <Route path="perguntas-recebidas" element={<PerguntasRecebidas />} />
             <Route path="retiradas" element={<Retiradas />} />
