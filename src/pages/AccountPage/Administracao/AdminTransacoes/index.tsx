@@ -21,7 +21,7 @@ export default function AdminAnuncios() {
     const cols: any = [
         {
             name: 'Tipo',
-            selector: (row: any) => (row.type == 'deposit') ? 'Depósito' : (row.title == 'withdraw' ? 'Saque' : '?'),
+            selector: (row: any) => (row.type == 'deposit') ? 'Depósito' : (row.type == 'withdraw' ? 'Saque' : '?'),
             sortable: true,
         },
         {
@@ -92,53 +92,6 @@ export default function AdminAnuncios() {
     return (
         <div className="admin-container">
 
-            {/* {
-                isModalOpen ? (
-                    <Modal styles={{ width: '800px', maxWidth: 'unset' }} onClose={() => {
-                        setIsModalOpen(false)
-                    }}>
-                        <form action="" onSubmit={handleSubmit}>
-                            <div style={{ marginBottom: '1em' }}>
-                                Publicado por: <Link className='link' to={`/usuarios/${anuncio.user_id}`}>{anuncio.user.username}</Link>
-
-                            </div>
-                            <div className='formGroup'>
-                                <label htmlFor="">Anuncio</label>
-                                <input type="text" value={anuncio.title} />
-                            </div>
-                            <div className='formGroup'>
-                                <label htmlFor="">Valor</label>
-                                <input type="number" value={anuncio.price} />
-                            </div>
-                            <div className='formGroup'>
-                                <label htmlFor="">Descrição</label>
-                                <input type="text" value={anuncio.description} />
-                            </div>
-                            <div className='formGroup'>
-                                Banner
-                                <div className='banner' style={{ backgroundImage: `url('${import.meta.env.VITE_API_URL + anuncio.banner}')` }}></div>
-                                Imagens
-                                <div className='images'>
-                                    {anuncio.images.map((image: any) => (
-                                        <div className='image' style={{ backgroundImage: `url('${import.meta.env.VITE_API_URL + image.file}')` }}>
-
-                                        </div>
-
-                                    ))}
-
-                                </div>
-                            </div>
-                            <div className="buttons">
-                                <button type="submit" style={{ backgroundColor: '#2ecc71' }}>Aprovar</button>
-                                <button type="button" onClick={handleReject} style={{ backgroundColor: 'rgb(221, 76, 76)' }}>Rejeitar</button>
-
-                            </div>
-
-                        </form>
-                    </Modal>
-                ) :
-                    null
-            } */}
 
             Tipo
             < div className="filters" >
@@ -150,7 +103,7 @@ export default function AdminAnuncios() {
             </div >
             {
                 transactions.length > 0 ? (
-                    <DataTable columns={cols} data={transactions} pagination title='Transações'>
+                    <DataTable columns={cols} data={transactions} pagination  >
 
                     </DataTable>
 

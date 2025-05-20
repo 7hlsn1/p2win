@@ -21,19 +21,21 @@ const Compras: React.FC = () => {
     const newStatus = e.target.value
     setStatus(newStatus)
     TLoader.tLoader(1, 'Carregando pedidos...')
-    api.getOrders(e.target.value).then((orders_: any) => {
+
+    api.getMyOrders(e.target.value).then((orders_: any) => {
 
       setOrders(orders_.orders)
       setCart(orders_.orders.cart)
       TLoader.tLoader(0)
 
     })
+
   }
   useEffect(() => {
     TLoader.tLoader(1, 'Carregando pedidos...')
 
-    api.getOrders(status).then((orders_: any) => {
-
+    api.getMyOrders(status).then((orders_: any) => {
+      console.log('status: ' + status)
       setOrders(orders_.orders)
       TLoader.tLoader(0)
 
@@ -55,9 +57,9 @@ const Compras: React.FC = () => {
           Filtro
           < div className="filters" >
             <select onChange={handleChangeStatus}>
-              <option value="3">Pago</option>
-              <option value="1">Aguardando confirmação</option>
-              <option value="0">Aguardando pagamento</option>
+              <option value="1">Aguardando confirmação do vendedor</option>
+              <option value="3">Concluído</option>
+
             </select>
           </div >
         </div>
@@ -79,7 +81,7 @@ const Compras: React.FC = () => {
             <div className="rodape">
               <span>{moment(order.created_at).format('DD/MM/Y - H:m:s\\h')}  | Total: <strong>R$ {order.price}</strong></span>
               <span className={`status ${order.status === 1 ? "verde" : "amarelo"}`}>
-                {['Aguardando pagamento', 'Pago'][order.status]}
+                {['', 'Aguardando confirmação do vendedor', '', '', 'Recebido'][order.status]}
               </span>
               <Link className="ver-pedido" to={`/minha-conta/pedidos/${order.id}`} >Ver pedido</Link>
             </div>

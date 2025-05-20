@@ -31,6 +31,35 @@ const Order = function () {
             text: 'Pedido cancelado com sucesso'
         })
     }
+    const handleAccept = () => {
+        TLoader.tLoader(1, 'Processando pagamento')
+        api.acceptOrder(order.id).then((res: any) => {
+            TLoader.tLoader(0)
+            Swal.fire({
+                icon: 'success',
+                text: res.message
+            }).then(() => {
+                document.location.reload()
+            })
+        }).catch((err: any) => {
+            console.log(err)
+        })
+    }
+
+    const handleDelivered = () => {
+        TLoader.tLoader(1)
+        api.setDelivered(order.id).then((res: any) => {
+            TLoader.tLoader(0)
+            Swal.fire({
+                icon: 'success',
+                text: res.message
+            })
+
+        }).catch((err: any) => {
+            console.log(err)
+        })
+    }
+
     const handlePay = () => {
         if (parseFloat(order.price) > parseFloat(user.wallet)) {
             return Swal.fire({
@@ -113,6 +142,18 @@ const Order = function () {
 
 
     }
+    const handleReject = () => {
+        TLoader.tLoader(1)
+        api.rejectOrder(order.id).then((res: any) => {
+            Swal.fire({
+                icon: 'success',
+                text: res.message
+            }).then(() => {
+                document.location.reload()
+            })
+            TLoader.tLoader(0)
+        })
+    }
     const handleSendMessage = (e: any) => {
         e.preventDefault()
 
@@ -189,16 +230,7 @@ const Order = function () {
                 < div className={styles.order} key={order.id}>
 
                     <div className={styles.header}>
-                        <h3>Itens do pedido</h3>
-
-                        {/* {
-                            [
-                                <span className={styles.unpaid}>Não pago</span>,
-                                <span className={styles.paid}>Pago</span>,
-                                <span className={styles.unpaid}>Aguardando entrega</span>,
-                            ]
-                            [order.status]
-                        } */}
+                        <h3>Pedido</h3>
                     </div>
                     <div className={styles.content}>
                         <div className={styles.items}>
@@ -208,8 +240,11 @@ const Order = function () {
                                         {
                                             [
                                                 <span className={styles.unpaid}>Não pago</span>,
-                                                <span className={styles.paid}>Pago</span>,
-                                                <span className={styles.unpaid}>Aguardando entrega</span>,
+                                                <span className={styles.paid}>Aguardando resposta do vendedor</span>,
+                                                <span className={styles.paid}>Aguardando confirmação de recebimento</span>,
+                                                <span className={styles.paid}>Pedido finalizado</span>,
+                                                <span className={styles.unpaid}>Pedido rejeitado</span>
+
                                             ]
                                             [order.status]
                                         }
@@ -219,16 +254,38 @@ const Order = function () {
                                             </Link>
                                         </div>
                                         <div className={styles.actions}>
-                                            {order.seller.id != profile.id ? null :
-                                                <button className={styles.cancel}>Recusar pedido</button>
+
+                                            {order.seller.id != profile.id ?
+                                                <>
+                                                    {
+                                                        order.status == 2 ?
+                                                            <button className={styles.openChat}
+                                                                onClick={handleDelivered}>
+                                                                Confirmar recebimento
+                                                            </button> : null
+                                                    }
+
+                                                </>
+                                                :
+                                                <>
+                                                    {
+                                                        order.status == 1 ?
+                                                            <>
+                                                                <button className={styles.cancel}
+                                                                    onClick={handleReject}>Recusar pedido</button>
+
+                                                                <button className={styles.openChat}
+                                                                    onClick={handleAccept}>
+                                                                    Aceitar pedido
+                                                                </button>
+                                                            </>
+                                                            : null
+                                                    }
+
+                                                </>
                                             }
 
-                                            <button className={styles.openChat}
-                                                onClick={() => {
-                                                    handleOpenChat(order.cart[0].user_id)
-                                                }}>
-                                                Aceitar pedido
-                                            </button>
+
 
                                             <button className={styles.openChat}
                                                 onClick={() => {
@@ -246,7 +303,7 @@ const Order = function () {
                                             </span>
 
                                             <Link to={`/usuarios/${(item.seller.id == item.id) ? item.customer.id : item.seller.id}`} className='link'>
-                                                {item.seller.id == profile.id ? item.customer.username : item.seller.username}
+                                                {item.seller.id == profile.id ? item.customer?.username : item.seller.username}
                                             </Link>
                                         </span>
                                     </div>

@@ -55,9 +55,10 @@ const Vendas: React.FC = () => {
           Filtro
           < div className="filters" >
             <select onChange={handleChangeStatus}>
-              <option value="3">Pago</option>
+              <option value="2">Aguardando entrega</option>
               <option value="1">Aguardando confirmação</option>
-              <option value="0">Aguardando pagamento</option>
+              <option value="3">Concluido</option>
+
             </select>
           </div >
         </div>
@@ -78,8 +79,8 @@ const Vendas: React.FC = () => {
 
             <div className="rodape">
               <span>{moment(order.created_at).format('DD/MM/Y - H:m:s\\h')}  | Total: <strong>R$ {order.price}</strong></span>
-              <span className={`status ${order.status === 1 ? "verde" : "amarelo"}`}>
-                {['Aguardando pagamento', 'Pago'][order.status]}
+              <span className={`status ${order.status == 1 || order.status == 3 ? "verde" : "amarelo"}`}>
+                {['', 'Aguardando confirmação', 'Aguardando entrega', 'Entregue', 'Concluído'][order.status]}
               </span>
               <Link className="ver-pedido" to={`/minha-conta/pedidos/${order.id}`} >Ver pedido</Link>
             </div>

@@ -93,8 +93,9 @@ export default function AdminAnuncios() {
     }
     const handleReject = () => {
         TLoader.tLoader(1)
+        alert(1)
         api.rejectProduct(anuncio.id).then((data: any) => {
-
+          
             getAnuncios(status)
             setIsModalOpen(false)
             TLoader.tLoader(0)

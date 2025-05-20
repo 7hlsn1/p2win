@@ -9,7 +9,7 @@
     position: relative;
     flex-wrap: wrap;
     border-bottom: 1px solid variaveis.$cor-secundaria;
- 
+
     height: 100px;
 
     @media (max-width: 768px) {
@@ -17,6 +17,19 @@
         justify-content: center;
         flex-wrap: nowrap;
         padding: 0;
+    }
+}
+
+.user_data {
+
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+
+.navbar_button {
+    @media (max-width: 768px) {
+        display: none;
     }
 }
 
@@ -28,7 +41,7 @@
     align-items: center;
     gap: 0.5rem;
     height: 100%;
- 
+
 
     h1 {
         font-size: 23pt;

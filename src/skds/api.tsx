@@ -118,6 +118,39 @@ class Api {
         }
     })
 
+    acceptOrder = (id: number) => new Promise(async (resolve, reject) => {
+
+        try {
+            const data = await this.api.get(`/orders/accept/${id}`);
+            resolve(data.data)
+        } catch (ex: any) {
+            reject(ex)
+
+        }
+    })
+
+    rejectOrder = (id: number) => new Promise(async (resolve, reject) => {
+
+        try {
+            const data = await this.api.get(`/orders/reject/${id}`);
+            resolve(data.data)
+        } catch (ex: any) {
+            reject(ex)
+
+        }
+    })
+
+    setDelivered = (id: number) => new Promise(async (resolve, reject) => {
+
+        try {
+            const data = await this.api.get(`/orders/delivery/${id}`);
+            resolve(data.data)
+        } catch (ex: any) {
+            reject(ex)
+
+        }
+    })
+
     getOrder = (id: number) => new Promise(async (resolve, reject) => {
 
         try {
@@ -240,15 +273,25 @@ class Api {
         localStorage.setItem('cart', JSON.stringify(newCart))
         return newCart
     }
+
     getOrders = (status?: number) => new Promise(async (resolve, reject) => {
         await this.api.get(`/orders${status ? '?status=' + status.toString() : ''}`).then((data: any) => {
             console.log(data.data)
 
-            //data.data.cart = JSON.parse(data.data.cart)
             resolve(data.data)
         })
         reject()
     })
+
+    getMyOrders = (status?: number) => new Promise(async (resolve, reject) => {
+        await this.api.get(`/orders_placed?status=${status}`).then((data: any) => {
+            console.log(data.data)
+
+            resolve(data.data)
+        })
+        reject()
+    })
+
 
 
     createOrder = (cart: any, method: string) => new Promise(async (resolve, reject) => {
@@ -390,8 +433,8 @@ class Api {
         reject();
     });
 
-    getTransactions = (id: number) => new Promise(async (resolve, reject) => {
-        const req = await this.api.get(`/admin/products/reject/${id}`)
+    getTransactions = (type: string) => new Promise(async (resolve, reject) => {
+        const req = await this.api.get(`/admin/transactions/${type}`)
         const data = req.data
         resolve(data);
         reject();

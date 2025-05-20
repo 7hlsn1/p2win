@@ -82,12 +82,7 @@ export function UserDropdown({ children }: UserDropdownProps) {
                                         <li>Minhas compras</li>
                                     </NavLink>
 
-                                    <NavLink to="/minha-conta/minhas-perguntas" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                        <li>Minhas perguntas</li>
-                                    </NavLink>
-                                    <NavLink to="/minha-conta/perguntas-recebidas" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                        <li>Perguntas recebidas</li>
-                                    </NavLink>
+                                    
 
 
                                     <li className={styles.sectionTitle}>CONFIGURAÇÕES</li>

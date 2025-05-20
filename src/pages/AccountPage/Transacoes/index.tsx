@@ -2,20 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./Transacoes.scss";
 import { Api, TLoader, } from "../../../skds/api";
 import moment from "moment";
-//import { Link } from "react-router-dom";
+
 const api = new Api('closed')
 moment.locale('pt-br')
 moment.localeData('pt-br')
-
-// type Status = "Ativo" | "Em análise" | "Reprovado" | "Desativado" | "Suspenso";
-
-// interface Anuncio {
-//   id: number;
-//   titulo: string;
-//   status: Status;
-//   tipo: string;
-//   link: string;
-// }
 
 
 
@@ -73,7 +63,7 @@ const Anuncios: React.FC = () => {
                         <div className="card-compra" key={anuncio.id}>
 
                             <div className="cabecalho">R$ {anuncio.amount} </div>
-
+                            {anuncio.method == 'withdraw' ? 'Saque' : anuncio.method == 'deposit' ? 'Depósito' : '?'}
                             <div className="produto">
 
                                 <span className="nome-produto">{anuncio.description}</span>

@@ -91,7 +91,6 @@ const Anuncios: React.FC = () => {
           <option value={'0'}>Em análise</option>
           <option value={1}>Ativo</option>
           <option value={2}>Vendido</option>
-          <option value={3}>Reprovado</option>
           <option value={5}>Oculto</option>
 
         </select>
@@ -117,14 +116,14 @@ const Anuncios: React.FC = () => {
                     <span>Saldo P2Win: +R$ {anuncio.price}</span>
                   </> : <></>
                 }
-                <span className="aprovado">{['Em análise', 'Aprovado', 'Vendido', '', '', 'Oculto'][anuncio.status]}</span>
+                <span className="aprovado">{['Em análise', 'Aprovado', 'Vendido', 'a', 'b', 'Oculto'][anuncio.status]}</span>
                 {
                   anuncio.status == 1 ? <button className="danger" onClick={() => handleHide(anuncio.id)}>Ocultar</button> : null
 
                 }
 
                 {
-                  anuncio.status == 5 ? <button className="success" onClick={() => handleShow(anuncio.id)}>Exibir</button> : null
+                  anuncio.status == 5 ? <button className="success" onClick={() => handleShow(anuncio.id)}>Habilitar exibição</button> : null
 
                 }
 

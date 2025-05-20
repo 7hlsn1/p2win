@@ -30,7 +30,7 @@ const Cart: React.FC = () => {
 
   };
   const parseCart = async () => {
-    return
+
     let customer: any
     const cart = JSON.parse(localStorage.getItem('cart') ?? '[]')
     await api.getLoggedUser().then((user: any) => {
@@ -41,7 +41,7 @@ const Cart: React.FC = () => {
     cart.map(async (item: any) => {
       console.log('customer')
       console.log(customer)
-
+      alert(1)
       item.customer = customer
 
     })
