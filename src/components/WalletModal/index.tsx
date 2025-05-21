@@ -36,16 +36,9 @@ export const WalletModal = ({ onClose }: any) => {
             TLoader.tLoader(1, 'Gerando pagamento...')
             api.createTransaction('deposit', parseFloat(amount.toString())).then((data: any) => {
                 TLoader.tLoader(0)
-                console.log(data)
-                if (data.message) {
-                    Swal.fire({
-                        icon: 'success',
-                        text: data.message
-                    }).then((res: any) => {
-                        console.log(res)
-                        setPayment(res)
-                    })
-                }
+                 
+                setPayment(data)
+                 
             })
         } else {
             Swal.fire({

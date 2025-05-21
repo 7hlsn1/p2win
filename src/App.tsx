@@ -37,6 +37,7 @@ import AdminVerificacoes from './pages/AccountPage/Administracao/AdminVerificaco
 import Order from './pages/Order';
 import MailSuccess from './pages/MailSuccess';
 import MailError from './pages/MailError';
+import AdminPedidos from './pages/AccountPage/Administracao/AdminPedidos';
 const api = new Api('closed')
 
 function App() {
@@ -98,6 +99,8 @@ function App() {
             <Route path='anuncios' element={<AdminAnuncios />} />
 
             <Route path='transacoes' element={<AdminTransacoes />} />
+            <Route path='pedidos' element={<AdminPedidos />} />
+
 
           </Route>
         </Routes>

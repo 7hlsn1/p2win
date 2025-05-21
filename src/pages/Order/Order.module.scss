@@ -7,7 +7,7 @@
 
     .chat {
         box-shadow: 3px 3px 10px #ccc;
-        
+
         height: 30em;
         margin: 1em;
         padding: 1em;
@@ -15,7 +15,7 @@
         display: flex;
         flex-direction: column;
 
-        
+
 
         .messages {
             overflow: auto;
@@ -27,7 +27,9 @@
             flex: 1;
             padding: 1em;
             display: flex;
+            position: relative;
             flex-direction: column;
+
             .message {
                 display: flex;
                 align-items: flex-start;
@@ -36,11 +38,26 @@
                 border-radius: 3px;
                 padding: 1em;
                 width: 500px;
+                max-width: 100%;
+
+
                 margin-bottom: 1em;
+
                 .messageContent {
+                    max-width: 100%;
+                    word-wrap: break-word;
                     display: block;
                 }
+
+                @media screen and (max-width:768px) {
+                    padding: 0;
+                    border: none;
+                    border-bottom: 1px solid #ccc;
+                    padding-bottom: 10px;
+                    max-width: 200px;
+                }
             }
+
             .time {
                 opacity: .5;
                 font-size: small;

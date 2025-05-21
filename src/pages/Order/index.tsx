@@ -39,7 +39,7 @@ const Order = function () {
                 icon: 'success',
                 text: res.message
             }).then(() => {
-                document.location.reload()
+                window.history.back()
             })
         }).catch((err: any) => {
             console.log(err)
@@ -54,6 +54,8 @@ const Order = function () {
                 icon: 'success',
                 text: res.message
             })
+            window.history.back()
+
 
         }).catch((err: any) => {
             console.log(err)
@@ -149,7 +151,7 @@ const Order = function () {
                 icon: 'success',
                 text: res.message
             }).then(() => {
-                document.location.reload()
+                window.history.back()
             })
             TLoader.tLoader(0)
         })
@@ -256,7 +258,16 @@ const Order = function () {
                                         <div className={styles.actions}>
 
                                             {order.seller.id != profile.id ?
+                                                /// user
                                                 <>
+                                                    {
+                                                        order.status == 1 ?
+                                                            <button className={styles.cancel}
+                                                                onClick={handleCancel}>
+                                                                Cancelar pedido
+                                                            </button> : null
+                                                    }
+
                                                     {
                                                         order.status == 2 ?
                                                             <button className={styles.openChat}
@@ -265,14 +276,26 @@ const Order = function () {
                                                             </button> : null
                                                     }
 
+                                                    {
+                                                        order.status == 3 && order.rates.length == 0 ?
+                                                            <button className={styles.openChat}
+                                                                onClick={handleDelivered}>
+                                                                Enviar avaliação
+                                                            </button> : null
+                                                    }
+
+
                                                 </>
                                                 :
                                                 <>
                                                     {
+                                                        /// seler
                                                         order.status == 1 ?
                                                             <>
                                                                 <button className={styles.cancel}
-                                                                    onClick={handleReject}>Recusar pedido</button>
+                                                                    onClick={handleReject}>
+                                                                    Recusar pedido
+                                                                </button>
 
                                                                 <button className={styles.openChat}
                                                                     onClick={handleAccept}>

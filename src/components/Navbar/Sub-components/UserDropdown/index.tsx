@@ -29,14 +29,23 @@ export function UserDropdown({ children }: UserDropdownProps) {
         })
     }
     const dropdownRef = useRef<HTMLDivElement>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
 
     const toggleMenu = () => setMenuOpen(prev => !prev);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
+            // console.log('target')
+            // console.log(event.target)
+            // console.log('buttonRef')
+            // console.log(buttonRef.current)
+            // console.log('dropdownRef')
+            // console.log(dropdownRef.current)
+            
             if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
                 setMenuOpen(false);
             }
+
         };
 
         if (menuOpen) {
@@ -53,89 +62,98 @@ export function UserDropdown({ children }: UserDropdownProps) {
     console.log(profile)
     return (profile && profile.username) ? (
 
-
-        <div className={styles.profileArea} ref={dropdownRef}>
-            <button onClick={toggleMenu} className={styles.menuIcon} aria-label="Abrir menu do usuário" aria-expanded={menuOpen}>
+        <>
+            <button onClick={() => {
+                if (menuOpen) {
+                    setMenuOpen(false)
+                } else {
+                    setMenuOpen(true)
+                }
+            }} ref={buttonRef} className={styles.menuIcon} aria-label="Abrir menu do usuário" aria-expanded={menuOpen}>
                 <FaBars />
             </button>
 
-            <div className={`${styles.dropdown} ${menuOpen ? styles.show : ''}`}>
-                <aside className={styles.sidebar}>
-                    <nav>
-                        <ul>
-                            {profile?.role == 'user' ?
-                                <>
-                                    <NavLink
-                                        to="/minha-conta"
-                                        end
-                                        className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}
-                                    >
-                                        <li>Resumo</li>
-                                    </NavLink>
-                                    <NavLink to="/minha-conta/transacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                        <li>Transações</li>
-                                    </NavLink>
-                                    <NavLink to="/minha-conta/anuncios" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                        <li>Meus anúncios</li>
-                                    </NavLink>
-                                    <NavLink to="/minha-conta/compras" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                        <li>Minhas compras</li>
-                                    </NavLink>
-
-                                    
+            <div className={styles.profileArea} ref={dropdownRef}  >
 
 
-                                    <li className={styles.sectionTitle}>CONFIGURAÇÕES</li>
+                <div className={`${styles.dropdown} ${menuOpen ? styles.show : ''}`}>
+                    <aside className={styles.sidebar}>
+                        <nav>
+                            <ul>
+                                {profile?.role == 'user' ?
+                                    <>
+                                        <NavLink
+                                            to="/minha-conta"
+                                            end
+                                            className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}
+                                        >
+                                            <li>Resumo</li>
+                                        </NavLink>
+                                        <NavLink to="/minha-conta/transacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                                            <li>Transações</li>
+                                        </NavLink>
+                                        <NavLink to="/minha-conta/anuncios" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                                            <li>Meus anúncios</li>
+                                        </NavLink>
+                                        <NavLink to="/minha-conta/compras" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                                            <li>Minhas compras</li>
+                                        </NavLink>
 
-                                    <NavLink to="/minha-conta/minha-conta" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                        <li>Minha conta</li>
-                                    </NavLink>
-                                    <NavLink to="/minha-conta/meus-dados" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                        <li>Meus dados</li>
-                                    </NavLink>
-                                    <NavLink to="/minha-conta/verificacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                        <li>Verificações</li>
-                                    </NavLink>
-                                    <NavLink to="/minha-conta/seguranca" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                        <li>Segurança</li>
-                                    </NavLink>
-                                    <NavLink to="/minha-conta/notificacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
-                                        <li>Notificações</li>
-                                    </NavLink>
-                                </>
-                                :
 
-                                null
-                            }
-                        </ul>
-                    </nav>
-                </aside>
-                <div className={styles.user}>
-                    <FaUserCircle size={24} />
-                    <div>
-                        <span>Olá, {profile.username}!</span>
-                        <Link to={profile.role == 'admin' ? '/admin/usuarios' : '/minha-conta'}>{profile.role == 'admin' ? 'Painel de administração' : 'Ver minha conta'}</Link>
+
+
+                                        <li className={styles.sectionTitle}>CONFIGURAÇÕES</li>
+
+                                        <NavLink to="/minha-conta/minha-conta" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                                            <li>Minha conta</li>
+                                        </NavLink>
+                                        <NavLink to="/minha-conta/meus-dados" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                                            <li>Meus dados</li>
+                                        </NavLink>
+                                        <NavLink to="/minha-conta/verificacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                                            <li>Verificações</li>
+                                        </NavLink>
+                                        <NavLink to="/minha-conta/seguranca" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                                            <li>Segurança</li>
+                                        </NavLink>
+                                        <NavLink to="/minha-conta/notificacoes" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                                            <li>Notificações</li>
+                                        </NavLink>
+                                    </>
+                                    :
+
+                                    null
+                                }
+                            </ul>
+                        </nav>
+                    </aside>
+                    <div className={styles.user}>
+                        <FaUserCircle size={24} />
+                        <div>
+                            <span>Olá, {profile.username}!</span>
+                            <Link to={profile.role == 'admin' ? '/admin/usuarios' : '/minha-conta'}>{profile.role == 'admin' ? 'Painel de administração' : 'Ver minha conta'}</Link>
+                        </div>
                     </div>
-                </div>
-                {
-                    profile.role == 'admin' ?
-                        (
-                            <></>
-                        ) :
-                        (
-                            <>
-                                <Link to='/minha-conta/compras'>Meus pedidos</Link>
-                                <Link to='/minha-conta/favoritos'>Vendedores favoritos</Link>
+                    {
+                        profile.role == 'admin' ?
+                            (
+                                <></>
+                            ) :
+                            (
+                                <>
+                                    <Link to='/minha-conta/compras'>Meus pedidos</Link>
+                                    <Link to='/carrinho' >Carrinho</Link>
 
-                            </>)
-                }
-                <a style={{ color: 'red' }} onClick={handleLogout}>Sair</a>
-                {children}
+                                </>)
+                    }
+                    <a style={{ color: 'red' }} onClick={handleLogout}>Sair</a>
+                    {children}
 
+                </div >
             </div >
-        </div >
+        </>
     ) : (
-        <div className={styles.profileArea} ref={dropdownRef}>
+        <div className={styles.profileArea} ref={dropdownRef} >
             <button onClick={toggleMenu} className={styles.menuIcon} aria-label="Abrir menu do usuário">
                 <FaBars />
             </button>

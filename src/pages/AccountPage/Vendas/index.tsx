@@ -12,32 +12,31 @@ const Vendas: React.FC = () => {
   //const [cart, setCart] = useState([])
   const [status, setStatus] = useState<any>(1)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [allOrders, setAllOrders] = useState([])
   const api = new Api('closed')
 
-  const unused = { setOrder }
+  const unused = { setOrder, allOrders }
   console.log(unused)
 
   const handleChangeStatus = (e: any) => {
     const newStatus = e.target.value
     setStatus(newStatus)
+    loadOrders(e.target.value)
+  }
+  const loadOrders = (status: any) => {
     TLoader.tLoader(1, 'Carregando pedidos...')
-    api.getOrders(e.target.value).then((orders_: any) => {
-
+    api.getOrders(status).then((orders_: any) => {
       setOrders(orders_.orders)
-      //    setCart(orders_.orders.cart)
-      TLoader.tLoader(0)
+      api.getOrders(status).then((orders__: any) => {
+        setAllOrders(orders_.orders.concat(orders__.orders))
+        TLoader.tLoader(0)
+
+      })
 
     })
   }
   useEffect(() => {
-    TLoader.tLoader(1, 'Carregando pedidos...')
-
-    api.getOrders(status).then((orders_: any) => {
-
-      setOrders(orders_.orders)
-      TLoader.tLoader(0)
-
-    })
+    loadOrders(status)
   }, [])
 
   return (
@@ -55,9 +54,10 @@ const Vendas: React.FC = () => {
           Filtro
           < div className="filters" >
             <select onChange={handleChangeStatus}>
+              <option value="1">Pendentes</option>
               <option value="2">Aguardando entrega</option>
-              <option value="1">Aguardando confirmação</option>
               <option value="3">Concluido</option>
+              <option value="4">Recusado</option>
 
             </select>
           </div >
@@ -78,9 +78,9 @@ const Vendas: React.FC = () => {
 
 
             <div className="rodape">
-              <span>{moment(order.created_at).format('DD/MM/Y - H:m:s\\h')}  | Total: <strong>R$ {order.price}</strong></span>
-              <span className={`status ${order.status == 1 || order.status == 3 ? "verde" : "amarelo"}`}>
-                {['', 'Aguardando confirmação', 'Aguardando entrega', 'Entregue', 'Concluído'][order.status]}
+              <span>{moment(order.created_at).format('DD/MM/Y - H:mm:s\\h')}  | Total: <strong>R$ {order.price}</strong></span>
+              <span className={`status ${['', 'amarelo', 'amarelo', 'verde', '?', 'danger'][order.status]}`}>
+                {['', 'Aguardando confirmação', 'Aguardando entrega', 'Concluído', 'Recusado', '?'][order.status]}
               </span>
               <Link className="ver-pedido" to={`/minha-conta/pedidos/${order.id}`} >Ver pedido</Link>
             </div>

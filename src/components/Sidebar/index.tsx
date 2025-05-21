@@ -82,7 +82,9 @@ const Sidebar = () => {
                                 <NavLink to="/admin/anuncios" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
                                     <li>Anúncios</li>
                                 </NavLink>
-
+                                <NavLink to="/admin/pedidos" className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}>
+                                    <li>Pedidos</li>
+                                </NavLink>
 
 
                                 <NavLink to="/" className={styles.link}>

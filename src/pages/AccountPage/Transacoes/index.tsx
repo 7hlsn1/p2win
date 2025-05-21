@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Transacoes.scss";
 import { Api, TLoader, } from "../../../skds/api";
 import moment from "moment";
+import { WalletModal } from "../../../components/WalletModal";
 
 const api = new Api('closed')
 moment.locale('pt-br')
@@ -13,7 +14,7 @@ const Anuncios: React.FC = () => {
 
     const [typeFilter, setTypeFilter] = useState('deposit');
     const [anuncios, setAnuncios] = useState([]);
-
+    const [isModalOpen, setIsModalOpen] = useState(false)
     useEffect(() => {
         TLoader.tLoader(1)
         api.getUserTransactions(typeFilter).then((data: any) => {
@@ -44,6 +45,13 @@ const Anuncios: React.FC = () => {
 
     return (
         <div className="aba-anuncios">
+            {
+                isModalOpen ? <WalletModal
+                    onClose={() => {
+                        setIsModalOpen(false)
+                    }}
+                /> : null
+            }
             <div className="filtro">
                 <label>Tipo:</label>
                 <select
@@ -55,8 +63,9 @@ const Anuncios: React.FC = () => {
 
 
                 </select>
-            </div>
 
+            </div>
+            <button className="success" style={{marginBottom:20}} onClick={() => { setIsModalOpen(true) }}>Depositar / sacar</button>
             {
                 anuncios.map((anuncio: any) => {
                     return (
@@ -73,7 +82,7 @@ const Anuncios: React.FC = () => {
 
                                 {[<span className="reprovado">Não pago</span>, <span className="aprovado"><b>Pago</b></span>][anuncio.status]}
 
-                                <span>{moment(anuncio.created_at).format('DD/MM/YYYY - H:m:ss')}</span>
+                                <span>{moment(anuncio.created_at).format('DD/MM/YYYY - HH:mm:ss\\h')}</span>
                             </div>
                         </div>
 

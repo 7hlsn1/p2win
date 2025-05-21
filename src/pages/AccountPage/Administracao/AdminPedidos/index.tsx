@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import './AdminTransacoes.scss';
+import './AdminPedidos.scss';
 
 import { Api, TLoader } from '../../../../skds/api';
 
@@ -13,20 +13,16 @@ const api = new Api('closed')
 
 
 
-export default function AdminAnuncios() {
-    const [transactions, setTransactions] = useState<any>([])
+export default function AdminPedidos() {
+    const [orders, setOrders] = useState<any>([])
     const [status, setStatus] = useState('deposit')
     // const [isModalOpen, setIsModalOpen] = useState(false)
     //  const [anuncio, setAnuncio] = useState<any>({})
     const cols: any = [
-        {
-            name: 'Tipo',
-            selector: (row: any) => (row.type == 'deposit') ? 'Depósito' : (row.type == 'withdraw' ? 'Saque' : '?'),
-            sortable: true,
-        },
+         
         {
             name: 'Valor',
-            selector: (row: any) => `R$ ${row.amount}`,
+            selector: (row: any) => `R$ ${row.price}`,
             sortable: true,
         },
         {
@@ -36,30 +32,30 @@ export default function AdminAnuncios() {
         },
         {
             name: 'Status',
-            selector: (row: any) => (row.status == 0 ? <span style={{ color: 'red' }}>Não pago</span> : <span style={{ color: 'red' }}> Pago</span>),
+            selector: (row: any) => (['?', 'Aguardando confirmação', 'Aguardando entrega', '', 'Rejeitado'][row.status] ?? row.status),
             sortable: true,
         },
         {
             name: 'Usuário',
             selector: (row: any) => (
                 <Link className='link' to={'/usuarios/' + row.user_id} target='_blank'>
-                    {row.username}
+                    {row.user.username}
                 </Link>
             ),
             sortable: true,
         },
- 
+
     ]
     const handleChangeStatus = async (e: any) => {
         TLoader.tLoader(1)
         setStatus(e.target.value)
-        getAnuncios(e.target.value)
+        getOrders(e.target.value)
 
     }
-    const getAnuncios = (status_: any) => {
-        TLoader.tLoader(1, 'Carregando anúncios...')
-        api.getTransactions(status_).then((data: any) => {
-            setTransactions(data)
+    const getOrders = (status_: any) => {
+        TLoader.tLoader(1, 'Carregando pedidos...')
+        api.adminGetOrders(status_).then((data: any) => {
+            setOrders(data.orders)
             TLoader.tLoader(0)
         })
 
@@ -68,7 +64,7 @@ export default function AdminAnuncios() {
 
 
     useEffect(() => {
-        getAnuncios(status)
+        getOrders(status)
     }, [])
     return (
         <div className="admin-container">
@@ -77,14 +73,15 @@ export default function AdminAnuncios() {
 
             < div className="filters" >
                 <select name="" id="" onChange={handleChangeStatus}>
-                    <option value="deposit">Depósito</option>
-                    <option value="withdraw">Saque</option>
-
+                    <option value="1">Aguardando confirmação do vendedor</option>
+                    <option value="2">Aceito pelo vendedor</option>
+                    <option value="3">Pedido entregue</option>
+                    <option value="4">Pedido rejeitado</option>
                 </select>
             </div >
             {
-                transactions.length > 0 ? (
-                    <DataTable columns={cols} data={transactions} pagination  >
+                orders.length > 0 ? (
+                    <DataTable columns={cols} data={orders} pagination  >
 
                     </DataTable>
 

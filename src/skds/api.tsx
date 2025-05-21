@@ -419,6 +419,16 @@ class Api {
         reject();
     });
 
+    /// Admin Functions -------------------------------
+
+    adminGetOrders = (status: any) => new Promise(async (resolve, reject) => {
+        const req = await this.api.get(`/admin/orders?status=${status}`)
+        const data = req.data
+
+        resolve(data);
+        reject();
+    });
+
     approveProduct = (id: number) => new Promise(async (resolve, reject) => {
         const req = await this.api.get(`/admin/products/approve/${id}`)
         const data = req.data
@@ -508,6 +518,20 @@ class Api {
         reject()
     })
 
+    setAvatar = (avatar_: any) => new Promise(async (resolve, reject) => {
+        try {
+            const req = await this.api.post(`/avatar/change`, {
+                data: {
+                    avatar: avatar_
+                }
+            })
+            resolve(req.data)
+        } catch (error) {
+            reject(error)
+
+        }
+
+    })
 }
 
 class TLoader {
@@ -520,12 +544,6 @@ class TLoader {
             reject()
     })
     static tLoader = async (value: number = 1, text: string = 'Carregando...') => {
-
-
-
-
-
-
         const styles: any = {
             position: 'fixed',
             top: 0,
@@ -541,12 +559,9 @@ class TLoader {
             zIndex: '99933399',
             display: ['none', 'flex'][value]
         }
-
         const loader = `
- 
             <img src='/assets/logo.gif' />
             <span style="color: white">${text}</span>
- 
         `
         let loaderFound = document.getElementById('tloader')
         if (loaderFound) {
@@ -554,6 +569,8 @@ class TLoader {
             Object.keys(styles).map((k: any) => {
                 loaderFound.style[k] = styles[k]
             })
+        } else {
+            alert('Tloader loader not found')
         }
 
 

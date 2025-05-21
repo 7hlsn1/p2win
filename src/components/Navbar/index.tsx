@@ -39,7 +39,7 @@ const Navbar: React.FC<Props> = ({ profile }: any) => {
                 <nav className={styles.navLinks}>
 
 
-                    <Link to="/categorias" className='hide-on-mobile'>Categorias</Link>
+
                     {/* <a href="#">Blog</a> */}
 
 
@@ -52,9 +52,13 @@ const Navbar: React.FC<Props> = ({ profile }: any) => {
 
 
                             </div> :
-                            <Link to={profile ? '/anunciar' : '/login'} className='hide-on-mobile'>
-                                <button className={styles.button}>Anunciar</button>
-                            </Link>
+                            <>
+                                <Link to="/categorias" className='hide-on-mobile'>Categorias</Link>
+
+                                <Link to={profile ? '/anunciar' : '/login'} className='hide-on-mobile'>
+                                    <button className={styles.button}>Anunciar</button>
+                                </Link>
+                            </>
                     }
 
                 </nav>

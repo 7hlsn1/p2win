@@ -41,7 +41,7 @@ const Cart: React.FC = () => {
     cart.map(async (item: any) => {
       console.log('customer')
       console.log(customer)
-      alert(1)
+    //  alert(1)
       item.customer = customer
 
     })
